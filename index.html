@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARARAAZUL V18 - PREMIER EXECUTIVE</title>
+    <title>ARARAAZUL V19 - PREMIER ZERO SCROLL</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; --sidebar-w: 260px; }
+        :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; --sidebar-w: 240px; }
         
         body.dark { 
             --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; 
@@ -23,55 +23,53 @@
 
         /* SIDEBAR ESTRUTURADA */
         aside { width: var(--sidebar-w); background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; z-index: 100; flex-shrink: 0; }
-        .logo-area { display: flex; align-items: center; gap: 12px; padding-bottom: 25px; border-bottom: 1px solid var(--border); margin-bottom: 25px; }
-        .logo-sq { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 18px; }
+        .logo-area { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+        .logo-sq { width: 35px; height: 35px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 16px; }
         
-        .nav-link { padding: 12px 15px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 700; font-size: 11px; text-transform: uppercase; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
+        .nav-link { padding: 12px 15px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 700; font-size: 10px; text-transform: uppercase; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
         .nav-link.active { background: var(--primary); color: #000; box-shadow: 0 4px 12px rgba(0, 212, 160, 0.2); }
         .nav-link:hover:not(.active) { background: rgba(0, 212, 160, 0.1); color: var(--primary); }
 
         /* ÁREA PRINCIPAL */
-        main { flex: 1; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
-        header { height: 70px; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
-        .header-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-        .clock { font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 18px; }
+        main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; position: relative; }
+        header { height: 60px; padding: 0 25px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+        .header-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        .clock { font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 16px; }
 
-        /* VIEWPORT DINÂMICO */
-        .viewport { flex: 1; padding: 25px; overflow: hidden; position: relative; }
+        .viewport { flex: 1; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* FORMULÁRIO DE CADASTRO */
-        .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); padding: 35px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; overflow-y: auto; max-height: 100%; }
-        .full { grid-column: 1 / -1; }
-        label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
-        .fi { width: 100%; padding: 14px; background: var(--input); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 13px; text-transform: uppercase; outline: none; transition: 0.2s; }
-        .fi:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 212, 160, 0.1); }
-        textarea.fi { min-height: 120px; resize: none; }
-        .btn-submit { background: var(--primary); color: #000; border: none; padding: 18px; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; grid-column: 1 / -1; margin-top: 10px; font-size: 13px; letter-spacing: 1px; }
-
-        /* KANBAN SYSTEM */
-        .kanban { display: flex; gap: 20px; height: 100%; overflow-x: auto; padding-bottom: 10px; }
-        .k-col { background: rgba(0,0,0,0.03); border-radius: 16px; min-width: 380px; width: 380px; display: flex; flex-direction: column; border: 1px solid var(--border); height: 100%; }
-        .k-header { padding: 15px 20px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; font-weight: 800; text-transform: uppercase; font-size: 12px; background: var(--surface); border-radius: 16px 16px 0 0; }
-        .k-list { padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; flex: 1; }
+        /* KANBAN GRID FIXO (ZERO HORIZONTAL SCROLL) */
+        .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; height: 100%; width: 100%; }
+        .k-col { background: rgba(0,0,0,0.02); border-radius: 12px; display: flex; flex-direction: column; border: 1px solid var(--border); height: 100%; min-width: 0; }
+        .k-header { padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; font-weight: 800; text-transform: uppercase; font-size: 11px; background: var(--surface); border-radius: 12px 12px 0 0; flex-shrink: 0; }
+        .k-list { padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; flex: 1; }
         .k-list::-webkit-scrollbar { width: 4px; }
         .k-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
+        /* FORMULÁRIO RESPONSIVO */
+        .form-view { max-width: 800px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 25px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; overflow-y: auto; max-height: 100%; }
+        .full { grid-column: 1 / -1; }
+        label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
+        .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; transition: 0.2s; }
+        .fi:focus { border-color: var(--primary); }
+        textarea.fi { min-height: 100px; resize: none; }
+        .btn-submit { background: var(--primary); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; grid-column: 1 / -1; font-size: 12px; letter-spacing: 1px; }
+
         /* CARD ELITE DESIGN */
-        .card { background: var(--card); border-radius: 14px; padding: 20px; border-left: 6px solid var(--secondary); box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: 0.2s; flex-shrink: 0; }
-        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .card-tag { font-size: 9px; font-weight: 800; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
-        .card-title { font-size: 16px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; line-height: 1.3; }
-        .card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; background: rgba(0,0,0,0.03); padding: 12px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; }
-        .card-people { font-size: 11px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; }
-        .person { background: rgba(0, 212, 160, 0.08); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border); }
-        .card-actions { display: flex; gap: 6px; border-top: 1px dashed var(--border); padding-top: 15px; }
-        .a-btn { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 9px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 6px; transition: 0.2s; }
-        .a-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.05); }
+        .card { background: var(--card); border-radius: 10px; padding: 15px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
+        .card-tag { font-size: 8px; font-weight: 800; color: var(--primary); margin-bottom: 5px; text-transform: uppercase; }
+        .card-title { font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; line-height: 1.2; }
+        .card-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 6px; margin-bottom: 10px; white-space: pre-wrap; }
+        .card-people { font-size: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
+        .person { background: rgba(0, 212, 160, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); }
+        .card-actions { display: flex; gap: 4px; border-top: 1px dashed var(--border); padding-top: 10px; }
+        .a-btn { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: 0.2s; }
+        .a-btn:hover { border-color: var(--primary); color: var(--primary); }
 
         /* CONTROLE DE TEMA FLUTUANTE */
-        .theme-control { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 6px; border-radius: 50px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; }
-        .t-toggle { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; color: var(--text-muted); outline: none; }
-        .t-toggle.active { background: var(--primary); color: #000; }
+        .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; }
+        .t-opt { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; color: var(--text-muted); outline: none; }
+        .t-opt.active { background: var(--primary); color: #000; }
     </style>
 </head>
 <body class="dark">
@@ -80,18 +78,18 @@
         <div class="logo-area">
             <div class="logo-sq">RN</div>
             <div>
-                <h2 style="font-size: 14px; font-weight: 800;">ARARAAZUL</h2>
+                <h2 style="font-size: 12px; font-weight: 800;">ARARAAZUL</h2>
                 <p style="font-size: 8px; color: var(--primary); font-weight: 800;">COMMAND CENTER</p>
             </div>
         </div>
         
         <nav class="nav-group">
             <button class="nav-link active" id="nav-board" onclick="switchView('board')">📊 QUADRO OPERACIONAL</button>
-            <button class="nav-link" id="nav-form" onclick="switchView('form')">📝 NOVO CADASTRAMENTO</button>
+            <button class="nav-link" id="nav-form" onclick="switchView('form')">📝 NOVO CADASTRO</button>
         </nav>
 
-        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
-            <p style="font-size: 9px; font-weight: 800; color: var(--text-muted);">V18.0.0 PREMIER</p>
+        <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border);">
+            <p style="font-size: 8px; font-weight: 800; color: var(--text-muted);">V19.0.0 PREMIER</p>
         </div>
     </aside>
 
@@ -102,18 +100,18 @@
         </header>
 
         <div class="viewport">
-            <section id="view-board" style="display: flex; height: 100%;">
+            <section id="view-board" style="display: block; height: 100%;">
                 <div class="kanban">
                     <div class="k-col"><div class="k-header"><span>PENDENTE</span><span id="c-todo">0</span></div><div class="k-list" id="l-todo"></div></div>
-                    <div class="k-col"><div class="k-header"><span>EM EXECUÇÃO</span><span id="c-doing">0</span></div><div class="k-list" id="l-doing"></div></div>
+                    <div class="k-col"><div class="k-header"><span>EXECUTANDO</span><span id="c-doing">0</span></div><div class="k-list" id="l-doing"></div></div>
                     <div class="k-col"><div class="k-header"><span>CONCLUÍDO</span><span id="c-done">0</span></div><div class="k-list" id="l-done"></div></div>
                 </div>
             </section>
 
             <section id="view-form" style="display: none; height: 100%;">
                 <div class="form-view">
-                    <div class="field full"><label>TÍTULO DA OCORRÊNCIA / PROJETO</label><input type="text" id="in-task" class="fi" placeholder="EX: MANUTENÇÃO PREVENTIVA"></div>
-                    <div class="field full"><label>NARRATIVA DETALHADA DA SITUAÇÃO</label><textarea id="in-desc" class="fi" placeholder="REGISTRE O HISTÓRICO COMPLETO..."></textarea></div>
+                    <div class="field full"><label>TÍTULO DA OCORRÊNCIA / PROJETO</label><input type="text" id="in-task" class="fi" placeholder="RESUMO"></div>
+                    <div class="field full"><label>NARRATIVA DETALHADA DA SITUAÇÃO</label><textarea id="in-desc" class="fi" placeholder="REGISTRE O HISTÓRICO..."></textarea></div>
                     <div class="field full"><label>CADASTRO DE ENVOLVIDOS (NOME - CARGO - SETOR)</label><textarea id="in-people" class="fi" style="min-height: 80px;" placeholder="EX: BERNARDINO FILHO - CONSULTOR IA - DIRETORIA"></textarea></div>
                     <div class="field"><label>SETOR RESPONSÁVEL</label>
                         <select id="in-proj" class="fi">
@@ -127,32 +125,32 @@
                     <div class="field"><label>DATA OPERACIONAL</label><input type="date" id="in-date" class="fi"></div>
                     <div class="field full"><label>LINKS DE IMAGENS (UM POR LINHA)</label><textarea id="in-imgs" class="fi" style="min-height: 60px;" placeholder="HTTPS://..."></textarea></div>
                     <input type="hidden" id="edit-id">
-                    <button class="btn-submit" id="btn-save" onclick="saveTask()">REGISTRAR SITUAÇÃO NO COMANDO</button>
+                    <button class="btn-submit" id="btn-save" onclick="saveTask()">REGISTRAR NO COMANDO CENTRAL</button>
                 </div>
             </section>
         </div>
 
-        <div class="theme-control">
-            <button class="t-toggle active" id="btn-dark" onclick="setTheme('dark')">🌙</button>
-            <button class="t-toggle" id="btn-light" onclick="setTheme('light')">☀️</button>
+        <div class="theme-float">
+            <button class="t-opt active" id="btn-dark" onclick="setTheme('dark')">🌙</button>
+            <button class="t-opt" id="btn-light" onclick="setTheme('light')">☀️</button>
         </div>
     </main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V18_DB')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V19_DB')) || [];
 
         function setTheme(m) {
             document.body.className = m;
-            document.querySelectorAll('.t-toggle').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.t-opt').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + m).classList.add('active');
         }
 
         function switchView(v) {
-            document.getElementById('view-board').style.display = v === 'board' ? 'flex' : 'none';
-            document.getElementById('view-form').style.display = v === 'form' ? 'flex' : 'none';
+            document.getElementById('view-board').style.display = v === 'board' ? 'block' : 'none';
+            document.getElementById('view-form').style.display = v === 'form' ? 'block' : 'none';
             document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
             document.getElementById('nav-' + v).classList.add('active');
-            document.getElementById('page-title').innerText = v === 'board' ? 'QUADRO OPERACIONAL' : 'CADASTRAMENTO DE DEMANDA';
+            document.getElementById('page-title').innerText = v === 'board' ? 'QUADRO OPERACIONAL' : 'CADASTRO DE DEMANDA';
             render();
         }
 
@@ -165,18 +163,17 @@
             const imgs = document.getElementById('in-imgs').value.split('\n').filter(l => l.trim() !== "");
             const proj = document.getElementById('in-proj').value;
 
-            if(!task || !date) return alert("ERRO: CAMPOS OBRIGATÓRIOS EM FALTA.");
+            if(!task || !date) return alert("CAMPOS OBRIGATÓRIOS EM FALTA.");
 
             if(id) {
                 db = db.map(t => t.id == id ? { ...t, task, desc, people, date, imgs, proj } : t);
                 document.getElementById('edit-id').value = "";
-                document.getElementById('btn-save').innerText = "REGISTRAR SITUAÇÃO NO COMANDO";
+                document.getElementById('btn-save').innerText = "REGISTRAR NO COMANDO CENTRAL";
             } else {
                 db.push({ id: Date.now(), task, desc, people, date, imgs, proj, status: 'todo' });
             }
-            localStorage.setItem('ARARAAZUL_V18_DB', JSON.stringify(db));
-            clearForm();
-            switchView('board');
+            localStorage.setItem('ARARAAZUL_V19_DB', JSON.stringify(db));
+            clearForm(); switchView('board');
         }
 
         function startEdit(id) {
@@ -195,21 +192,21 @@
         function clearForm() { document.querySelectorAll('.fi').forEach(i => i.value = ""); }
         function move(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); sync(); }
         function del(id) { if(confirm("EXCLUIR DEFINITIVAMENTE?")) { db = db.filter(t => t.id !== id); sync(); } }
-        function sync() { localStorage.setItem('ARARAAZUL_V18_DB', JSON.stringify(db)); render(); }
+        function sync() { localStorage.setItem('ARARAAZUL_V19_DB', JSON.stringify(db)); render(); }
 
         function render() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             let count = { todo: 0, doing: 0, done: 0 };
 
-            db.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
+            db.forEach(t => {
                 count[t.status]++;
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
                     <div class="card-tag">${t.proj} #${t.id.toString().slice(-4)}</div>
                     <div class="card-title">${t.task}</div>
-                    <div class="card-desc">${t.desc.substring(0, 150)}${t.desc.length > 150 ? '...' : ''}</div>
+                    <div class="card-desc">${t.desc.substring(0, 80)}${t.desc.length > 80 ? '...' : ''}</div>
                     <div class="card-people">${t.people.map(p => `<div class="person">👤 ${p}</div>`).join('')}</div>
                     <div class="card-actions">
                         <button class="a-btn" onclick="startEdit(${t.id})">EDITAR</button>
