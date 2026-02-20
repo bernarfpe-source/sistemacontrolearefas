@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARARAAZUL - QUADRO VISUAL DE PENDÊNCIAS</title>
+    <title>ARARAAZUL PRO - GESTÃO INTEGRADA</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -33,249 +33,246 @@
         header {
             background: var(--surface-dark);
             border-bottom: 2px solid var(--primary);
-            padding: 20px 40px;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .logo-group { display: flex; align-items: center; gap: 15px; }
+        .logo-group { display: flex; align-items: center; gap: 12px; }
         .logo-square {
-            width: 45px; height: 45px;
+            width: 40px; height: 40px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
-            font-weight: 900; color: #fff; font-size: 20px;
+            font-weight: 900; color: #fff;
         }
-        .logo-text h1 { font-size: 18px; font-weight: 800; letter-spacing: 1px; }
-        .logo-text p { font-size: 10px; color: var(--primary); font-family: 'DM Mono', monospace; }
 
-        /* BARRA DE CONTROLE */
-        .control-bar {
+        /* PAINEL DE LANÇAMENTO */
+        .form-section {
             background: var(--surface-dark);
-            padding: 20px 40px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+            padding: 20px 30px;
             border-bottom: 1px solid var(--border-dark);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            align-items: flex-end;
         }
 
-        .input-box { flex: 1; min-width: 200px; }
-        .input-box label { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 5px; font-weight: 700; }
-        
+        .input-group label { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 5px; font-weight: 700; }
         .fi {
-            width: 100%; padding: 10px 15px; background: var(--bg-dark);
+            width: 100%; padding: 10px; background: var(--bg-dark);
             border: 1px solid var(--border-dark); border-radius: 6px;
             color: #fff; font-family: inherit; font-size: 12px; outline: none;
             text-transform: uppercase;
         }
-        .fi:focus { border-color: var(--primary); }
 
-        .btn-post {
+        .btn-main {
             background: var(--primary); color: #000; border: none;
-            padding: 0 25px; border-radius: 6px; font-weight: 800;
-            cursor: pointer; height: 38px; align-self: flex-end;
-            transition: 0.2s; font-size: 12px;
+            padding: 12px; border-radius: 6px; font-weight: 800;
+            cursor: pointer; transition: 0.2s; font-size: 11px;
             text-transform: uppercase;
         }
-        .btn-post:hover { background: #fff; transform: translateY(-2px); }
+        .btn-main:hover { background: #fff; }
 
-        /* QUADRO VISUAL */
-        .visual-board {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        /* CARD FOLHA DE PENDÊNCIA */
-        .task-leaf {
-            background: var(--card-bg);
-            border-left: 5px solid var(--secondary);
-            border-radius: 4px;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .task-leaf:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
-
-        /* PRIORIDADES */
-        .prio-high { border-left-color: var(--danger); }
-        .prio-med { border-left-color: var(--warning); }
-        .prio-low { border-left-color: var(--primary); }
-
-        .leaf-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .leaf-project { 
-            font-family: 'DM Mono', monospace; font-size: 10px; 
-            background: rgba(0, 102, 255, 0.15); color: var(--secondary);
-            padding: 3px 8px; border-radius: 4px; font-weight: 600;
-        }
-
-        .leaf-title { font-size: 16px; font-weight: 800; line-height: 1.3; color: var(--text-main); text-transform: uppercase; }
-        
-        .leaf-body { font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-dark); padding-top: 10px; }
-        .leaf-body b { color: var(--text-main); text-transform: uppercase; }
-
-        .leaf-footer {
-            margin-top: auto;
+        /* FILTROS E SUMÁRIO */
+        .summary-bar {
+            padding: 15px 30px;
+            background: rgba(13, 21, 38, 0.5);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        .filter-pill {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-dark);
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+        .filter-pill.active { border-color: var(--primary); color: var(--primary); }
+
+        /* QUADRO DE CARDS */
+        .board {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+        }
+
+        .prio-high { border-left-color: var(--danger); }
+        .prio-med { border-left-color: var(--warning); }
+        
+        .card-proj { font-size: 9px; font-weight: 800; color: var(--secondary); letter-spacing: 1px; }
+        .card-title { font-size: 15px; font-weight: 700; line-height: 1.4; }
+        .card-info { font-size: 12px; color: var(--text-muted); }
+        .card-info b { color: var(--text-main); }
+
+        .card-actions {
+            margin-top: 15px;
             padding-top: 15px;
             border-top: 1px dashed var(--border-dark);
+            display: flex;
+            gap: 10px;
         }
 
-        .date-tag { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--warning); }
-        
-        .btn-done {
-            background: transparent; border: 1px solid var(--border-dark);
-            color: var(--text-muted); font-size: 9px; padding: 5px 10px;
-            border-radius: 4px; cursor: pointer; font-weight: 700;
-            text-transform: uppercase;
+        .btn-action {
+            flex: 1; padding: 8px; border-radius: 4px;
+            font-size: 10px; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; border: 1px solid var(--border-dark);
+            background: transparent; color: var(--text-muted);
         }
-        .btn-done:hover { border-color: var(--danger); color: var(--danger); }
+        .btn-action.complete:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-action.delete:hover { border-color: var(--danger); color: var(--danger); }
 
-        .empty-state {
-            grid-column: 1 / -1; text-align: center; padding: 100px;
-            color: var(--border-dark); font-weight: 800; font-size: 40px;
-            letter-spacing: 5px; text-transform: uppercase;
-        }
-
-        @media (max-width: 768px) {
-            .control-bar { padding: 20px; }
-            .visual-board { padding: 20px; grid-template-columns: 1fr; }
-        }
+        @media print { .form-section, .summary-bar, .card-actions { display: none; } }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-group">
-            <div class="logo-square">RN</div>
-            <div class="logo-text">
-                <h1>ARARAAZUL</h1>
-                <p>QUADRO VISUAL OPERACIONAL</p>
-            </div>
+<header>
+    <div class="logo-group">
+        <div class="logo-square">RN</div>
+        <div>
+            <h1 style="font-size: 16px; font-weight: 800;">ARARAAZUL PRO</h1>
+            <p style="font-size: 9px; color: var(--primary); font-family: 'DM Mono';">SISTEMA INTEGRADO DE PENDÊNCIAS</p>
         </div>
-        <div style="text-align: right">
-            <div id="clock" style="font-family: 'DM Mono', monospace; font-weight: 700; color: var(--primary);">00:00:00</div>
-            <div style="font-size: 9px; color: var(--text-muted); text-transform: uppercase;">Excelência em Movimento</div>
-        </div>
-    </header>
+    </div>
+    <div id="clock" style="font-family: 'DM Mono'; color: var(--primary); font-weight: 700;">00:00:00</div>
+</header>
 
-    <section class="control-bar">
-        <div class="input-box">
-            <label>PROJETO</label>
-            <input type="text" id="in-project" class="fi" placeholder="EX: LOGÍSTICA SUL">
-        </div>
-        <div class="input-box">
-            <label>PENDÊNCIA / TAREFA</label>
-            <input type="text" id="in-title" class="fi" placeholder="DESCREVA A DEMANDA">
-        </div>
-        <div class="input-box">
-            <label>ENVOLVIDOS / EQUIPE</label>
-            <input type="text" id="in-team" class="fi" placeholder="QUEM ESTÁ NO PROJETO?">
-        </div>
-        <div class="input-box" style="flex: 0 0 150px;">
-            <label>PRAZO FINAL</label>
-            <input type="date" id="in-date" class="fi">
-        </div>
-        <div class="input-box" style="flex: 0 0 130px;">
-            <label>URGÊNCIA</label>
-            <select id="in-prio" class="fi">
-                <option value="low">BAIXA</option>
-                <option value="med">MÉDIA</option>
-                <option value="high">CRÍTICA</option>
-            </select>
-        </div>
-        <button class="btn-post" onclick="addCard()">FIXAR NO QUADRO</button>
-    </section>
+<section class="form-section">
+    <div class="input-group">
+        <label>PROJETO</label>
+        <input type="text" id="p-proj" class="fi" placeholder="EX: LOGÍSTICA">
+    </div>
+    <div class="input-group" style="grid-column: span 2;">
+        <label>TAREFA / PENDÊNCIA</label>
+        <input type="text" id="p-task" class="fi" placeholder="DESCREVA A DEMANDA">
+    </div>
+    <div class="input-group">
+        <label>ENVOLVIDOS</label>
+        <input type="text" id="p-team" class="fi" placeholder="EQUIPE">
+    </div>
+    <div class="input-group">
+        <label>PRAZO</label>
+        <input type="date" id="p-date" class="fi">
+    </div>
+    <div class="input-group">
+        <label>URGÊNCIA</label>
+        <select id="p-prio" class="fi">
+            <option value="low">BAIXA</option>
+            <option value="med">MÉDIA</option>
+            <option value="high">ALTA</option>
+        </select>
+    </div>
+    <button class="btn-main" onclick="addItem()">LANÇAR NO QUADRO</button>
+</section>
 
-    <main class="visual-board" id="board">
-        </main>
+<div class="summary-bar">
+    <div id="filters">
+        <span class="filter-pill active" onclick="filterTasks('ALL')">TODOS</span>
+    </div>
+    <div style="font-size: 11px; color: var(--text-muted);">
+        ATIVOS: <b id="count-active" style="color: var(--primary);">0</b> | 
+        URGENTES: <b id="count-urg" style="color: var(--danger);">0</b>
+    </div>
+</div>
 
-    <script>
-        const KEY = 'ARARAAZUL_PRO_BOARD_V5';
-        let data = JSON.parse(localStorage.getItem(KEY)) || [];
+<main class="board" id="main-board"></main>
 
-        function saveAndRender() {
-            localStorage.setItem(KEY, JSON.stringify(data));
+<script>
+    let tasks = JSON.parse(localStorage.getItem('ARARAAZUL_DB')) || [];
+    let currentFilter = 'ALL';
+
+    function addItem() {
+        const proj = document.getElementById('p-proj').value.toUpperCase();
+        const task = document.getElementById('p-task').value.toUpperCase();
+        const team = document.getElementById('p-team').value.toUpperCase();
+        const date = document.getElementById('p-date').value;
+        const prio = document.getElementById('p-prio').value;
+
+        if(!proj || !task || !date) return alert("PREENCHA OS CAMPOS OBRIGATÓRIOS.");
+
+        tasks.push({ id: Date.now(), proj, task, team, date, prio });
+        localStorage.setItem('ARARAAZUL_DB', JSON.stringify(tasks));
+        
+        // LIMPAR
+        document.getElementById('p-task').value = '';
+        render();
+    }
+
+    function deleteTask(id) {
+        if(confirm("CONFIRMA A EXCLUSÃO?")) {
+            tasks = tasks.filter(t => t.id !== id);
+            localStorage.setItem('ARARAAZUL_DB', JSON.stringify(tasks));
             render();
         }
+    }
 
-        function addCard() {
-            const project = document.getElementById('in-project').value.toUpperCase();
-            const title = document.getElementById('in-title').value.toUpperCase();
-            const team = document.getElementById('in-team').value.toUpperCase();
-            const date = document.getElementById('in-date').value;
-            const prio = document.getElementById('in-prio').value;
+    function filterTasks(proj) {
+        currentFilter = proj;
+        render();
+    }
 
-            if(!project || !title || !date) {
-                alert("DADOS INCOMPLETOS: PREENCHA PROJETO, TAREFA E PRAZO.");
-                return;
-            }
+    function render() {
+        const board = document.getElementById('main-board');
+        const filterContainer = document.getElementById('filters');
+        
+        // ATUALIZAR FILTROS DINÂMICOS
+        const projects = ['ALL', ...new Set(tasks.map(t => t.proj))];
+        filterContainer.innerHTML = projects.map(p => 
+            `<span class="filter-pill ${currentFilter === p ? 'active' : ''}" onclick="filterTasks('${p}')">${p}</span>`
+        ).join('');
 
-            data.push({ id: Date.now(), project, title, team, date, prio });
-            
-            document.getElementById('in-project').value = '';
-            document.getElementById('in-title').value = '';
-            document.getElementById('in-team').value = '';
-            
-            saveAndRender();
-        }
+        // FILTRAR DADOS
+        const filtered = currentFilter === 'ALL' ? tasks : tasks.filter(t => t.proj === currentFilter);
+        
+        // CONTADORES
+        document.getElementById('count-active').innerText = tasks.length;
+        document.getElementById('count-urg').innerText = tasks.filter(t => t.prio === 'high').length;
 
-        function removeCard(id) {
-            if(confirm("CONFIRMA A FINALIZAÇÃO DESTA PENDÊNCIA?")) {
-                data = data.filter(item => item.id !== id);
-                saveAndRender();
-            }
-        }
+        board.innerHTML = filtered.length ? '' : '<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: var(--border-dark); font-weight: 800;">QUADRO VAZIO</div>';
 
-        function render() {
-            const board = document.getElementById('board');
-            if(data.length === 0) {
-                board.innerHTML = '<div class="empty-state">SEM PENDÊNCIAS</div>';
-                return;
-            }
+        filtered.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
+            const div = document.createElement('div');
+            div.className = `card prio-${t.prio}`;
+            div.innerHTML = `
+                <span class="card-proj">${t.proj}</span>
+                <div class="card-title">${t.task}</div>
+                <div class="card-info">RESPONSÁVEL: <b>${t.team || 'N/A'}</b></div>
+                <div class="card-info">PRAZO: <b>${t.date.split('-').reverse().join('/')}</b></div>
+                <div class="card-actions">
+                    <button class="btn-action complete" onclick="deleteTask(${t.id})">FINALIZAR</button>
+                    <button class="btn-action delete" onclick="deleteTask(${t.id})">REMOVER</button>
+                </div>
+            `;
+            board.appendChild(div);
+        });
+    }
 
-            board.innerHTML = '';
-            data.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(item => {
-                const card = document.createElement('div');
-                card.className = `task-leaf prio-${item.prio}`;
-                card.innerHTML = `
-                    <div class="leaf-header">
-                        <span class="leaf-project">${item.project}</span>
-                    </div>
-                    <div class="leaf-title">${item.title}</div>
-                    <div class="leaf-body">
-                        ENVOLVIDOS: <b>${item.team || 'GERAL'}</b>
-                    </div>
-                    <div class="leaf-footer">
-                        <span class="date-tag">ENTREGA: ${item.date.split('-').reverse().join('/')}</span>
-                        <button class="btn-done" onclick="removeCard(${item.id})">CONCLUIR</button>
-                    </div>
-                `;
-                board.appendChild(card);
-            });
-        }
+    setInterval(() => {
+        document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR');
+    }, 1000);
 
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('clock').innerText = 
-                now.getHours().toString().padStart(2,'0') + ":" + 
-                now.getMinutes().toString().padStart(2,'0') + ":" + 
-                now.getSeconds().toString().padStart(2,'0');
-        }, 1000);
-
-        window.onload = render;
-    </script>
+    render();
+</script>
 </body>
 </html>
