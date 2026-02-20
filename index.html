@@ -1,82 +1,93 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="PT-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARARAAZUL COMMAND CENTER V12 - RIO NOVO</title>
+    <title>ARARAAZUL KANBAN V15 - RIO NOVO</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; }
-        body.dark { --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; --text: #E4EEFF; --text-muted: #4F6A8F; --input: #04080F; }
-        body.light { --bg: #F0F4F8; --surface: #FFFFFF; --border: #D1D9E6; --card: #FFFFFF; --text: #1A202C; --text-muted: #718096; --input: #F8FAFC; }
+        
+        body.dark { 
+            --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; 
+            --text: #E4EEFF; --text-muted: #4F6A8F; --input: #04080F; 
+        }
+        
+        body.light { 
+            --bg: #F0F4F8; --surface: #FFFFFF; --border: #D1D9E6; --card: #FFFFFF; 
+            --text: #1A202C; --text-muted: #718096; --input: #F8FAFC; 
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; }
         
-        header { padding: 20px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
-        .logo-sq { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px; }
-        .version-tag { font-family: 'DM Mono'; font-size: 10px; color: var(--primary); font-weight: 800; letter-spacing: 1px; }
+        header { padding: 15px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
+        .logo-sq { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; }
 
-        /* PAINEL DE ABERTURA AMPLIADO */
-        .entry-panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; border-bottom: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .field { display: flex; flex-direction: column; gap: 8px; }
+        /* PAINEL DE ENTRADA ELITE */
+        .entry-panel { background: var(--surface); padding: 25px 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .field { display: flex; flex-direction: column; gap: 5px; }
         .full-width { grid-column: 1 / -1; }
-        .field label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 13px; outline: none; text-transform: uppercase; }
-        .fi:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0, 212, 160, 0.2); }
-        textarea.fi { min-height: 100px; resize: vertical; }
+        .field label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: inherit; font-size: 12px; outline: none; text-transform: uppercase; }
+        .fi:focus { border-color: var(--primary); }
+        textarea.fi { min-height: 80px; resize: vertical; }
 
-        .btn-add { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.2s; font-size: 14px; grid-column: 1 / -1; margin-top: 10px; }
-        .btn-add:hover { background: #fff; transform: translateY(-3px); }
+        .btn-add { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; grid-column: 1 / -1; margin-top: 10px; transition: 0.2s; }
+        .btn-add:hover { background: #fff; transform: translateY(-2px); }
 
-        /* QUADRO DE CARDS ULTRA AMPLO */
-        .board { padding: 40px; display: grid; grid-template-columns: 1fr; gap: 30px; flex-grow: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
-        .leaf { background: var(--card); border-radius: 16px; padding: 30px; border-left: 12px solid var(--secondary); box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 15px; position: relative; transition: 0.3s; }
+        /* ESTRUTURA KANBAN */
+        .kanban-container { display: flex; gap: 20px; padding: 25px; flex-grow: 1; overflow-x: auto; align-items: flex-start; }
+        .kanban-col { background: rgba(0,0,0,0.1); border-radius: 12px; min-width: 380px; width: 380px; display: flex; flex-direction: column; max-height: 75vh; border: 1px solid var(--border); }
+        .col-header { padding: 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-radius: 12px 12px 0 0; }
+        .col-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .col-count { background: var(--border); padding: 2px 10px; border-radius: 12px; font-size: 10px; font-weight: 800; }
+
+        .task-list { padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; flex-grow: 1; min-height: 200px; }
+
+        /* CARD KANBAN V15 */
+        .leaf { background: var(--card); border-radius: 12px; padding: 20px; border-left: 6px solid var(--secondary); box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative; transition: 0.2s; }
         .leaf.high { border-left-color: var(--danger); }
-        .leaf.med { border-left-color: var(--warning); }
-        .leaf.expired { border: 2px solid var(--danger); }
-        .alert-tag { position: absolute; top: -10px; right: 20px; background: var(--danger); color: #fff; font-size: 10px; padding: 5px 12px; border-radius: 4px; font-weight: 900; display: none; }
-        .leaf.expired .alert-tag { display: block; }
-
-        .l-header { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 10px; align-items: center; }
-        .l-proj { font-size: 12px; font-weight: 900; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; }
-        .l-title { font-size: 22px; font-weight: 800; text-transform: uppercase; color: var(--text); }
         
-        .l-narrative { font-size: 15px; line-height: 1.6; color: var(--text); background: rgba(0,0,0,0.05); padding: 20px; border-radius: 12px; border: 1px solid var(--border); white-space: pre-wrap; }
+        .l-header { display: flex; justify-content: space-between; font-size: 9px; font-weight: 800; color: var(--secondary); margin-bottom: 10px; text-transform: uppercase; }
+        .l-title { font-size: 15px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; color: var(--text); }
+        .l-narrative { font-size: 12px; line-height: 1.5; color: var(--text); background: rgba(0,0,0,0.15); padding: 12px; border-radius: 6px; margin-bottom: 12px; white-space: pre-wrap; border: 1px solid var(--border); }
         
-        .l-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 5px; }
-        .l-info { font-size: 13px; color: var(--text-muted); padding: 10px; border: 1px solid var(--border); border-radius: 8px; }
-        .l-info b { color: var(--text); text-transform: uppercase; display: block; margin-top: 4px; font-size: 14px; }
+        .l-participants { background: rgba(0, 212, 160, 0.05); padding: 10px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 12px; font-size: 11px; }
+        .participant-row { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+        .participant-row:last-child { border: none; }
 
-        .doc-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px; }
-        .doc-link { background: rgba(0, 102, 255, 0.1); padding: 12px; border-radius: 8px; color: var(--secondary); text-decoration: none; font-weight: 800; font-size: 11px; border: 1px dashed var(--secondary); text-align: center; transition: 0.2s; }
-        .doc-link:hover { background: var(--secondary); color: #fff; }
+        .collage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; margin-bottom: 12px; }
+        .collage-img { width: 100%; height: 70px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 1px solid var(--border); }
 
-        .l-actions { margin-top: 15px; display: flex; gap: 12px; padding-top: 20px; border-top: 1px dashed var(--border); }
-        .btn-opt { flex: 1; padding: 14px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.2s; }
-        .btn-opt.edit:hover { border-color: var(--warning); color: var(--warning); background: rgba(255, 184, 0, 0.05); }
-        .btn-opt.finish:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.05); }
+        .l-meta { font-size: 10px; color: var(--text-muted); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+        .l-meta b { color: var(--text); display: block; text-transform: uppercase; margin-top: 2px; }
 
-        footer { padding: 20px; background: var(--surface); text-align: center; border-top: 1px solid var(--border); }
-        .footer-text { font-family: 'DM Mono'; font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+        .l-actions { display: flex; gap: 8px; margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--border); }
+        .btn-move { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 9px; font-weight: 800; border-radius: 4px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .btn-move:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.05); }
 
-        .empty { grid-column: 1 / -1; text-align: center; padding: 100px; font-size: 28px; font-weight: 900; color: var(--border); letter-spacing: 12px; text-transform: uppercase; }
+        footer { padding: 15px; text-align: center; border-top: 1px solid var(--border); font-size: 10px; font-family: 'DM Mono'; text-transform: uppercase; color: var(--text-muted); background: var(--surface); }
     </style>
 </head>
 <body class="dark">
     <header>
-        <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="display:flex; align-items:center; gap:12px;">
             <div class="logo-sq">RN</div>
             <div>
-                <h1 style="font-size: 24px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">COMMAND CENTER V12</span></h1>
-                <p style="font-size: 10px; font-family: 'DM Mono'; color: var(--text-muted); text-transform: uppercase;">Gestão Estratégica de Narrativas</p>
+                <h1 style="font-size: 20px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">KANBAN V15 ELITE</span></h1>
+                <p style="font-size: 9px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Controlo Estratégico Rio Novo</p>
             </div>
         </div>
-        <div id="clock" style="font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 20px;">00:00:00</div>
+        <div id="clock" style="font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 18px;">00:00:00</div>
     </header>
 
     <section class="entry-panel">
-        <div class="field">
-            <label>SETOR RESPONSÁVEL</label>
+        <div class="field full-width"><label>TÍTULO DA OCORRÊNCIA / RESUMO</label><input type="text" id="in-task" class="fi" placeholder="EX: MANUTENÇÃO PREVENTIVA"></div>
+        <div class="field full-width"><label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" placeholder="HISTÓRICO COMPLETO DA SITUAÇÃO..."></textarea></div>
+        <div class="field full-width"><label>PARTICIPANTES (NOME, CARGO E SETOR - UM POR LINHA)</label><textarea id="in-people" class="fi" style="min-height: 60px;" placeholder="BERNARDINO FILHO - CONSULTOR IA - DIRETORIA"></textarea></div>
+        <div class="field"><label>IMAGENS (URLS - UM POR LINHA)</label><textarea id="in-imgs" class="fi" placeholder="HTTPS://..."></textarea></div>
+        <div class="field"><label>SETOR RESPONSÁVEL</label>
             <select id="in-proj" class="fi">
                 <option value="OPERACIONAL">OPERACIONAL</option>
                 <option value="LOGÍSTICA">LOGÍSTICA</option>
@@ -85,153 +96,72 @@
                 <option value="DIRETORIA">DIRETORIA</option>
             </select>
         </div>
-        <div class="field">
-            <label>CRITICIDADE OPERACIONAL</label>
-            <select id="in-prio" class="fi">
-                <option value="low">BAIXA (ROTINA)</option>
-                <option value="med">MÉDIA (ATENÇÃO)</option>
-                <option value="high">ALTA (URGENTE)</option>
-            </select>
-        </div>
-        <div class="field full-width">
-            <label>TÍTULO DA OCORRÊNCIA / SITUAÇÃO</label>
-            <input type="text" id="in-task" class="fi" placeholder="RESUMO DA SITUAÇÃO">
-        </div>
-        <div class="field full-width">
-            <label>NARRATIVA DETALHADA (SEM LIMITE DE ESPAÇO)</label>
-            <textarea id="in-desc" class="fi" placeholder="DESCREVA TODO O HISTÓRICO..."></textarea>
-        </div>
-        <div class="field">
-            <label>EQUIPE E PESSOAS ENVOLVIDAS</label>
-            <textarea id="in-team" class="fi" style="min-height: 80px" placeholder="LISTE OS NOMES..."></textarea>
-        </div>
-        <div class="field">
-            <label>LINKS DE DOCUMENTOS (UM POR LINHA)</label>
-            <textarea id="in-docs" class="fi" style="min-height: 80px" placeholder="COLE OS LINKS HTTPS://..."></textarea>
-        </div>
-        <div class="field">
-            <label>DATA LIMITE / CRONOGRAMA</label>
-            <input type="date" id="in-date" class="fi">
-        </div>
-        <div class="field" style="justify-content: flex-end;">
-            <div class="version-tag" onclick="document.body.className = document.body.className === 'dark' ? 'light' : 'dark'" style="cursor:pointer; text-align: right; margin-bottom: 10px;">ALTERNAR TEMA CLARO/ESCURO</div>
-        </div>
-        
-        <input type="hidden" id="edit-id">
-        <button id="btn-main" class="btn-add" onclick="processTask()">REGISTAR SITUAÇÃO NO QUADRO ESTRATÉGICO</button>
+        <div class="field"><label>PRAZO FINAL</label><input type="date" id="in-date" class="fi"></div>
+        <button class="btn-add" onclick="createTask()">LANÇAR NO QUADRO KANBAN</button>
     </section>
 
-    <main id="main-board" class="board"></main>
+    <main class="kanban-container">
+        <div class="kanban-col"><div class="col-header"><span class="col-title">Pendente</span><span class="col-count" id="count-todo">0</span></div><div class="task-list" id="list-todo"></div></div>
+        <div class="kanban-col"><div class="col-header"><span class="col-title" style="color:var(--warning)">Em Execução</span><span class="col-count" id="count-doing">0</span></div><div class="task-list" id="list-doing"></div></div>
+        <div class="kanban-col"><div class="col-header"><span class="col-title" style="color:var(--primary)">Concluído</span><span class="col-count" id="count-done">0</span></div><div class="task-list" id="list-done"></div></div>
+    </main>
 
-    <footer>
-        <div class="footer-text">© 2026 RIO NOVO TRANSPORTES | VERSION 12.0.0 ELITE | ALTA AMPLITUDE VISUAL</div>
-    </footer>
+    <footer>© 2026 RIO NOVO TRANSPORTES | VERSION 15.0.0 ELITE</footer>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V12_DB')) || [];
+        let tasks = JSON.parse(localStorage.getItem('ARARAAZUL_KANBAN_V15_DB')) || [];
 
-        function processTask() {
-            const id = document.getElementById('edit-id').value;
-            const proj = document.getElementById('in-proj').value;
+        function createTask() {
             const task = document.getElementById('in-task').value.toUpperCase();
             const desc = document.getElementById('in-desc').value.toUpperCase();
-            const team = document.getElementById('in-team').value.toUpperCase();
+            const people = document.getElementById('in-people').value.toUpperCase().split('\n').filter(p => p.trim() !== "");
             const date = document.getElementById('in-date').value;
-            const prio = document.getElementById('in-prio').value;
-            const docs = document.getElementById('in-docs').value.split('\n').filter(l => l.trim() !== "");
+            const imgs = document.getElementById('in-imgs').value.split('\n').filter(l => l.trim() !== "");
+            const proj = document.getElementById('in-proj').value;
 
-            if(!task || !desc || !date) return alert("ERRO: TÍTULO, NARRATIVA E DATA SÃO OBRIGATÓRIOS.");
+            if(!task || !desc || !date) return alert("ERRO: CAMPOS OBRIGATÓRIOS.");
 
-            if(id) {
-                db = db.map(t => t.id == id ? { ...t, proj, task, desc, team, date, prio, docs } : t);
-                document.getElementById('edit-id').value = "";
-                document.getElementById('btn-main').innerText = "REGISTAR SITUAÇÃO NO QUADRO ESTRATÉGICO";
-            } else {
-                db.push({ id: Date.now(), proj, task, desc, team, date, prio, docs });
-            }
-
-            sync();
-            clearForm();
+            tasks.push({ id: Date.now(), task, desc, people, date, imgs, proj, status: 'todo' });
+            sync(); clearForm();
         }
 
-        function clearForm() {
-            document.getElementById('in-task').value = "";
-            document.getElementById('in-desc').value = "";
-            document.getElementById('in-team').value = "";
-            document.getElementById('in-docs').value = "";
-            document.getElementById('in-date').value = "";
-            document.getElementById('edit-id').value = "";
-        }
-
-        function startEdit(id) {
-            const t = db.find(item => item.id == id);
-            document.getElementById('in-proj').value = t.proj;
-            document.getElementById('in-task').value = t.task;
-            document.getElementById('in-desc').value = t.desc;
-            document.getElementById('in-team').value = t.team;
-            document.getElementById('in-date').value = t.date;
-            document.getElementById('in-prio').value = t.prio;
-            document.getElementById('in-docs').value = t.docs.join('\n');
-            document.getElementById('edit-id').value = t.id;
-            
-            document.getElementById('btn-main').innerText = "SALVAR ALTERAÇÕES NA NARRATIVA";
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function finishTask(id) {
-            if(confirm("FINALIZAR E ARQUIVAR ESTA SITUAÇÃO?")) {
-                db = db.filter(t => t.id !== id);
-                sync();
-            }
-        }
-
-        function sync() {
-            localStorage.setItem('ARARAAZUL_V12_DB', JSON.stringify(db));
-            render();
-        }
+        function moveTask(id, newStatus) { tasks = tasks.map(t => t.id === id ? { ...t, status: newStatus } : t); sync(); }
+        function deleteTask(id) { if(confirm("EXCLUIR DEFINITIVAMENTE?")) { tasks = tasks.filter(t => t.id !== id); sync(); } }
+        function sync() { localStorage.setItem('ARARAAZUL_KANBAN_V15_DB', JSON.stringify(tasks)); render(); }
+        function clearForm() { document.querySelectorAll('.fi').forEach(i => i.value = ""); document.getElementById('in-proj').value = "OPERACIONAL"; }
 
         function render() {
-            const board = document.getElementById('main-board');
-            board.innerHTML = '';
-            const today = new Date().toISOString().split('T')[0];
+            const cols = { todo: document.getElementById('list-todo'), doing: document.getElementById('list-doing'), done: document.getElementById('list-done') };
+            const counters = { todo: document.getElementById('count-todo'), doing: document.getElementById('count-doing'), done: document.getElementById('count-done') };
+            Object.values(cols).forEach(c => c.innerHTML = '');
+            let stats = { todo: 0, doing: 0, done: 0 };
 
-            if(db.length === 0) board.innerHTML = '<div class="empty">QUADRO DISPONÍVEL</div>';
-
-            db.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
-                const expired = t.date < today;
+            tasks.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
+                stats[t.status]++;
                 const card = document.createElement('div');
-                card.className = `leaf ${t.prio} ${expired ? 'expired' : ''}`;
-                
+                card.className = `leaf`;
                 card.innerHTML = `
-                    <div class="alert-tag">VENCIDO / ATENÇÃO</div>
-                    <div class="l-header">
-                        <span class="l-proj">SETOR: ${t.proj}</span>
-                        <span style="font-family:'DM Mono'; font-size:10px; color:var(--text-muted)">ID: #${t.id.toString().slice(-4)}</span>
-                    </div>
-                    <h2 class="l-title">${t.task}</h2>
+                    <div class="l-header"><span>SETOR: ${t.proj}</span><span>#${t.id.toString().slice(-4)}</span></div>
+                    <div class="l-title">${t.task}</div>
                     <div class="l-narrative">${t.desc}</div>
-                    <div class="l-meta-grid">
-                        <div class="l-info">ENVOLVIDOS: <b>${t.team || 'GERAL'}</b></div>
-                        <div class="l-info">PRAZO FINAL: <b>${t.date.split('-').reverse().join('/')}</b></div>
+                    <div class="l-participants">
+                        <div style="font-size:8px; font-weight:800; color:var(--primary); margin-bottom:5px;">PARTICIPANTES:</div>
+                        ${t.people.map(p => `<div class="participant-row">👤 ${p}</div>`).join('')}
                     </div>
-                    ${t.docs && t.docs.length ? `
-                        <div class="doc-list">
-                            ${t.docs.map(link => `<a href="${link}" target="_blank" class="doc-link">📄 ACESSAR DOCUMENTO ANEXO</a>`).join('')}
-                        </div>
-                    ` : ''}
+                    ${t.imgs.length ? `<div class="collage-grid">${t.imgs.map(url => `<img src="${url}" class="collage-img" onclick="window.open('${url}')" onerror="this.style.display='none'">`).join('')}</div>` : ''}
+                    <div class="l-meta"><div>PRAZO: <b>${t.date.split('-').reverse().join('/')}</b></div></div>
                     <div class="l-actions">
-                        <button class="btn-opt edit" onclick="startEdit(${t.id})">ALTERAR NARRATIVA</button>
-                        <button class="btn-opt finish" onclick="finishTask(${t.id})">FINALIZAR OPERAÇÃO</button>
+                        ${t.status === 'todo' ? `<button class="btn-move" onclick="moveTask(${t.id}, 'doing')">EXECUTAR ⇢</button>` : ''}
+                        ${t.status === 'doing' ? `<button class="btn-move" onclick="moveTask(${t.id}, 'done')">CONCLUIR ⇢</button>` : ''}
+                        ${t.status !== 'todo' ? `<button class="btn-move" onclick="moveTask(${t.id}, 'todo')">⇠ REABRIR</button>` : ''}
+                        <button class="btn-move" style="border-color:var(--danger)" onclick="deleteTask(${t.id})">APAGAR</button>
                     </div>
                 `;
-                board.appendChild(card);
+                cols[t.status].appendChild(card);
             });
+            Object.keys(stats).forEach(k => counters[k].innerText = stats[k]);
         }
-
-        setInterval(() => { 
-            document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); 
-        }, 1000);
-
+        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
         window.onload = render;
     </script>
 </body>
