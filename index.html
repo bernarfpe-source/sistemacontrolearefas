@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARARAAZUL COMMAND CENTER - RIO NOVO</title>
+    <title>ARARAAZUL COMMAND CENTER V11.5 - RIO NOVO</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; }
@@ -19,16 +19,17 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; }
 
         /* HEADER E TEMAS */
         header { padding: 20px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
         .logo-box { display: flex; align-items: center; gap: 12px; }
         .logo-sq { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px; }
 
-        .theme-tabs { display: flex; background: var(--surface); padding: 10px 30px; gap: 5px; border-bottom: 1px solid var(--border); }
+        .theme-tabs { display: flex; background: var(--surface); padding: 10px 30px; gap: 5px; border-bottom: 1px solid var(--border); align-items: center; justify-content: space-between; }
         .t-btn { padding: 8px 20px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 800; border-radius: 6px; text-transform: uppercase; }
         .t-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.1); }
+        .version-tag { font-family: 'DM Mono'; font-size: 10px; color: var(--primary); font-weight: 800; letter-spacing: 1px; }
 
         /* PAINEL DE ABERTURA E EDIÇÃO */
         .entry-panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
@@ -39,8 +40,8 @@
         .btn-add { background: var(--primary); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; align-self: flex-end; transition: 0.2s; font-size: 12px; }
         .btn-add:hover { background: #fff; transform: translateY(-3px); }
 
-        /* QUADRO DE CARDS (AMPLITUDE) */
-        .board { padding: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; }
+        /* QUADRO DE CARDS */
+        .board { padding: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; flex-grow: 1; }
         .leaf { background: var(--card); border-radius: 16px; padding: 25px; border-left: 10px solid var(--secondary); box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 12px; position: relative; transition: 0.3s; }
         .leaf:hover { transform: translateY(-5px); }
         
@@ -61,14 +62,20 @@
         .btn-opt.edit:hover { border-color: var(--warning); color: var(--warning); background: rgba(255, 184, 0, 0.05); }
         .btn-opt.del:hover { border-color: var(--danger); color: var(--danger); background: rgba(255, 59, 92, 0.05); }
 
+        footer { padding: 15px 30px; background: var(--surface); border-top: 1px solid var(--border); text-align: center; }
+        .footer-text { font-family: 'DM Mono'; font-size: 9px; color: var(--text-muted); letter-spacing: 1px; }
+
         .empty { grid-column: 1 / -1; text-align: center; padding: 100px; font-size: 28px; font-weight: 900; color: var(--border); letter-spacing: 12px; text-transform: uppercase; }
     </style>
 </head>
 <body class="dark">
 
     <nav class="theme-tabs">
-        <button id="t-dark" class="t-btn active" onclick="setTheme('dark')">Modo Escuro</button>
-        <button id="t-light" class="t-btn" onclick="setTheme('light')">Modo Claro</button>
+        <div style="display: flex; gap: 5px;">
+            <button id="t-dark" class="t-btn active" onclick="setTheme('dark')">Modo Escuro</button>
+            <button id="t-light" class="t-btn" onclick="setTheme('light')">Modo Claro</button>
+        </div>
+        <div class="version-tag">VERSION: 11.5.0 ELITE</div>
     </nav>
 
     <header>
@@ -116,8 +123,12 @@
 
     <main id="main-board" class="board"></main>
 
+    <footer>
+        <div class="footer-text">© 2026 RIO NOVO TRANSPORTES | ARARAAZUL COMMAND CENTER v11.5.0 | SISTEMA DE ALTA DISPONIBILIDADE</div>
+    </footer>
+
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V11_FINAL')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V11_5_FINAL')) || [];
 
         function setTheme(mode) {
             document.body.className = mode;
@@ -125,7 +136,6 @@
             document.getElementById('t-' + mode).classList.add('active');
         }
 
-        // LÓGICA DE PROCESSAMENTO (ADICIONAR OU ALTERAR)
         function processTask() {
             const id = document.getElementById('edit-id').value;
             const proj = document.getElementById('in-proj').value;
@@ -138,12 +148,10 @@
             if(!task || !date) return alert("ERRO: TÍTULO E DATA SÃO OBRIGATÓRIOS.");
 
             if(id) {
-                // MODO ALTERAÇÃO
                 db = db.map(t => t.id == id ? { ...t, proj, task, team, date, prio, doc } : t);
                 document.getElementById('btn-main').innerText = "REGISTAR NO QUADRO";
                 document.getElementById('edit-id').value = "";
             } else {
-                // MODO ADIÇÃO
                 db.push({ id: Date.now(), proj, task, team, date, prio, doc });
             }
 
@@ -180,7 +188,7 @@
         }
 
         function sync() {
-            localStorage.setItem('ARARAAZUL_V11_FINAL', JSON.stringify(db));
+            localStorage.setItem('ARARAAZUL_V11_5_FINAL', JSON.stringify(db));
             render();
         }
 
@@ -220,4 +228,3 @@
     </script>
 </body>
 </html>
-
