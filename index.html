@@ -29,7 +29,7 @@
             flex-direction: column;
         }
 
-        /* HEADER FIXO */
+        /* HEADER */
         header {
             background: var(--surface-dark);
             border-bottom: 2px solid var(--primary);
@@ -53,7 +53,7 @@
         .logo-text h1 { font-size: 18px; font-weight: 800; letter-spacing: 1px; }
         .logo-text p { font-size: 10px; color: var(--primary); font-family: 'DM Mono', monospace; }
 
-        /* PAINEL DE CONTROLE / LANÇAMENTO */
+        /* BARRA DE CONTROLE */
         .control-bar {
             background: var(--surface-dark);
             padding: 20px 40px;
@@ -70,6 +70,7 @@
             width: 100%; padding: 10px 15px; background: var(--bg-dark);
             border: 1px solid var(--border-dark); border-radius: 6px;
             color: #fff; font-family: inherit; font-size: 12px; outline: none;
+            text-transform: uppercase;
         }
         .fi:focus { border-color: var(--primary); }
 
@@ -78,10 +79,11 @@
             padding: 0 25px; border-radius: 6px; font-weight: 800;
             cursor: pointer; height: 38px; align-self: flex-end;
             transition: 0.2s; font-size: 12px;
+            text-transform: uppercase;
         }
         .btn-post:hover { background: #fff; transform: translateY(-2px); }
 
-        /* QUADRO VISUAL (GRID DE CARDS) */
+        /* QUADRO VISUAL */
         .visual-board {
             padding: 40px;
             display: grid;
@@ -89,7 +91,7 @@
             gap: 25px;
         }
 
-        /* CARD ESTILO "FOLHA DE PENDÊNCIA" */
+        /* CARD FOLHA DE PENDÊNCIA */
         .task-leaf {
             background: var(--card-bg);
             border-left: 5px solid var(--secondary);
@@ -105,7 +107,7 @@
 
         .task-leaf:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
 
-        /* CORES POR PRIORIDADE NO CARD */
+        /* PRIORIDADES */
         .prio-high { border-left-color: var(--danger); }
         .prio-med { border-left-color: var(--warning); }
         .prio-low { border-left-color: var(--primary); }
@@ -117,10 +119,10 @@
             padding: 3px 8px; border-radius: 4px; font-weight: 600;
         }
 
-        .leaf-title { font-size: 16px; font-weight: 800; line-height: 1.3; color: var(--text-main); }
+        .leaf-title { font-size: 16px; font-weight: 800; line-height: 1.3; color: var(--text-main); text-transform: uppercase; }
         
         .leaf-body { font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-dark); padding-top: 10px; }
-        .leaf-body b { color: var(--text-main); }
+        .leaf-body b { color: var(--text-main); text-transform: uppercase; }
 
         .leaf-footer {
             margin-top: auto;
@@ -137,10 +139,10 @@
             background: transparent; border: 1px solid var(--border-dark);
             color: var(--text-muted); font-size: 9px; padding: 5px 10px;
             border-radius: 4px; cursor: pointer; font-weight: 700;
+            text-transform: uppercase;
         }
         .btn-done:hover { border-color: var(--danger); color: var(--danger); }
 
-        /* MARCA D'ÁGUA NO QUADRO */
         .empty-state {
             grid-column: 1 / -1; text-align: center; padding: 100px;
             color: var(--border-dark); font-weight: 800; font-size: 40px;
@@ -165,25 +167,25 @@
         </div>
         <div style="text-align: right">
             <div id="clock" style="font-family: 'DM Mono', monospace; font-weight: 700; color: var(--primary);">00:00:00</div>
-            <div style="font-size: 9px; color: var(--text-muted);">SISTEMA DE ALTA DISPONIBILIDADE</div>
+            <div style="font-size: 9px; color: var(--text-muted); text-transform: uppercase;">Excelência em Movimento</div>
         </div>
     </header>
 
     <section class="control-bar">
         <div class="input-box">
             <label>PROJETO</label>
-            <input type="text" id="in-project" class="fi" placeholder="EX: FROTA SUL">
+            <input type="text" id="in-project" class="fi" placeholder="EX: LOGÍSTICA SUL">
         </div>
         <div class="input-box">
             <label>PENDÊNCIA / TAREFA</label>
-            <input type="text" id="in-title" class="fi" placeholder="DESCREVA A NECESSIDADE">
+            <input type="text" id="in-title" class="fi" placeholder="DESCREVA A DEMANDA">
         </div>
         <div class="input-box">
-            <label>ENVOLVIDOS</label>
-            <input type="text" id="in-team" class="fi" placeholder="QUEM ATUA?">
+            <label>ENVOLVIDOS / EQUIPE</label>
+            <input type="text" id="in-team" class="fi" placeholder="QUEM ESTÁ NO PROJETO?">
         </div>
         <div class="input-box" style="flex: 0 0 150px;">
-            <label>PRAZO</label>
+            <label>PRAZO FINAL</label>
             <input type="date" id="in-date" class="fi">
         </div>
         <div class="input-box" style="flex: 0 0 130px;">
@@ -201,7 +203,7 @@
         </main>
 
     <script>
-        const KEY = 'ARARAAZUL_VISUAL_BOARD';
+        const KEY = 'ARARAAZUL_PRO_BOARD_V5';
         let data = JSON.parse(localStorage.getItem(KEY)) || [];
 
         function saveAndRender() {
@@ -216,11 +218,13 @@
             const date = document.getElementById('in-date').value;
             const prio = document.getElementById('in-prio').value;
 
-            if(!project || !title || !date) return alert("PREENCHA OS DADOS ESSENCIAIS.");
+            if(!project || !title || !date) {
+                alert("DADOS INCOMPLETOS: PREENCHA PROJETO, TAREFA E PRAZO.");
+                return;
+            }
 
             data.push({ id: Date.now(), project, title, team, date, prio });
             
-            // LIMPAR CAMPOS
             document.getElementById('in-project').value = '';
             document.getElementById('in-title').value = '';
             document.getElementById('in-team').value = '';
@@ -229,14 +233,16 @@
         }
 
         function removeCard(id) {
-            data = data.filter(item => item.id !== id);
-            saveAndRender();
+            if(confirm("CONFIRMA A FINALIZAÇÃO DESTA PENDÊNCIA?")) {
+                data = data.filter(item => item.id !== id);
+                saveAndRender();
+            }
         }
 
         function render() {
             const board = document.getElementById('board');
             if(data.length === 0) {
-                board.innerHTML = '<div class="empty-state">QUADRO LIMPO</div>';
+                board.innerHTML = '<div class="empty-state">SEM PENDÊNCIAS</div>';
                 return;
             }
 
@@ -250,26 +256,26 @@
                     </div>
                     <div class="leaf-title">${item.title}</div>
                     <div class="leaf-body">
-                        ENVOLVIDOS: <b>${item.team || 'NÃO DEFINIDO'}</b>
+                        ENVOLVIDOS: <b>${item.team || 'GERAL'}</b>
                     </div>
                     <div class="leaf-footer">
                         <span class="date-tag">ENTREGA: ${item.date.split('-').reverse().join('/')}</span>
-                        <button class="btn-done" onclick="removeCard(${item.id})">FINALIZAR</button>
+                        <button class="btn-done" onclick="removeCard(${item.id})">CONCLUIR</button>
                     </div>
                 `;
                 board.appendChild(card);
             });
         }
 
-        // RELÓGIO
         setInterval(() => {
             const now = new Date();
-            document.getElementById('clock').innerText = now.getHours().toString().padStart(2,'0') + ":" + 
-                                                        now.getMinutes().toString().padStart(2,'0') + ":" + 
-                                                        now.getSeconds().toString().padStart(2,'0');
+            document.getElementById('clock').innerText = 
+                now.getHours().toString().padStart(2,'0') + ":" + 
+                now.getMinutes().toString().padStart(2,'0') + ":" + 
+                now.getSeconds().toString().padStart(2,'0');
         }, 1000);
 
-        render();
+        window.onload = render;
     </script>
 </body>
 </html>
