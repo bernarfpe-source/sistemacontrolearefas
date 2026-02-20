@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARARAAZUL KANBAN V15 - RIO NOVO</title>
+    <title>ARARAAZUL KANBAN V16 ELITE - RIO NOVO</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; }
@@ -23,6 +23,11 @@
         
         header { padding: 15px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
         .logo-sq { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; }
+
+        /* NAVEGAÇÃO DE TEMAS POR ABAS */
+        .theme-tabs { display: flex; background: var(--surface); padding: 10px 30px; gap: 5px; border-bottom: 1px solid var(--border); }
+        .t-btn { padding: 8px 20px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 800; border-radius: 6px; text-transform: uppercase; }
+        .t-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.1); }
 
         /* PAINEL DE ENTRADA ELITE */
         .entry-panel { background: var(--surface); padding: 25px 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
@@ -45,14 +50,13 @@
 
         .task-list { padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; flex-grow: 1; min-height: 200px; }
 
-        /* CARD KANBAN V15 */
+        /* CARD KANBAN V16 */
         .leaf { background: var(--card); border-radius: 12px; padding: 20px; border-left: 6px solid var(--secondary); box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative; transition: 0.2s; }
-        .leaf.high { border-left-color: var(--danger); }
-        
         .l-header { display: flex; justify-content: space-between; font-size: 9px; font-weight: 800; color: var(--secondary); margin-bottom: 10px; text-transform: uppercase; }
         .l-title { font-size: 15px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; color: var(--text); }
         .l-narrative { font-size: 12px; line-height: 1.5; color: var(--text); background: rgba(0,0,0,0.15); padding: 12px; border-radius: 6px; margin-bottom: 12px; white-space: pre-wrap; border: 1px solid var(--border); }
         
+        /* CADASTRO DE ENVOLVIDOS NO CARD */
         .l-participants { background: rgba(0, 212, 160, 0.05); padding: 10px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 12px; font-size: 11px; }
         .participant-row { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
         .participant-row:last-child { border: none; }
@@ -63,20 +67,26 @@
         .l-meta { font-size: 10px; color: var(--text-muted); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
         .l-meta b { color: var(--text); display: block; text-transform: uppercase; margin-top: 2px; }
 
-        .l-actions { display: flex; gap: 8px; margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--border); }
-        .btn-move { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 9px; font-weight: 800; border-radius: 4px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .l-actions { display: flex; gap: 5px; margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--border); flex-wrap: wrap; }
+        .btn-move { flex: 1; min-width: 80px; padding: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 8px; font-weight: 800; border-radius: 4px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         .btn-move:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.05); }
+        .btn-move.del:hover { border-color: var(--danger); color: var(--danger); }
 
         footer { padding: 15px; text-align: center; border-top: 1px solid var(--border); font-size: 10px; font-family: 'DM Mono'; text-transform: uppercase; color: var(--text-muted); background: var(--surface); }
     </style>
 </head>
 <body class="dark">
+    <nav class="theme-tabs">
+        <button id="t-dark" class="t-btn active" onclick="setTheme('dark')">Modo Escuro</button>
+        <button id="t-light" class="t-btn" onclick="setTheme('light')">Modo Claro</button>
+    </nav>
+
     <header>
         <div style="display:flex; align-items:center; gap:12px;">
             <div class="logo-sq">RN</div>
             <div>
-                <h1 style="font-size: 20px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">KANBAN V15 ELITE</span></h1>
-                <p style="font-size: 9px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Controlo Estratégico Rio Novo</p>
+                <h1 style="font-size: 20px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">KANBAN V16 ELITE</span></h1>
+                <p style="font-size: 9px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Comando Estratégico Rio Novo</p>
             </div>
         </div>
         <div id="clock" style="font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 18px;">00:00:00</div>
@@ -84,8 +94,8 @@
 
     <section class="entry-panel">
         <div class="field full-width"><label>TÍTULO DA OCORRÊNCIA / RESUMO</label><input type="text" id="in-task" class="fi" placeholder="EX: MANUTENÇÃO PREVENTIVA"></div>
-        <div class="field full-width"><label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" placeholder="HISTÓRICO COMPLETO DA SITUAÇÃO..."></textarea></div>
-        <div class="field full-width"><label>PARTICIPANTES (NOME, CARGO E SETOR - UM POR LINHA)</label><textarea id="in-people" class="fi" style="min-height: 60px;" placeholder="BERNARDINO FILHO - CONSULTOR IA - DIRETORIA"></textarea></div>
+        <div class="field full-width"><label>NARRATIVA DETALHADA DA SITUAÇÃO</label><textarea id="in-desc" class="fi" placeholder="HISTÓRICO COMPLETO..."></textarea></div>
+        <div class="field full-width"><label>CADASTRO DE ENVOLVIDOS (NOME - CARGO - SETOR / UM POR LINHA)</label><textarea id="in-people" class="fi" style="min-height: 60px;" placeholder="EX: BERNARDINO FILHO - CONSULTOR IA - DIRETORIA"></textarea></div>
         <div class="field"><label>IMAGENS (URLS - UM POR LINHA)</label><textarea id="in-imgs" class="fi" placeholder="HTTPS://..."></textarea></div>
         <div class="field"><label>SETOR RESPONSÁVEL</label>
             <select id="in-proj" class="fi">
@@ -97,7 +107,9 @@
             </select>
         </div>
         <div class="field"><label>PRAZO FINAL</label><input type="date" id="in-date" class="fi"></div>
-        <button class="btn-add" onclick="createTask()">LANÇAR NO QUADRO KANBAN</button>
+        
+        <input type="hidden" id="edit-id">
+        <button id="btn-main" class="btn-add" onclick="processTask()">LANÇAR/ALTERAR NO QUADRO KANBAN</button>
     </section>
 
     <main class="kanban-container">
@@ -106,12 +118,20 @@
         <div class="kanban-col"><div class="col-header"><span class="col-title" style="color:var(--primary)">Concluído</span><span class="col-count" id="count-done">0</span></div><div class="task-list" id="list-done"></div></div>
     </main>
 
-    <footer>© 2026 RIO NOVO TRANSPORTES | VERSION 15.0.0 ELITE</footer>
+    <footer>© 2026 RIO NOVO TRANSPORTES | VERSION 16.0.0 ELITE</footer>
 
     <script>
-        let tasks = JSON.parse(localStorage.getItem('ARARAAZUL_KANBAN_V15_DB')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V16_DB')) || [];
 
-        function createTask() {
+        function setTheme(m) {
+            document.body.className = m;
+            document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('t-' + m).classList.add('active');
+        }
+
+        // FUNÇÃO DE ADIÇÃO E ALTERAÇÃO INTEGRADA
+        function processTask() {
+            const id = document.getElementById('edit-id').value;
             const task = document.getElementById('in-task').value.toUpperCase();
             const desc = document.getElementById('in-desc').value.toUpperCase();
             const people = document.getElementById('in-people').value.toUpperCase().split('\n').filter(p => p.trim() !== "");
@@ -119,15 +139,36 @@
             const imgs = document.getElementById('in-imgs').value.split('\n').filter(l => l.trim() !== "");
             const proj = document.getElementById('in-proj').value;
 
-            if(!task || !desc || !date) return alert("ERRO: CAMPOS OBRIGATÓRIOS.");
+            if(!task || !date) return alert("ERRO: CAMPOS OBRIGATÓRIOS.");
 
-            tasks.push({ id: Date.now(), task, desc, people, date, imgs, proj, status: 'todo' });
+            if(id) {
+                db = db.map(t => t.id == id ? { ...t, task, desc, people, date, imgs, proj } : t);
+                document.getElementById('edit-id').value = "";
+                document.getElementById('btn-main').innerText = "LANÇAR NO QUADRO KANBAN";
+            } else {
+                db.push({ id: Date.now(), task, desc, people, date, imgs, proj, status: 'todo' });
+            }
             sync(); clearForm();
         }
 
-        function moveTask(id, newStatus) { tasks = tasks.map(t => t.id === id ? { ...t, status: newStatus } : t); sync(); }
-        function deleteTask(id) { if(confirm("EXCLUIR DEFINITIVAMENTE?")) { tasks = tasks.filter(t => t.id !== id); sync(); } }
-        function sync() { localStorage.setItem('ARARAAZUL_KANBAN_V15_DB', JSON.stringify(tasks)); render(); }
+        // CARREGA DADOS PARA ALTERAÇÃO
+        function startEdit(id) {
+            const t = db.find(item => item.id == id);
+            document.getElementById('in-task').value = t.task;
+            document.getElementById('in-desc').value = t.desc;
+            document.getElementById('in-people').value = t.people.join('\n');
+            document.getElementById('in-date').value = t.date;
+            document.getElementById('in-imgs').value = t.imgs.join('\n');
+            document.getElementById('in-proj').value = t.proj;
+            document.getElementById('edit-id').value = t.id;
+            
+            document.getElementById('btn-main').innerText = "SALVAR ALTERAÇÕES NA DEMANDA";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function moveTask(id, newStatus) { db = db.map(t => t.id === id ? { ...t, status: newStatus } : t); sync(); }
+        function deleteTask(id) { if(confirm("CONFIRMA A EXCLUSÃO DEFINITIVA?")) { db = db.filter(t => t.id !== id); sync(); } }
+        function sync() { localStorage.setItem('ARARAAZUL_V16_DB', JSON.stringify(db)); render(); }
         function clearForm() { document.querySelectorAll('.fi').forEach(i => i.value = ""); document.getElementById('in-proj').value = "OPERACIONAL"; }
 
         function render() {
@@ -136,7 +177,7 @@
             Object.values(cols).forEach(c => c.innerHTML = '');
             let stats = { todo: 0, doing: 0, done: 0 };
 
-            tasks.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
+            db.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
                 stats[t.status]++;
                 const card = document.createElement('div');
                 card.className = `leaf`;
@@ -145,15 +186,16 @@
                     <div class="l-title">${t.task}</div>
                     <div class="l-narrative">${t.desc}</div>
                     <div class="l-participants">
-                        <div style="font-size:8px; font-weight:800; color:var(--primary); margin-bottom:5px;">PARTICIPANTES:</div>
+                        <div style="font-size:8px; font-weight:800; color:var(--primary); margin-bottom:5px;">CADASTRO DE ENVOLVIDOS:</div>
                         ${t.people.map(p => `<div class="participant-row">👤 ${p}</div>`).join('')}
                     </div>
                     ${t.imgs.length ? `<div class="collage-grid">${t.imgs.map(url => `<img src="${url}" class="collage-img" onclick="window.open('${url}')" onerror="this.style.display='none'">`).join('')}</div>` : ''}
-                    <div class="l-meta"><div>PRAZO: <b>${t.date.split('-').reverse().join('/')}</b></div></div>
+                    <div class="l-meta"><div>PRAZO FINAL: <b>${t.date.split('-').reverse().join('/')}</b></div></div>
                     <div class="l-actions">
+                        <button class="btn-move" onclick="startEdit(${t.id})">ALTERAR</button>
+                        ${t.status !== 'todo' ? `<button class="btn-move" onclick="moveTask(${t.id}, 'todo')">⇠ REABRIR</button>` : ''}
                         ${t.status === 'todo' ? `<button class="btn-move" onclick="moveTask(${t.id}, 'doing')">EXECUTAR ⇢</button>` : ''}
                         ${t.status === 'doing' ? `<button class="btn-move" onclick="moveTask(${t.id}, 'done')">CONCLUIR ⇢</button>` : ''}
-                        ${t.status !== 'todo' ? `<button class="btn-move" onclick="moveTask(${t.id}, 'todo')">⇠ REABRIR</button>` : ''}
                         <button class="btn-move" style="border-color:var(--danger)" onclick="deleteTask(${t.id})">APAGAR</button>
                     </div>
                 `;
