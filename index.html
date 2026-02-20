@@ -3,316 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARARAAZUL PRO - GESTÃO DE ALTA AMPLITUDE</title>
+    <title>ARARAAZUL PRO - GESTÃO ULTRA INTEGRAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00D4A0;
-            --secondary: #0066FF;
-            --danger: #FF3B5C;
-            --warning: #FFB800;
+            --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800;
         }
 
         /* TEMA ESCURO */
         body.dark {
-            --bg: #04080F;
-            --surface: #0D1526;
-            --border: #1E2B45;
-            --card: #131C31;
-            --text: #E4EEFF;
-            --text-muted: #4F6A8F;
-            --input-bg: #04080F;
+            --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31;
+            --text: #E4EEFF; --text-muted: #4F6A8F; --input-bg: #04080F;
         }
 
         /* TEMA CLARO */
         body.light {
-            --bg: #F0F4F8;
-            --surface: #FFFFFF;
-            --border: #D1D9E6;
-            --card: #FFFFFF;
-            --text: #1A202C;
-            --text-muted: #718096;
-            --input-bg: #F8FAFC;
+            --bg: #F0F4F8; --surface: #FFFFFF; --border: #D1D9E6; --card: #FFFFFF;
+            --text: #1A202C; --text-muted: #718096; --input-bg: #F8FAFC;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            transition: all 0.3s ease;
-            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); 
+            transition: all 0.3s ease; min-height: 100vh; overflow-x: hidden;
         }
 
-        /* BARRA DE ABAS DE TEMA */
-        .theme-tabs {
-            display: flex;
-            background: var(--surface);
-            padding: 10px 30px;
-            gap: 5px;
-            border-bottom: 1px solid var(--border);
-        }
+        /* HEADER E TEMAS */
+        header { padding: 20px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
+        .logo-sq { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px; }
+        
+        .theme-tabs { display: flex; background: var(--surface); padding: 10px 30px; gap: 5px; border-bottom: 1px solid var(--border); }
+        .t-btn { padding: 8px 20px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 800; border-radius: 6px; text-transform: uppercase; }
+        .t-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.1); }
 
-        .t-btn {
-            padding: 8px 20px;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 11px;
-            font-weight: 800;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
+        /* PAINEL DE MÉTRICAS */
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); background: var(--surface); border-bottom: 1px solid var(--border); padding: 15px 30px; gap: 15px; }
+        .m-card { padding: 12px; border: 1px solid var(--border); border-radius: 8px; text-align: center; }
+        .m-val { display: block; font-size: 24px; font-weight: 800; color: var(--primary); }
+        .m-lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-family: 'DM Mono'; }
 
-        .t-btn.active {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: rgba(0, 212, 160, 0.1);
-        }
+        /* FORMULÁRIO DE LANÇAMENTO */
+        .panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); }
+        .group label { display: block; font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 5px; letter-spacing: 1px; }
+        .fi { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 13px; outline: none; text-transform: uppercase; }
 
-        /* HEADER PROFISSIONAL */
-        header {
-            padding: 25px 30px;
-            background: var(--surface);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary);
-        }
+        .btn-add { background: var(--primary); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; align-self: flex-end; transition: 0.2s; }
+        .btn-add:hover { background: #fff; transform: translateY(-2px); }
 
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-sq {
-            width: 45px; height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-weight: 900; font-size: 20px;
-        }
-
-        /* PAINEL DE CONTROLO AMPLO */
-        .control-panel {
-            background: var(--surface);
-            padding: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .group label {
-            display: block;
-            font-size: 10px;
-            font-weight: 800;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .fi {
-            width: 100%;
-            padding: 14px;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 13px;
-            outline: none;
-            text-transform: uppercase;
-        }
-
-        .fi:focus { border-color: var(--primary); }
-
-        .btn-launch {
-            grid-column: 1 / -1;
-            padding: 16px;
-            background: var(--primary);
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.2s;
-        }
-
-        .btn-launch:hover { background: #fff; transform: translateY(-2px); }
-
-        /* QUADRO DE PENDÊNCIAS (AMPLITUDE) */
-        .board {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 30px;
-        }
-
-        .leaf {
-            background: var(--card);
-            border-radius: 15px;
-            padding: 30px;
-            border-left: 6px solid var(--secondary);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        /* QUADRO DE TAREFAS (AMPLITUDE VISUAL) */
+        .board { padding: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 30px; }
+        .leaf { background: var(--card); border-radius: 15px; padding: 25px; border-left: 8px solid var(--secondary); box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 12px; position: relative; transition: 0.3s; }
         .leaf:hover { transform: translateY(-5px); }
+
+        /* CRITICIDADE E ALERTAS */
         .leaf.high { border-left-color: var(--danger); }
         .leaf.med { border-left-color: var(--warning); }
+        .leaf.expired { border: 2px solid var(--danger); }
+        .alert-tag { position: absolute; top: 10px; right: 10px; background: var(--danger); color: #fff; font-size: 9px; padding: 4px 8px; border-radius: 4px; font-weight: 900; display: none; }
+        .leaf.expired .alert-tag { display: block; }
 
-        .l-proj { font-size: 11px; font-weight: 900; color: var(--secondary); letter-spacing: 1px; }
-        .l-title { font-size: 18px; font-weight: 800; line-height: 1.4; color: var(--text); }
-        
-        .l-row { 
-            font-size: 13px; color: var(--text-muted); 
-            border-bottom: 1px solid var(--border); 
-            padding-bottom: 8px;
-        }
-        .l-row b { color: var(--text); text-transform: uppercase; }
+        .l-proj { font-size: 11px; font-weight: 900; color: var(--secondary); letter-spacing: 1px; display: block; }
+        .l-title { font-size: 18px; font-weight: 800; text-transform: uppercase; line-height: 1.4; }
+        .l-detail { font-size: 12px; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .l-detail b { color: var(--text); text-transform: uppercase; }
 
-        .btn-done {
-            margin-top: auto;
-            padding: 12px;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            border-radius: 6px;
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
+        .doc-link { color: var(--secondary); text-decoration: none; font-weight: 800; font-size: 11px; display: flex; align-items: center; gap: 5px; margin-top: 5px; }
+        .doc-link:hover { text-decoration: underline; color: var(--primary); }
 
-        .btn-done:hover { border-color: var(--danger); color: var(--danger); }
+        .btn-act { margin-top: auto; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 10px; transition: 0.2s; }
+        .btn-act:hover { border-color: var(--danger); color: var(--danger); }
 
-        /* MENSAGEM VAZIA */
-        .empty {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 100px;
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--border);
-            letter-spacing: 10px;
-        }
+        .empty { grid-column: 1/-1; text-align: center; padding: 100px; font-size: 24px; font-weight: 800; color: var(--border); letter-spacing: 10px; text-transform: uppercase; }
     </style>
 </head>
 <body class="dark">
 
     <nav class="theme-tabs">
-        <button id="tab-dark" class="t-btn active" onclick="setTheme('dark')">Tema Escuro</button>
-        <button id="tab-light" class="t-btn" onclick="setTheme('light')">Tema Claro</button>
+        <button id="t-dark" class="t-btn active" onclick="setTheme('dark')">Tema Escuro</button>
+        <button id="t-light" class="t-btn" onclick="setTheme('light')">Tema Claro</button>
     </nav>
 
     <header>
-        <div class="logo-box">
+        <div style="display: flex; align-items: center; gap: 12px;">
             <div class="logo-sq">RN</div>
             <div>
-                <h1 style="font-size: 22px; font-weight: 800; letter-spacing: 1px;">ARARAAZUL <span style="color: var(--primary);">PRO</span></h1>
-                <p style="font-size: 10px; font-family: 'DM Mono'; color: var(--text-muted);">SISTEMA DE GESTÃO DE ALTA AMPLITUDE</p>
+                <h1 style="font-size: 22px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">PRO</span></h1>
+                <p style="font-size: 10px; font-family: 'DM Mono'; color: var(--text-muted); text-transform: uppercase;">Gestão Estratégica Integral</p>
             </div>
         </div>
         <div id="clock" style="font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 18px;">00:00:00</div>
     </header>
 
-    <section class="control-panel">
-        <div class="group">
-            <label>PROJETO / DEPARTAMENTO</label>
-            <input type="text" id="in-proj" class="fi" placeholder="EX: MANUTENÇÃO">
-        </div>
-        <div class="group">
-            <label>PENDÊNCIA / TAREFA</label>
-            <input type="text" id="in-task" class="fi" placeholder="DESCREVA A DEMANDA">
-        </div>
-        <div class="group">
-            <label>ENVOLVIDOS</label>
-            <input type="text" id="in-team" class="fi" placeholder="QUEM ATUA?">
-        </div>
-        <div class="group">
-            <label>PRAZO FINAL</label>
-            <input type="date" id="in-date" class="fi">
-        </div>
-        <div class="group">
-            <label>URGÊNCIA</label>
+    <div class="metrics">
+        <div class="m-card"><span class="m-val" id="m-active">0</span><span class="m-lbl">Ativas</span></div>
+        <div class="m-card"><span class="m-val" id="m-urg" style="color:var(--danger)">0</span><span class="m-lbl">Vencidas / Alertas</span></div>
+        <div class="m-card"><span class="m-val" id="m-done" style="color:var(--secondary)">0</span><span class="m-lbl">Concluídas</span></div>
+    </div>
+
+    <section class="panel">
+        <div class="group"><label>PROJETO</label><input type="text" id="in-proj" class="fi" placeholder="EX: LOGÍSTICA"></div>
+        <div class="group"><label>TAREFA</label><input type="text" id="in-task" class="fi" placeholder="DESCRIÇÃO"></div>
+        <div class="group"><label>EQUIPE</label><input type="text" id="in-team" class="fi" placeholder="QUEM ATUA?"></div>
+        <div class="group"><label>PRAZO FINAL</label><input type="date" id="in-date" class="fi"></div>
+        <div class="group"><label>CRITICIDADE</label>
             <select id="in-prio" class="fi">
                 <option value="low">BAIXA</option>
                 <option value="med">MÉDIA</option>
-                <option value="high">ALTA / CRÍTICA</option>
+                <option value="high">ALTA (URGENTE)</option>
             </select>
         </div>
-        <button class="btn-launch" onclick="addTask()">LANÇAR NO QUADRO VISUAL</button>
+        <div class="group"><label>URL DOCUMENTO</label><input type="text" id="in-doc" class="fi" placeholder="HTTPS://..."></div>
+        <button class="btn-add" onclick="addItem()">ADICIONAR</button>
     </section>
 
-    <main class="board" id="main-board"></main>
+    <main id="main-board" class="board"></main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V7_FINAL')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V_FINAL')) || [];
+        let completed = parseInt(localStorage.getItem('ARARAAZUL_DONE')) || 0;
 
-        function setTheme(mode) {
-            document.body.className = mode;
+        function setTheme(m) {
+            document.body.className = m;
             document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('tab-' + mode).classList.add('active');
+            document.getElementById('t-' + m).classList.add('active');
         }
 
-        function addTask() {
+        function addItem() {
             const proj = document.getElementById('in-proj').value.toUpperCase();
             const task = document.getElementById('in-task').value.toUpperCase();
             const team = document.getElementById('in-team').value.toUpperCase();
             const date = document.getElementById('in-date').value;
             const prio = document.getElementById('in-prio').value;
+            const doc = document.getElementById('in-doc').value;
 
-            if(!proj || !task || !date) return alert("ERRO: PREENCHA OS CAMPOS OBRIGATÓRIOS.");
+            if(!proj || !task || !date) return alert("PREENCHA OS CAMPOS OBRIGATÓRIOS!");
 
-            db.push({ id: Date.now(), proj, task, team, date, prio });
-            localStorage.setItem('ARARAAZUL_V7_FINAL', JSON.stringify(db));
-            
+            db.push({ id: Date.now(), proj, task, team, date, prio, doc });
+            save();
             document.getElementById('in-task').value = '';
-            render();
+            document.getElementById('in-doc').value = '';
         }
 
-        function removeTask(id) {
-            if(confirm("CONFIRMA A CONCLUSÃO DA PENDÊNCIA?")) {
+        function finish(id) {
+            if(confirm("CONCLUIR ESTA PENDÊNCIA?")) {
                 db = db.filter(t => t.id !== id);
-                localStorage.setItem('ARARAAZUL_V7_FINAL', JSON.stringify(db));
-                render();
+                completed++;
+                localStorage.setItem('ARARAAZUL_DONE', completed);
+                save();
             }
+        }
+
+        function save() {
+            localStorage.setItem('ARARAAZUL_V_FINAL', JSON.stringify(db));
+            render();
         }
 
         function render() {
             const board = document.getElementById('main-board');
             board.innerHTML = '';
+            const now = new Date().toISOString().split('T')[0];
+            let urg = 0;
 
             if(db.length === 0) {
                 board.innerHTML = '<div class="empty">QUADRO DISPONÍVEL</div>';
-                return;
             }
 
             db.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
-                const leaf = document.createElement('div');
-                leaf.className = `leaf ${t.prio}`;
-                leaf.innerHTML = `
+                const expired = t.date < now;
+                if(expired) urg++;
+                
+                const card = document.createElement('div');
+                card.className = `leaf ${t.prio} ${expired ? 'expired' : ''}`;
+                card.innerHTML = `
+                    <div class="alert-tag">VENCIDO / ALERTA</div>
                     <span class="l-proj">${t.proj}</span>
                     <h2 class="l-title">${t.task}</h2>
-                    <div class="l-row">EQUIPE: <b>${t.team || 'GERAL'}</b></div>
-                    <div class="l-row">PRAZO: <b>${t.date.split('-').reverse().join('/')}</b></div>
-                    <button class="btn-done" onclick="removeTask(${t.id})">FINALIZAR OPERAÇÃO</button>
+                    <div class="l-detail">EQUIPE: <b>${t.team || 'GERAL'}</b></div>
+                    <div class="l-detail">PRAZO: <b>${t.date.split('-').reverse().join('/')}</b></div>
+                    \${t.doc ? \`<a href="\${t.doc}" target="_blank" class="doc-link">📄 VER DOCUMENTAÇÃO</a>\` : ''}
+                    <button class="btn-act" onclick="finish(\${t.id})">FINALIZAR TAREFA</button>
                 `;
-                board.appendChild(leaf);
+                board.appendChild(card);
             });
+
+            document.getElementById('m-active').innerText = db.length;
+            document.getElementById('m-urg').innerText = urg;
+            document.getElementById('m-done').innerText = completed;
         }
 
-        setInterval(() => {
-            document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR');
-        }, 1000);
-
+        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
         window.onload = render;
     </script>
 </body>
