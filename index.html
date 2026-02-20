@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARARAAZUL V19 - PREMIER ZERO SCROLL</title>
+    <title>ARARAAZUL V20 - PREMIER ELITE</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; --sidebar-w: 240px; }
@@ -38,7 +38,7 @@
 
         .viewport { flex: 1; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* KANBAN GRID FIXO (ZERO HORIZONTAL SCROLL) */
+        /* KANBAN GRID FIXO */
         .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; height: 100%; width: 100%; }
         .k-col { background: rgba(0,0,0,0.02); border-radius: 12px; display: flex; flex-direction: column; border: 1px solid var(--border); height: 100%; min-width: 0; }
         .k-header { padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; font-weight: 800; text-transform: uppercase; font-size: 11px; background: var(--surface); border-radius: 12px 12px 0 0; flex-shrink: 0; }
@@ -46,27 +46,35 @@
         .k-list::-webkit-scrollbar { width: 4px; }
         .k-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        /* FORMULÁRIO RESPONSIVO */
-        .form-view { max-width: 800px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 25px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; overflow-y: auto; max-height: 100%; }
-        .full { grid-column: 1 / -1; }
+        /* FORMULÁRIO ELITE V20 */
+        .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 25px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 100%; }
+        .full { width: 100%; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
         .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; transition: 0.2s; }
         .fi:focus { border-color: var(--primary); }
-        textarea.fi { min-height: 100px; resize: none; }
-        .btn-submit { background: var(--primary); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; grid-column: 1 / -1; font-size: 12px; letter-spacing: 1px; }
+        textarea.fi { min-height: 80px; resize: none; }
+
+        /* GESTOR DE ENVOLVIDOS DINÂMICO */
+        .people-manager { border: 1px solid var(--border); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.02); margin-bottom: 5px; }
+        .person-entry { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 8px; }
+        .btn-mini { background: var(--danger); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+        .btn-plus { background: var(--secondary); color: #fff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: 800; margin-top: 5px; transition: 0.2s; }
+        .btn-plus:hover { background: var(--primary); color: #000; }
+
+        .btn-submit { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 12px; margin-top: 10px; width: 100%; transition: 0.2s; }
+        .btn-submit:hover { background: #fff; transform: translateY(-2px); }
 
         /* CARD ELITE DESIGN */
         .card { background: var(--card); border-radius: 10px; padding: 15px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
-        .card-tag { font-size: 8px; font-weight: 800; color: var(--primary); margin-bottom: 5px; text-transform: uppercase; }
-        .card-title { font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; line-height: 1.2; }
+        .card-title { font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
         .card-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 6px; margin-bottom: 10px; white-space: pre-wrap; }
-        .card-people { font-size: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
-        .person { background: rgba(0, 212, 160, 0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); }
-        .card-actions { display: flex; gap: 4px; border-top: 1px dashed var(--border); padding-top: 10px; }
+        .p-tag { font-size: 9px; background: rgba(0, 212, 160, 0.08); padding: 4px 8px; border-radius: 4px; margin-bottom: 4px; display: block; border: 1px solid var(--border); color: var(--text); }
+        .card-actions { display: flex; gap: 4px; border-top: 1px dashed var(--border); padding-top: 10px; margin-top: 5px; }
         .a-btn { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: 0.2s; }
         .a-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* CONTROLE DE TEMA FLUTUANTE */
+        /* TEMA FLUTUANTE */
         .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; }
         .t-opt { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; color: var(--text-muted); outline: none; }
         .t-opt.active { background: var(--primary); color: #000; }
@@ -79,7 +87,7 @@
             <div class="logo-sq">RN</div>
             <div>
                 <h2 style="font-size: 12px; font-weight: 800;">ARARAAZUL</h2>
-                <p style="font-size: 8px; color: var(--primary); font-weight: 800;">COMMAND CENTER</p>
+                <p style="font-size: 8px; color: var(--primary); font-weight: 800;">COMMAND CENTER V20</p>
             </div>
         </div>
         
@@ -89,7 +97,8 @@
         </nav>
 
         <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border);">
-            <p style="font-size: 8px; font-weight: 800; color: var(--text-muted);">V19.0.0 PREMIER</p>
+            <p style="font-size: 8px; font-weight: 800; color: var(--text-muted);">RIO NOVO TRANSPORTES</p>
+            <p style="font-size: 8px; color: var(--primary);">VERSION 20.0.0 ELITE</p>
         </div>
     </aside>
 
@@ -110,20 +119,29 @@
 
             <section id="view-form" style="display: none; height: 100%;">
                 <div class="form-view">
-                    <div class="field full"><label>TÍTULO DA OCORRÊNCIA / PROJETO</label><input type="text" id="in-task" class="fi" placeholder="RESUMO"></div>
-                    <div class="field full"><label>NARRATIVA DETALHADA DA SITUAÇÃO</label><textarea id="in-desc" class="fi" placeholder="REGISTRE O HISTÓRICO..."></textarea></div>
-                    <div class="field full"><label>CADASTRO DE ENVOLVIDOS (NOME - CARGO - SETOR)</label><textarea id="in-people" class="fi" style="min-height: 80px;" placeholder="EX: BERNARDINO FILHO - CONSULTOR IA - DIRETORIA"></textarea></div>
-                    <div class="field"><label>SETOR RESPONSÁVEL</label>
-                        <select id="in-proj" class="fi">
-                            <option value="OPERACIONAL">OPERACIONAL</option>
-                            <option value="LOGÍSTICA">LOGÍSTICA</option>
-                            <option value="MANUTENÇÃO">MANUTENÇÃO</option>
-                            <option value="FROTA">FROTA</option>
-                            <option value="DIRETORIA">DIRETORIA</option>
-                        </select>
+                    <div class="full"><label>TÍTULO DA OCORRÊNCIA</label><input type="text" id="in-task" class="fi" placeholder="RESUMO"></div>
+                    <div class="full"><label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" style="min-height: 80px;" placeholder="HISTÓRICO..."></textarea></div>
+                    
+                    <div class="people-manager">
+                        <label>CADASTRO DE ENVOLVIDOS (EQUIPE)</label>
+                        <div id="people-list"></div>
+                        <button class="btn-plus" onclick="addPersonRow()">+ ADICIONAR PARTICIPANTE</button>
                     </div>
-                    <div class="field"><label>DATA OPERACIONAL</label><input type="date" id="in-date" class="fi"></div>
-                    <div class="field full"><label>LINKS DE IMAGENS (UM POR LINHA)</label><textarea id="in-imgs" class="fi" style="min-height: 60px;" placeholder="HTTPS://..."></textarea></div>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label>SETOR RESPONSÁVEL</label>
+                            <select id="in-proj" class="fi">
+                                <option value="OPERACIONAL">OPERACIONAL</option>
+                                <option value="LOGÍSTICA">LOGÍSTICA</option>
+                                <option value="MANUTENÇÃO">MANUTENÇÃO</option>
+                                <option value="FROTA">FROTA</option>
+                                <option value="DIRETORIA">DIRETORIA</option>
+                            </select>
+                        </div>
+                        <div class="field"><label>DATA OPERACIONAL</label><input type="date" id="in-date" class="fi"></div>
+                    </div>
+                    <div class="full"><label>IMAGENS (URLS - UMA POR LINHA)</label><textarea id="in-imgs" class="fi" style="min-height: 60px;" placeholder="HTTPS://..."></textarea></div>
                     <input type="hidden" id="edit-id">
                     <button class="btn-submit" id="btn-save" onclick="saveTask()">REGISTRAR NO COMANDO CENTRAL</button>
                 </div>
@@ -137,12 +155,24 @@
     </main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V19_DB')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V20_DB')) || [];
 
         function setTheme(m) {
             document.body.className = m;
             document.querySelectorAll('.t-opt').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + m).classList.add('active');
+        }
+
+        function addPersonRow(val = {n:'', c:'', s:''}) {
+            const div = document.createElement('div');
+            div.className = 'person-entry';
+            div.innerHTML = `
+                <input type="text" class="fi p-nome" placeholder="NOME" value="${val.n}">
+                <input type="text" class="fi p-cargo" placeholder="CARGO" value="${val.c}">
+                <input type="text" class="fi p-setor" placeholder="SETOR" value="${val.s}">
+                <button class="btn-mini" onclick="this.parentElement.remove()">X</button>
+            `;
+            document.getElementById('people-list').appendChild(div);
         }
 
         function switchView(v) {
@@ -151,6 +181,12 @@
             document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
             document.getElementById('nav-' + v).classList.add('active');
             document.getElementById('page-title').innerText = v === 'board' ? 'QUADRO OPERACIONAL' : 'CADASTRO DE DEMANDA';
+            
+            if(v === 'form' && !document.getElementById('edit-id').value) {
+                document.querySelectorAll('.fi').forEach(i => i.value = "");
+                document.getElementById('people-list').innerHTML = "";
+                addPersonRow();
+            }
             render();
         }
 
@@ -158,56 +194,74 @@
             const id = document.getElementById('edit-id').value;
             const task = document.getElementById('in-task').value.toUpperCase();
             const desc = document.getElementById('in-desc').value.toUpperCase();
-            const people = document.getElementById('in-people').value.toUpperCase().split('\n').filter(p => p.trim() !== "");
             const date = document.getElementById('in-date').value;
-            const imgs = document.getElementById('in-imgs').value.split('\n').filter(l => l.trim() !== "");
             const proj = document.getElementById('in-proj').value;
+            const imgs = document.getElementById('in-imgs').value.split('\n').filter(l => l.trim() !== "");
+            const people = Array.from(document.querySelectorAll('.person-entry')).map(row => ({
+                n: row.querySelector('.p-nome').value.toUpperCase(),
+                c: row.querySelector('.p-cargo').value.toUpperCase(),
+                s: row.querySelector('.p-setor').value.toUpperCase()
+            }));
 
-            if(!task || !date) return alert("CAMPOS OBRIGATÓRIOS EM FALTA.");
+            if(!task || !date) return alert("ERRO: TÍTULO E DATA SÃO OBRIGATÓRIOS.");
 
             if(id) {
-                db = db.map(t => t.id == id ? { ...t, task, desc, people, date, imgs, proj } : t);
+                db = db.map(t => t.id == id ? { ...t, task, desc, people, date, proj, imgs } : t);
                 document.getElementById('edit-id').value = "";
                 document.getElementById('btn-save').innerText = "REGISTRAR NO COMANDO CENTRAL";
             } else {
-                db.push({ id: Date.now(), task, desc, people, date, imgs, proj, status: 'todo' });
+                db.push({ id: Date.now(), task, desc, people, date, proj, imgs, status: 'todo' });
             }
-            localStorage.setItem('ARARAAZUL_V19_DB', JSON.stringify(db));
-            clearForm(); switchView('board');
+            
+            localStorage.setItem('ARARAAZUL_V20_DB', JSON.stringify(db));
+            switchView('board');
         }
 
         function startEdit(id) {
             const t = db.find(x => x.id == id);
             document.getElementById('in-task').value = t.task;
             document.getElementById('in-desc').value = t.desc;
-            document.getElementById('in-people').value = t.people.join('\n');
             document.getElementById('in-date').value = t.date;
-            document.getElementById('in-imgs').value = t.imgs.join('\n');
             document.getElementById('in-proj').value = t.proj;
+            document.getElementById('in-imgs').value = t.imgs.join('\n');
             document.getElementById('edit-id').value = t.id;
+            
+            document.getElementById('people-list').innerHTML = "";
+            if(t.people && t.people.length) {
+                t.people.forEach(p => addPersonRow(p));
+            } else {
+                addPersonRow();
+            }
+            
             document.getElementById('btn-save').innerText = "SALVAR ALTERAÇÕES";
             switchView('form');
         }
 
-        function clearForm() { document.querySelectorAll('.fi').forEach(i => i.value = ""); }
         function move(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); sync(); }
         function del(id) { if(confirm("EXCLUIR DEFINITIVAMENTE?")) { db = db.filter(t => t.id !== id); sync(); } }
-        function sync() { localStorage.setItem('ARARAAZUL_V19_DB', JSON.stringify(db)); render(); }
+        function sync() { localStorage.setItem('ARARAAZUL_V20_DB', JSON.stringify(db)); render(); }
 
         function render() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
+            const counters = { todo: document.getElementById('c-todo'), doing: document.getElementById('c-doing'), done: document.getElementById('c-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             let count = { todo: 0, doing: 0, done: 0 };
 
-            db.forEach(t => {
+            db.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
                 count[t.status]++;
                 const card = document.createElement('div');
                 card.className = 'card';
+                
+                let peopleHtml = '';
+                if(t.people) {
+                    peopleHtml = t.people.map(p => `<span class="p-tag">👤 ${p.n} | ${p.c}</span>`).join('');
+                }
+
                 card.innerHTML = `
-                    <div class="card-tag">${t.proj} #${t.id.toString().slice(-4)}</div>
+                    <div style="font-size:8px; font-weight:800; color:var(--secondary)">${t.proj} #${t.id.toString().slice(-4)}</div>
                     <div class="card-title">${t.task}</div>
                     <div class="card-desc">${t.desc.substring(0, 80)}${t.desc.length > 80 ? '...' : ''}</div>
-                    <div class="card-people">${t.people.map(p => `<div class="person">👤 ${p}</div>`).join('')}</div>
+                    <div id="p-card-${t.id}">${peopleHtml}</div>
                     <div class="card-actions">
                         <button class="a-btn" onclick="startEdit(${t.id})">EDITAR</button>
                         ${t.status === 'todo' ? `<button class="a-btn" onclick="move(${t.id}, 'doing')">EXECUTAR</button>` : ''}
@@ -217,13 +271,11 @@
                 `;
                 cols[t.status].appendChild(card);
             });
-            document.getElementById('c-todo').innerText = count.todo;
-            document.getElementById('c-doing').innerText = count.doing;
-            document.getElementById('c-done').innerText = count.done;
+            Object.keys(count).forEach(k => counters[k].innerText = count[k]);
         }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
-        window.onload = render;
+        window.onload = () => { if(document.getElementById('people-list').innerHTML === "") addPersonRow(); render(); };
     </script>
 </body>
 </html>
