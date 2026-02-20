@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARARAAZUL PRO ELITE - GESTÃO INTEGRAL</title>
+    <title>ARARAAZUL COMMAND CENTER - RIO NOVO</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; }
@@ -21,7 +21,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; overflow-x: hidden; }
 
-        /* HEADER E NAVEGAÇÃO DE TEMAS */
+        /* HEADER E TEMAS */
         header { padding: 20px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
         .logo-box { display: flex; align-items: center; gap: 12px; }
         .logo-sq { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px; }
@@ -30,44 +30,36 @@
         .t-btn { padding: 8px 20px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 800; border-radius: 6px; text-transform: uppercase; }
         .t-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.1); }
 
-        /* PAINEL DE MÉTRICAS */
-        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); background: var(--surface); border-bottom: 1px solid var(--border); padding: 15px 30px; gap: 15px; }
-        .m-card { padding: 15px; border: 1px solid var(--border); border-radius: 12px; text-align: center; background: var(--card); }
-        .m-val { display: block; font-size: 26px; font-weight: 800; color: var(--primary); }
-        .m-lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-family: 'DM Mono', monospace; }
-
-        /* LANÇAMENTO DE DADOS (AMPLITUDE VISUAL) */
-        .panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); }
-        .group label { display: block; font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+        /* PAINEL DE ABERTURA E EDIÇÃO */
+        .entry-panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .field label { display: block; font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
         .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 13px; outline: none; text-transform: uppercase; }
-        .fi:focus { border-color: var(--primary); }
+        .fi:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0, 212, 160, 0.2); }
 
-        .btn-add { background: var(--primary); color: #000; border: none; padding: 15px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; align-self: flex-end; transition: 0.2s; font-size: 12px; }
+        .btn-add { background: var(--primary); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; align-self: flex-end; transition: 0.2s; font-size: 12px; }
         .btn-add:hover { background: #fff; transform: translateY(-3px); }
 
-        /* QUADRO DE PENDÊNCIAS */
+        /* QUADRO DE CARDS (AMPLITUDE) */
         .board { padding: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; }
         .leaf { background: var(--card); border-radius: 16px; padding: 25px; border-left: 10px solid var(--secondary); box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 12px; position: relative; transition: 0.3s; }
         .leaf:hover { transform: translateY(-5px); }
         
-        /* CRITICIDADE E ALERTAS */
         .leaf.high { border-left-color: var(--danger); }
         .leaf.med { border-left-color: var(--warning); }
         .leaf.expired { border: 2px solid var(--danger); }
         .alert-tag { position: absolute; top: 10px; right: 10px; background: var(--danger); color: #fff; font-size: 9px; padding: 4px 8px; border-radius: 4px; font-weight: 900; display: none; }
         .leaf.expired .alert-tag { display: block; }
 
-        .l-proj { font-size: 11px; font-weight: 900; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; }
+        .l-proj { font-size: 11px; font-weight: 900; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; display: flex; justify-content: space-between; }
         .l-title { font-size: 20px; font-weight: 800; text-transform: uppercase; line-height: 1.4; color: var(--text); }
         .l-info { font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
         .l-info b { color: var(--text); text-transform: uppercase; }
 
-        .doc-box { background: rgba(0, 102, 255, 0.05); border: 1px dashed var(--secondary); padding: 10px; border-radius: 8px; margin-top: 5px; }
-        .doc-link { color: var(--secondary); text-decoration: none; font-weight: 800; font-size: 11px; display: flex; align-items: center; gap: 8px; }
-        .doc-link:hover { color: var(--primary); }
-
-        .btn-act { margin-top: auto; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.2s; }
-        .btn-act:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.05); }
+        /* AÇÕES DO CARD */
+        .l-actions { margin-top: auto; display: flex; gap: 8px; padding-top: 15px; border-top: 1px dashed var(--border); }
+        .btn-opt { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 9px; transition: 0.2s; }
+        .btn-opt.edit:hover { border-color: var(--warning); color: var(--warning); background: rgba(255, 184, 0, 0.05); }
+        .btn-opt.del:hover { border-color: var(--danger); color: var(--danger); background: rgba(255, 59, 92, 0.05); }
 
         .empty { grid-column: 1 / -1; text-align: center; padding: 100px; font-size: 28px; font-weight: 900; color: var(--border); letter-spacing: 12px; text-transform: uppercase; }
     </style>
@@ -75,83 +67,120 @@
 <body class="dark">
 
     <nav class="theme-tabs">
-        <button id="t-dark" class="t-btn active" onclick="setTheme('dark')">Tema Escuro</button>
-        <button id="t-light" class="t-btn" onclick="setTheme('light')">Tema Claro</button>
+        <button id="t-dark" class="t-btn active" onclick="setTheme('dark')">Modo Escuro</button>
+        <button id="t-light" class="t-btn" onclick="setTheme('light')">Modo Claro</button>
     </nav>
 
     <header>
         <div class="logo-box">
             <div class="logo-sq">RN</div>
             <div>
-                <h1 style="font-size: 24px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">PRO ELITE</span></h1>
-                <p style="font-size: 10px; font-family: 'DM Mono', monospace; color: var(--text-muted); text-transform: uppercase;">Gestão Estratégica Integral</p>
+                <h1 style="font-size: 24px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">COMMAND CENTER</span></h1>
+                <p style="font-size: 10px; font-family: 'DM Mono'; color: var(--text-muted); text-transform: uppercase;">Abertura, Alteração e Rastreabilidade</p>
             </div>
         </div>
-        <div id="clock" style="font-family: 'DM Mono', monospace; font-weight: 700; color: var(--primary); font-size: 20px;">00:00:00</div>
+        <div id="clock" style="font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 20px;">00:00:00</div>
     </header>
 
-    <div class="metrics">
-        <div class="m-card"><span class="m-val" id="m-active">0</span><span class="m-lbl">Pendências Ativas</span></div>
-        <div class="m-card"><span class="m-val" id="m-urg" style="color:var(--danger)">0</span><span class="m-lbl">Alertas Críticos</span></div>
-        <div class="m-card"><span class="m-val" id="m-done" style="color:var(--secondary)">0</span><span class="m-lbl">Total Concluído</span></div>
-    </div>
-
-    <section class="panel">
-        <div class="group"><label>PROJETO ESTRUTURAL</label><input type="text" id="in-proj" class="fi" placeholder="EX: LOGÍSTICA SUL"></div>
-        <div class="group"><label>TAREFA / PENDÊNCIA</label><input type="text" id="in-task" class="fi" placeholder="DESCREVA A DEMANDA"></div>
-        <div class="group"><label>EQUIPE / ENVOLVIDOS</label><input type="text" id="in-team" class="fi" placeholder="NOMES DOS OPERADORES"></div>
-        <div class="group"><label>PRAZO FINAL</label><input type="date" id="in-date" class="fi"></div>
-        <div class="group"><label>CRITICIDADE</label>
+    <section class="entry-panel">
+        <div class="field">
+            <label>ROL DE SETORES</label>
+            <select id="in-proj" class="fi">
+                <option value="OPERACIONAL">OPERACIONAL</option>
+                <option value="LOGÍSTICA">LOGÍSTICA</option>
+                <option value="MANUTENÇÃO">MANUTENÇÃO</option>
+                <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                <option value="FROTA">FROTA</option>
+                <option value="RH">RECURSOS HUMANOS</option>
+                <option value="FINANCEIRO">FINANCEIRO</option>
+                <option value="TI">TECNOLOGIA DA INFORMAÇÃO</option>
+                <option value="DIRETORIA">DIRETORIA</option>
+            </select>
+        </div>
+        <div class="field"><label>SITUAÇÃO / PENDÊNCIA</label><input type="text" id="in-task" class="fi" placeholder="DESCREVA A OCORRÊNCIA"></div>
+        <div class="field"><label>EQUIPE / ENVOLVIDOS</label><input type="text" id="in-team" class="fi" placeholder="QUEM ATUA NO CASO?"></div>
+        <div class="field"><label>DATA LIMITE</label><input type="date" id="in-date" class="fi"></div>
+        <div class="field">
+            <label>CRITICIDADE</label>
             <select id="in-prio" class="fi">
-                <option value="low">BAIXA</option>
-                <option value="med">MÉDIA</option>
+                <option value="low">BAIXA (ROTINA)</option>
+                <option value="med">MÉDIA (ATENÇÃO)</option>
                 <option value="high">ALTA (URGENTE)</option>
             </select>
         </div>
-        <div class="group"><label>URL DO DOCUMENTO (ANEXO)</label><input type="text" id="in-doc" class="fi" placeholder="HTTPS://..."></div>
-        <button class="btn-add" onclick="addItem()">REGISTAR NO QUADRO</button>
+        <div class="field"><label>DOC ANEXO (URL)</label><input type="text" id="in-doc" class="fi" placeholder="HTTPS://..."></div>
+        
+        <input type="hidden" id="edit-id">
+        <button id="btn-main" class="btn-add" onclick="processTask()">REGISTAR NO QUADRO</button>
     </section>
 
     <main id="main-board" class="board"></main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_ELITE_FINAL')) || [];
-        let doneTotal = parseInt(localStorage.getItem('ARARAAZUL_ELITE_DONE')) || 0;
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V11_FINAL')) || [];
 
-        function setTheme(m) {
-            document.body.className = m;
+        function setTheme(mode) {
+            document.body.className = mode;
             document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('t-' + m).classList.add('active');
+            document.getElementById('t-' + mode).classList.add('active');
         }
 
-        function addItem() {
-            const proj = document.getElementById('in-proj').value.toUpperCase();
+        // LÓGICA DE PROCESSAMENTO (ADICIONAR OU ALTERAR)
+        function processTask() {
+            const id = document.getElementById('edit-id').value;
+            const proj = document.getElementById('in-proj').value;
             const task = document.getElementById('in-task').value.toUpperCase();
             const team = document.getElementById('in-team').value.toUpperCase();
             const date = document.getElementById('in-date').value;
             const prio = document.getElementById('in-prio').value;
             const doc = document.getElementById('in-doc').value;
 
-            if(!proj || !task || !date) return alert("ERRO: PREENCHA OS CAMPOS OBRIGATÓRIOS.");
+            if(!task || !date) return alert("ERRO: TÍTULO E DATA SÃO OBRIGATÓRIOS.");
 
-            db.push({ id: Date.now(), proj, task, team, date, prio, doc });
-            saveAndRender();
-            
-            document.getElementById('in-task').value = '';
-            document.getElementById('in-doc').value = '';
+            if(id) {
+                // MODO ALTERAÇÃO
+                db = db.map(t => t.id == id ? { ...t, proj, task, team, date, prio, doc } : t);
+                document.getElementById('btn-main').innerText = "REGISTAR NO QUADRO";
+                document.getElementById('edit-id').value = "";
+            } else {
+                // MODO ADIÇÃO
+                db.push({ id: Date.now(), proj, task, team, date, prio, doc });
+            }
+
+            sync();
+            clearForm();
         }
 
-        function finishTask(id) {
-            if(confirm("CONFIRMA A CONCLUSÃO DA OPERAÇÃO?")) {
+        function clearForm() {
+            document.getElementById('in-task').value = "";
+            document.getElementById('in-team').value = "";
+            document.getElementById('in-doc').value = "";
+            document.getElementById('edit-id').value = "";
+        }
+
+        function startEdit(id) {
+            const t = db.find(item => item.id == id);
+            document.getElementById('in-proj').value = t.proj;
+            document.getElementById('in-task').value = t.task;
+            document.getElementById('in-team').value = t.team;
+            document.getElementById('in-date').value = t.date;
+            document.getElementById('in-prio').value = t.prio;
+            document.getElementById('in-doc').value = t.doc;
+            document.getElementById('edit-id').value = t.id;
+            
+            document.getElementById('btn-main').innerText = "SALVAR ALTERAÇÕES";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteTask(id) {
+            if(confirm("CONFIRMA A EXCLUSÃO DEFINITIVA?")) {
                 db = db.filter(t => t.id !== id);
-                doneTotal++;
-                localStorage.setItem('ARARAAZUL_ELITE_DONE', doneTotal);
-                saveAndRender();
+                sync();
             }
         }
 
-        function saveAndRender() {
-            localStorage.setItem('ARARAAZUL_ELITE_FINAL', JSON.stringify(db));
+        function sync() {
+            localStorage.setItem('ARARAAZUL_V11_FINAL', JSON.stringify(db));
             render();
         }
 
@@ -159,31 +188,28 @@
             const board = document.getElementById('main-board');
             board.innerHTML = '';
             const today = new Date().toISOString().split('T')[0];
-            let urgCount = 0;
 
             if(db.length === 0) board.innerHTML = '<div class="empty">QUADRO DISPONÍVEL</div>';
 
             db.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
                 const isExpired = t.date < today;
-                if(isExpired || t.prio === 'high') urgCount++;
-                
                 const card = document.createElement('div');
                 card.className = `leaf ${t.prio} ${isExpired ? 'expired' : ''}`;
+                
                 card.innerHTML = `
-                    <div class="alert-tag">VENCIDO / ALERTA</div>
-                    <span class="l-proj">${t.proj}</span>
+                    <div class="alert-tag">VENCIDO</div>
+                    <span class="l-proj">SETOR: ${t.proj} <b style="color:var(--text-muted)">#${t.id.toString().slice(-4)}</b></span>
                     <h2 class="l-title">${t.task}</h2>
-                    <div class="l-info">EQUIPE ENVOLVIDA: <b>${t.team || 'GERAL'}</b></div>
-                    <div class="l-info">PRAZO OPERACIONAL: <b>${t.date.split('-').reverse().join('/')}</b></div>
-                    \${t.doc ? \`<div class="doc-box"><a href="\${t.doc}" target="_blank" class="doc-link">📄 ACEDER DOCUMENTAÇÃO ANEXA</a></div>\` : ''}
-                    <button class="btn-act" onclick="finishTask(\${t.id})">Finalizar Operação</button>
+                    <div class="l-info">ENVOLVIDOS: <b>${t.team || 'GERAL'}</b></div>
+                    <div class="l-info">CRONOGRAMA: <b>${t.date.split('-').reverse().join('/')}</b></div>
+                    \${t.doc ? \`<a href="\${t.doc}" target="_blank" style="color:var(--secondary); font-size:11px; font-weight:800; text-decoration:none; margin-top:5px; display:block;">📄 ACEDER DOCUMENTAÇÃO</a>\` : ''}
+                    <div class="l-actions">
+                        <button class="btn-opt edit" onclick="startEdit(\${t.id})">ALTERAR</button>
+                        <button class="btn-opt del" onclick="deleteTask(\${t.id})">FINALIZAR / EXCLUIR</button>
+                    </div>
                 `;
                 board.appendChild(card);
             });
-
-            document.getElementById('m-active').innerText = db.length;
-            document.getElementById('m-urg').innerText = urgCount;
-            document.getElementById('m-done').innerText = doneTotal;
         }
 
         setInterval(() => { 
