@@ -3,151 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARARAAZUL COMMAND CENTER V11.5 - RIO NOVO</title>
+    <title>ARARAAZUL COMMAND CENTER V12 - RIO NOVO</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; }
-        
-        body.dark { 
-            --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; 
-            --text: #E4EEFF; --text-muted: #4F6A8F; --input: #04080F; 
-        }
-        
-        body.light { 
-            --bg: #F0F4F8; --surface: #FFFFFF; --border: #D1D9E6; --card: #FFFFFF; 
-            --text: #1A202C; --text-muted: #718096; --input: #F8FAFC; 
-        }
-
+        body.dark { --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; --text: #E4EEFF; --text-muted: #4F6A8F; --input: #04080F; }
+        body.light { --bg: #F0F4F8; --surface: #FFFFFF; --border: #D1D9E6; --card: #FFFFFF; --text: #1A202C; --text-muted: #718096; --input: #F8FAFC; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; }
-
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; display: flex; flex-direction: column; }
+        
         header { padding: 20px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
-        .logo-box { display: flex; align-items: center; gap: 12px; }
         .logo-sq { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px; }
-
-        .theme-tabs { display: flex; background: var(--surface); padding: 10px 30px; gap: 5px; border-bottom: 1px solid var(--border); align-items: center; justify-content: space-between; }
-        .t-btn { padding: 8px 20px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); cursor: pointer; font-size: 11px; font-weight: 800; border-radius: 6px; text-transform: uppercase; }
-        .t-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.1); }
         .version-tag { font-family: 'DM Mono'; font-size: 10px; color: var(--primary); font-weight: 800; letter-spacing: 1px; }
 
-        .entry-panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .field label { display: block; font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+        /* PAINEL DE ABERTURA AMPLIADO */
+        .entry-panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; border-bottom: 1px solid var(--border); }
+        .field { display: flex; flex-direction: column; gap: 8px; }
+        .full-width { grid-column: 1 / -1; }
+        .field label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 13px; outline: none; text-transform: uppercase; }
-        .fi:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0, 212, 160, 0.2); }
+        textarea.fi { min-height: 100px; resize: vertical; }
 
-        .btn-add { background: var(--primary); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; align-self: flex-end; transition: 0.2s; font-size: 12px; }
+        .btn-add { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.2s; font-size: 14px; grid-column: 1 / -1; }
         .btn-add:hover { background: #fff; transform: translateY(-3px); }
 
-        .board { padding: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; flex-grow: 1; }
-        .leaf { background: var(--card); border-radius: 16px; padding: 25px; border-left: 10px solid var(--secondary); box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 12px; position: relative; transition: 0.3s; }
-        
+        /* QUADRO DE CARDS ULTRA AMPLO */
+        .board { padding: 40px; display: grid; grid-template-columns: 1fr; gap: 30px; flex-grow: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .leaf { background: var(--card); border-radius: 16px; padding: 30px; border-left: 12px solid var(--secondary); box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 15px; position: relative; }
         .leaf.high { border-left-color: var(--danger); }
-        .leaf.med { border-left-color: var(--warning); }
         .leaf.expired { border: 2px solid var(--danger); }
-        .alert-tag { position: absolute; top: 10px; right: 10px; background: var(--danger); color: #fff; font-size: 9px; padding: 4px 8px; border-radius: 4px; font-weight: 900; display: none; }
-        .leaf.expired .alert-tag { display: block; }
 
-        .l-proj { font-size: 11px; font-weight: 900; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; display: flex; justify-content: space-between; }
-        .l-title { font-size: 20px; font-weight: 800; text-transform: uppercase; line-height: 1.4; color: var(--text); }
-        .l-info { font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-        .l-info b { color: var(--text); text-transform: uppercase; }
+        .l-header { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .l-proj { font-size: 12px; font-weight: 900; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; }
+        .l-title { font-size: 22px; font-weight: 800; text-transform: uppercase; color: var(--text); }
+        
+        .l-narrative { font-size: 15px; line-height: 1.6; color: var(--text); background: rgba(0,0,0,0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--border); white-space: pre-wrap; }
+        
+        .l-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .l-info { font-size: 13px; color: var(--text-muted); }
+        .l-info b { color: var(--text); text-transform: uppercase; display: block; margin-top: 4px; }
 
-        .l-actions { margin-top: auto; display: flex; gap: 8px; padding-top: 15px; border-top: 1px dashed var(--border); }
-        .btn-opt { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 9px; transition: 0.2s; }
-        .btn-opt.edit:hover { border-color: var(--warning); color: var(--warning); }
-        .btn-opt.del:hover { border-color: var(--danger); color: var(--danger); }
+        .doc-list { display: flex; flex-direction: column; gap: 8px; }
+        .doc-link { background: rgba(0, 102, 255, 0.1); padding: 10px; border-radius: 6px; color: var(--secondary); text-decoration: none; font-weight: 800; font-size: 11px; border: 1px dashed var(--secondary); text-align: center; }
 
-        footer { padding: 15px 30px; background: var(--surface); border-top: 1px solid var(--border); text-align: center; }
-        .footer-text { font-family: 'DM Mono'; font-size: 9px; color: var(--text-muted); letter-spacing: 1px; }
-
-        .empty { grid-column: 1 / -1; text-align: center; padding: 100px; font-size: 28px; font-weight: 900; color: var(--border); letter-spacing: 12px; text-transform: uppercase; }
+        .l-actions { margin-top: 10px; display: flex; gap: 10px; }
+        .btn-opt { flex: 1; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 11px; }
+        .btn-opt.finish:hover { border-color: var(--primary); color: var(--primary); }
     </style>
 </head>
 <body class="dark">
-
-    <nav class="theme-tabs">
-        <div style="display: flex; gap: 5px;">
-            <button id="t-dark" class="t-btn active" onclick="setTheme('dark')">Modo Escuro</button>
-            <button id="t-light" class="t-btn" onclick="setTheme('light')">Modo Claro</button>
-        </div>
-        <div class="version-tag">VERSION: 11.5.0 ELITE</div>
-    </nav>
-
     <header>
-        <div class="logo-box">
+        <div style="display: flex; align-items: center; gap: 15px;">
             <div class="logo-sq">RN</div>
             <div>
-                <h1 style="font-size: 24px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">COMMAND CENTER</span></h1>
-                <p style="font-size: 10px; font-family: 'DM Mono'; color: var(--text-muted); text-transform: uppercase;">Abertura, Alteração e Rastreabilidade</p>
+                <h1 style="font-size: 24px; font-weight: 800;">ARARAAZUL <span style="color: var(--primary);">COMMAND CENTER V12</span></h1>
+                <p style="font-size: 10px; font-family: 'DM Mono'; color: var(--text-muted); text-transform: uppercase;">Gestão de Narrativas e Múltiplos Envolvidos</p>
             </div>
         </div>
-        <div id="clock" style="font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 20px;">00:00:00</div>
+        <div class="version-tag" onclick="document.body.className = document.body.className === 'dark' ? 'light' : 'dark'" style="cursor:pointer">TEMA: ALTERNAR</div>
     </header>
 
     <section class="entry-panel">
         <div class="field">
-            <label>ROL DE SETORES</label>
+            <label>SETOR RESPONSÁVEL</label>
             <select id="in-proj" class="fi">
                 <option value="OPERACIONAL">OPERACIONAL</option>
                 <option value="LOGÍSTICA">LOGÍSTICA</option>
                 <option value="MANUTENÇÃO">MANUTENÇÃO</option>
-                <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
                 <option value="FROTA">FROTA</option>
-                <option value="RH">RECURSOS HUMANOS</option>
-                <option value="FINANCEIRO">FINANCEIRO</option>
-                <option value="TI">TECNOLOGIA DA INFORMAÇÃO</option>
                 <option value="DIRETORIA">DIRETORIA</option>
             </select>
         </div>
-        <div class="field"><label>SITUAÇÃO / PENDÊNCIA</label><input type="text" id="in-task" class="fi" placeholder="DESCREVA A OCORRÊNCIA"></div>
-        <div class="field"><label>EQUIPE / ENVOLVIDOS</label><input type="text" id="in-team" class="fi" placeholder="QUEM ATUA NO CASO?"></div>
-        <div class="field"><label>DATA LIMITE</label><input type="date" id="in-date" class="fi"></div>
         <div class="field">
-            <label>CRITICIDADE</label>
+            <label>CRITICIDADE OPERACIONAL</label>
             <select id="in-prio" class="fi">
-                <option value="low">BAIXA (ROTINA)</option>
-                <option value="med">MÉDIA (ATENÇÃO)</option>
+                <option value="low">BAIXA</option>
+                <option value="med">MÉDIA</option>
                 <option value="high">ALTA (URGENTE)</option>
             </select>
         </div>
-        <div class="field"><label>DOC ANEXO (URL)</label><input type="text" id="in-doc" class="fi" placeholder="HTTPS://..."></div>
-        
+        <div class="field full-width">
+            <label>TÍTULO DA OCORRÊNCIA / SITUAÇÃO</label>
+            <input type="text" id="in-task" class="fi" placeholder="RESUMO CURTO DA SITUAÇÃO">
+        </div>
+        <div class="field full-width">
+            <label>NARRATIVA DETALHADA DA PENDÊNCIA</label>
+            <textarea id="in-desc" class="fi" placeholder="DESCREVA AQUI TODO O HISTÓRICO E DETALHES DA SITUAÇÃO..."></textarea>
+        </div>
+        <div class="field">
+            <label>EQUIPE E PESSOAS ENVOLVIDAS (MÚLTIPLOS)</label>
+            <textarea id="in-team" class="fi" style="min-height: 60px" placeholder="LISTE OS ENVOLVIDOS..."></textarea>
+        </div>
+        <div class="field">
+            <label>LINKS DE DOCUMENTOS (UM POR LINHA)</label>
+            <textarea id="in-docs" class="fi" style="min-height: 60px" placeholder="HTTPS://..."></textarea>
+        </div>
+        <div class="field">
+            <label>DATA LIMITE / CRONOGRAMA</label>
+            <input type="date" id="in-date" class="fi">
+        </div>
         <input type="hidden" id="edit-id">
-        <button id="btn-main" class="btn-add" onclick="processTask()">REGISTAR NO QUADRO</button>
+        <button class="btn-add" onclick="processTask()">REGISTAR SITUAÇÃO NO QUADRO</button>
     </section>
 
     <main id="main-board" class="board"></main>
 
-    <footer>
-        <div class="footer-text">© 2026 RIO NOVO TRANSPORTES | ARARAAZUL COMMAND CENTER v11.5.0 | SISTEMA DE ALTA DISPONIBILIDADE</div>
-    </footer>
-
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V11_5_FINAL')) || [];
-
-        function setTheme(mode) {
-            document.body.className = mode;
-            document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('t-' + mode).classList.add('active');
-        }
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V12_DB')) || [];
 
         function processTask() {
             const id = document.getElementById('edit-id').value;
             const proj = document.getElementById('in-proj').value;
             const task = document.getElementById('in-task').value.toUpperCase();
+            const desc = document.getElementById('in-desc').value.toUpperCase();
             const team = document.getElementById('in-team').value.toUpperCase();
             const date = document.getElementById('in-date').value;
             const prio = document.getElementById('in-prio').value;
-            const doc = document.getElementById('in-doc').value;
+            const docs = document.getElementById('in-docs').value.split('\n').filter(l => l.trim() !== "");
 
-            if(!task || !date) return alert("ERRO: TÍTULO E DATA SÃO OBRIGATÓRIOS.");
+            if(!task || !desc || !date) return alert("ERRO: TÍTULO, NARRATIVA E DATA SÃO OBRIGATÓRIOS.");
 
             if(id) {
-                db = db.map(t => t.id == id ? { ...t, proj, task, team, date, prio, doc } : t);
-                document.getElementById('btn-main').innerText = "REGISTAR NO QUADRO";
+                db = db.map(t => t.id == id ? { ...t, proj, task, desc, team, date, prio, docs } : t);
                 document.getElementById('edit-id').value = "";
             } else {
-                db.push({ id: Date.now(), proj, task, team, date, prio, doc });
+                db.push({ id: Date.now(), proj, task, desc, team, date, prio, docs });
             }
 
             sync();
@@ -155,35 +135,20 @@
         }
 
         function clearForm() {
-            document.getElementById('in-task').value = "";
-            document.getElementById('in-team').value = "";
-            document.getElementById('in-doc').value = "";
-            document.getElementById('edit-id').value = "";
+            document.querySelectorAll('.fi').forEach(i => i.value = "");
+            document.getElementById('in-proj').value = "OPERACIONAL";
+            document.getElementById('in-prio').value = "low";
         }
 
-        function startEdit(id) {
-            const t = db.find(item => item.id == id);
-            document.getElementById('in-proj').value = t.proj;
-            document.getElementById('in-task').value = t.task;
-            document.getElementById('in-team').value = t.team;
-            document.getElementById('in-date').value = t.date;
-            document.getElementById('in-prio').value = t.prio;
-            document.getElementById('in-doc').value = t.doc;
-            document.getElementById('edit-id').value = t.id;
-            
-            document.getElementById('btn-main').innerText = "SALVAR ALTERAÇÕES";
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function deleteTask(id) {
-            if(confirm("CONFIRMA A EXCLUSÃO DEFINITIVA?")) {
+        function finishTask(id) {
+            if(confirm("FINALIZAR ESTA NARRATIVA?")) {
                 db = db.filter(t => t.id !== id);
                 sync();
             }
         }
 
         function sync() {
-            localStorage.setItem('ARARAAZUL_V11_5_FINAL', JSON.stringify(db));
+            localStorage.setItem('ARARAAZUL_V12_DB', JSON.stringify(db));
             render();
         }
 
@@ -192,33 +157,34 @@
             board.innerHTML = '';
             const today = new Date().toISOString().split('T')[0];
 
-            if(db.length === 0) board.innerHTML = '<div class="empty">QUADRO DISPONÍVEL</div>';
-
             db.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(t => {
-                const isExpired = t.date < today;
+                const expired = t.date < today;
                 const card = document.createElement('div');
-                card.className = `leaf ${t.prio} ${isExpired ? 'expired' : ''}`;
+                card.className = `leaf ${t.prio} ${expired ? 'expired' : ''}`;
                 
                 card.innerHTML = `
-                    <div class="alert-tag">VENCIDO</div>
-                    <span class="l-proj">SETOR: ${t.proj} <b style="color:var(--text-muted)">#${t.id.toString().slice(-4)}</b></span>
+                    <div class="l-header">
+                        <span class="l-proj">${t.proj}</span>
+                        <span style="font-family:'DM Mono'; font-size:10px;">ID: #${t.id.toString().slice(-4)}</span>
+                    </div>
                     <h2 class="l-title">${t.task}</h2>
-                    <div class="l-info">ENVOLVIDOS: <b>${t.team || 'GERAL'}</b></div>
-                    <div class="l-info">CRONOGRAMA: <b>${t.date.split('-').reverse().join('/')}</b></div>
-                    ${t.doc ? `<a href="${t.doc}" target="_blank" style="color:var(--secondary); font-size:11px; font-weight:800; text-decoration:none; margin-top:5px; display:block;">📄 ACEDER DOCUMENTAÇÃO</a>` : ''}
+                    <div class="l-narrative">${t.desc}</div>
+                    <div class="l-meta-grid">
+                        <div class="l-info">ENVOLVIDOS: <b>${t.team || 'NÃO DEFINIDO'}</b></div>
+                        <div class="l-info">CRONOGRAMA: <b>${t.date.split('-').reverse().join('/')}</b></div>
+                    </div>
+                    ${t.docs && t.docs.length ? `
+                        <div class="doc-list">
+                            ${t.docs.map(link => `<a href="${link}" target="_blank" class="doc-link">📄 DOCUMENTAÇÃO ANEXA</a>`).join('')}
+                        </div>
+                    ` : ''}
                     <div class="l-actions">
-                        <button class="btn-opt edit" onclick="startEdit(${t.id})">ALTERAR</button>
-                        <button class="btn-opt del" onclick="deleteTask(${t.id})">FINALIZAR / EXCLUIR</button>
+                        <button class="btn-opt finish" onclick="finishTask(${t.id})">FINALIZAR / EXCLUIR</button>
                     </div>
                 `;
                 board.appendChild(card);
             });
         }
-
-        setInterval(() => { 
-            document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); 
-        }, 1000);
-
         window.onload = render;
     </script>
 </body>
