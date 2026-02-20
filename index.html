@@ -22,26 +22,25 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; width: 100vw; overflow: hidden; display: flex; transition: background 0.3s; }
 
         /* SIDEBAR ESTRUTURADA */
-        aside { width: var(--sidebar-w); background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; z-index: 100; }
+        aside { width: var(--sidebar-w); background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; z-index: 100; flex-shrink: 0; }
         .logo-area { display: flex; align-items: center; gap: 12px; padding-bottom: 25px; border-bottom: 1px solid var(--border); margin-bottom: 25px; }
         .logo-sq { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 18px; }
         
-        .nav-link { padding: 12px 15px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 700; font-size: 11px; text-transform: uppercase; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; }
+        .nav-link { padding: 12px 15px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 700; font-size: 11px; text-transform: uppercase; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
         .nav-link.active { background: var(--primary); color: #000; box-shadow: 0 4px 12px rgba(0, 212, 160, 0.2); }
         .nav-link:hover:not(.active) { background: rgba(0, 212, 160, 0.1); color: var(--primary); }
 
         /* ÁREA PRINCIPAL */
         main { flex: 1; display: flex; flex-direction: column; position: relative; height: 100vh; overflow: hidden; }
-        
-        header { height: 70px; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); }
+        header { height: 70px; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
         .header-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
         .clock { font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 18px; }
 
-        /* CONTAINER DE VISTAS (SEM SCROLL NO BODY) */
-        .viewport { flex: 1; padding: 25px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+        /* VIEWPORT DINÂMICO */
+        .viewport { flex: 1; padding: 25px; overflow: hidden; position: relative; }
 
-        /* FORMULÁRIO EXECUTIVO */
-        .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); padding: 35px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; overflow-y: auto; max-height: calc(100vh - 150px); }
+        /* FORMULÁRIO DE CADASTRO */
+        .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); padding: 35px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; overflow-y: auto; max-height: 100%; }
         .full { grid-column: 1 / -1; }
         label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
         .fi { width: 100%; padding: 14px; background: var(--input); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 13px; text-transform: uppercase; outline: none; transition: 0.2s; }
@@ -49,7 +48,7 @@
         textarea.fi { min-height: 120px; resize: none; }
         .btn-submit { background: var(--primary); color: #000; border: none; padding: 18px; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; grid-column: 1 / -1; margin-top: 10px; font-size: 13px; letter-spacing: 1px; }
 
-        /* KANBAN SEM SCROLL VERTICAL NO CARD */
+        /* KANBAN SYSTEM */
         .kanban { display: flex; gap: 20px; height: 100%; overflow-x: auto; padding-bottom: 10px; }
         .k-col { background: rgba(0,0,0,0.03); border-radius: 16px; min-width: 380px; width: 380px; display: flex; flex-direction: column; border: 1px solid var(--border); height: 100%; }
         .k-header { padding: 15px 20px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; font-weight: 800; text-transform: uppercase; font-size: 12px; background: var(--surface); border-radius: 16px 16px 0 0; }
@@ -57,7 +56,7 @@
         .k-list::-webkit-scrollbar { width: 4px; }
         .k-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        /* CARD ELITE */
+        /* CARD ELITE DESIGN */
         .card { background: var(--card); border-radius: 14px; padding: 20px; border-left: 6px solid var(--secondary); box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: 0.2s; flex-shrink: 0; }
         .card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .card-tag { font-size: 9px; font-weight: 800; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
@@ -69,9 +68,9 @@
         .a-btn { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 9px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 6px; transition: 0.2s; }
         .a-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.05); }
 
-        /* TEMA TOGGLE (CANTO INFERIOR) */
+        /* CONTROLE DE TEMA FLUTUANTE */
         .theme-control { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 6px; border-radius: 50px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; }
-        .t-toggle { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; color: var(--text-muted); }
+        .t-toggle { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; color: var(--text-muted); outline: none; }
         .t-toggle.active { background: var(--primary); color: #000; }
     </style>
 </head>
@@ -87,7 +86,7 @@
         </div>
         
         <nav class="nav-group">
-            <button class="nav-link active" id="nav-board" onclick="switchView('board')">📊 QUADRO DE OPERAÇÕES</button>
+            <button class="nav-link active" id="nav-board" onclick="switchView('board')">📊 QUADRO OPERACIONAL</button>
             <button class="nav-link" id="nav-form" onclick="switchView('form')">📝 NOVO CADASTRAMENTO</button>
         </nav>
 
@@ -98,7 +97,7 @@
 
     <main>
         <header>
-            <div class="header-title" id="page-title">QUADRO DE OPERAÇÕES</div>
+            <div class="header-title" id="page-title">QUADRO OPERACIONAL</div>
             <div class="clock" id="clock">00:00:00</div>
         </header>
 
@@ -113,7 +112,7 @@
 
             <section id="view-form" style="display: none; height: 100%;">
                 <div class="form-view">
-                    <div class="field full"><label>TÍTULO DA OCORRÊNCIA / PROJETO</label><input type="text" id="in-task" class="fi" placeholder="DESCREVA O RESUMO"></div>
+                    <div class="field full"><label>TÍTULO DA OCORRÊNCIA / PROJETO</label><input type="text" id="in-task" class="fi" placeholder="EX: MANUTENÇÃO PREVENTIVA"></div>
                     <div class="field full"><label>NARRATIVA DETALHADA DA SITUAÇÃO</label><textarea id="in-desc" class="fi" placeholder="REGISTRE O HISTÓRICO COMPLETO..."></textarea></div>
                     <div class="field full"><label>CADASTRO DE ENVOLVIDOS (NOME - CARGO - SETOR)</label><textarea id="in-people" class="fi" style="min-height: 80px;" placeholder="EX: BERNARDINO FILHO - CONSULTOR IA - DIRETORIA"></textarea></div>
                     <div class="field"><label>SETOR RESPONSÁVEL</label>
@@ -134,8 +133,8 @@
         </div>
 
         <div class="theme-control">
-            <button class="t-toggle active" id="btn-dark" onclick="setTheme('dark')" title="MODO ESCURO">🌙</button>
-            <button class="t-toggle" id="btn-light" onclick="setTheme('light')" title="MODO CLARO">☀️</button>
+            <button class="t-toggle active" id="btn-dark" onclick="setTheme('dark')">🌙</button>
+            <button class="t-toggle" id="btn-light" onclick="setTheme('light')">☀️</button>
         </div>
     </main>
 
@@ -153,7 +152,7 @@
             document.getElementById('view-form').style.display = v === 'form' ? 'flex' : 'none';
             document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
             document.getElementById('nav-' + v).classList.add('active');
-            document.getElementById('page-title').innerText = v === 'board' ? 'QUADRO DE OPERAÇÕES' : 'CADASTRAMENTO DE DEMANDA';
+            document.getElementById('page-title').innerText = v === 'board' ? 'QUADRO OPERACIONAL' : 'CADASTRAMENTO DE DEMANDA';
             render();
         }
 
