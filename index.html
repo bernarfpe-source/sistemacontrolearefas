@@ -21,7 +21,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s ease; min-height: 100vh; overflow-x: hidden; display: flex; flex-direction: column; }
 
-        /* HEADER E TEMAS */
         header { padding: 20px 30px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
         .logo-box { display: flex; align-items: center; gap: 12px; }
         .logo-sq { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px; }
@@ -31,7 +30,6 @@
         .t-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(0, 212, 160, 0.1); }
         .version-tag { font-family: 'DM Mono'; font-size: 10px; color: var(--primary); font-weight: 800; letter-spacing: 1px; }
 
-        /* PAINEL DE ABERTURA E EDIÇÃO */
         .entry-panel { background: var(--surface); padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-bottom: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .field label { display: block; font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
         .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 13px; outline: none; text-transform: uppercase; }
@@ -40,10 +38,8 @@
         .btn-add { background: var(--primary); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; align-self: flex-end; transition: 0.2s; font-size: 12px; }
         .btn-add:hover { background: #fff; transform: translateY(-3px); }
 
-        /* QUADRO DE CARDS */
         .board { padding: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; flex-grow: 1; }
         .leaf { background: var(--card); border-radius: 16px; padding: 25px; border-left: 10px solid var(--secondary); box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 12px; position: relative; transition: 0.3s; }
-        .leaf:hover { transform: translateY(-5px); }
         
         .leaf.high { border-left-color: var(--danger); }
         .leaf.med { border-left-color: var(--warning); }
@@ -56,11 +52,10 @@
         .l-info { font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
         .l-info b { color: var(--text); text-transform: uppercase; }
 
-        /* AÇÕES DO CARD */
         .l-actions { margin-top: auto; display: flex; gap: 8px; padding-top: 15px; border-top: 1px dashed var(--border); }
         .btn-opt { flex: 1; padding: 10px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 9px; transition: 0.2s; }
-        .btn-opt.edit:hover { border-color: var(--warning); color: var(--warning); background: rgba(255, 184, 0, 0.05); }
-        .btn-opt.del:hover { border-color: var(--danger); color: var(--danger); background: rgba(255, 59, 92, 0.05); }
+        .btn-opt.edit:hover { border-color: var(--warning); color: var(--warning); }
+        .btn-opt.del:hover { border-color: var(--danger); color: var(--danger); }
 
         footer { padding: 15px 30px; background: var(--surface); border-top: 1px solid var(--border); text-align: center; }
         .footer-text { font-family: 'DM Mono'; font-size: 9px; color: var(--text-muted); letter-spacing: 1px; }
@@ -210,10 +205,10 @@
                     <h2 class="l-title">${t.task}</h2>
                     <div class="l-info">ENVOLVIDOS: <b>${t.team || 'GERAL'}</b></div>
                     <div class="l-info">CRONOGRAMA: <b>${t.date.split('-').reverse().join('/')}</b></div>
-                    \${t.doc ? \`<a href="\${t.doc}" target="_blank" style="color:var(--secondary); font-size:11px; font-weight:800; text-decoration:none; margin-top:5px; display:block;">📄 ACEDER DOCUMENTAÇÃO</a>\` : ''}
+                    ${t.doc ? `<a href="${t.doc}" target="_blank" style="color:var(--secondary); font-size:11px; font-weight:800; text-decoration:none; margin-top:5px; display:block;">📄 ACEDER DOCUMENTAÇÃO</a>` : ''}
                     <div class="l-actions">
-                        <button class="btn-opt edit" onclick="startEdit(\${t.id})">ALTERAR</button>
-                        <button class="btn-opt del" onclick="deleteTask(\${t.id})">FINALIZAR / EXCLUIR</button>
+                        <button class="btn-opt edit" onclick="startEdit(${t.id})">ALTERAR</button>
+                        <button class="btn-opt del" onclick="deleteTask(${t.id})">FINALIZAR / EXCLUIR</button>
                     </div>
                 `;
                 board.appendChild(card);
