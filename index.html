@@ -13,22 +13,26 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; width: 100vw; overflow: hidden; display: flex; transition: 0.3s ease; }
 
+        /* SIDEBAR ESTRUTURADA */
         aside { width: var(--sidebar-w); background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; z-index: 100; flex-shrink: 0; }
         .logo-area { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
         .logo-sq { width: 35px; height: 35px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; }
         .nav-link { padding: 12px 15px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 700; font-size: 10px; text-transform: uppercase; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
         .nav-link.active { background: var(--primary); color: #000; box-shadow: 0 4px 12px rgba(0, 212, 160, 0.2); }
 
+        /* MAIN VIEWPORT */
         main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; position: relative; }
         header { height: 60px; padding: 0 25px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
         .clock { font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 16px; }
         .viewport { flex: 1; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
 
+        /* GRID KANBAN FIXO (ZERO SCROLL) */
         .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; height: 100%; }
         .k-col { background: rgba(0,0,0,0.02); border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; height: 100%; overflow: hidden; }
         .k-header { padding: 12px 15px; border-bottom: 2px solid var(--primary); font-weight: 800; font-size: 11px; text-transform: uppercase; background: var(--surface); display: flex; justify-content: space-between; }
         .k-list { padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 
+        /* CARDS ELITE */
         .card { background: var(--card); border-radius: 10px; padding: 15px; border-left: 5px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
         .card-id { font-size: 9px; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
         .card-title { font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
@@ -36,14 +40,18 @@
         .card-actions { display: flex; gap: 4px; margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 10px; }
         .a-btn { flex: 1; padding: 6px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
 
+        /* NORMAS E CALENDÁRIO */
         .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; overflow-y: auto; }
-        .norm-card { background: var(--card); border-radius: 10px; border-top: 4px solid var(--secondary); padding: 20px; border: 1px solid var(--border); }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); height: 100%; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--border); }
+        .cal-cell { background: var(--bg); padding: 8px; overflow-y: auto; position: relative; border: 0.5px solid var(--border); }
 
+        /* FORMULÁRIO */
         .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; padding: 25px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 100%; }
         .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; }
         label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
         .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 8px; }
 
+        /* TEMA FLOAT */
         .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; }
         .t-opt { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .t-opt.active { background: var(--primary); color: #000; }
@@ -56,7 +64,7 @@
 <body class="dark">
 
     <aside>
-        <div class="logo-area"><div class="logo-sq">RN</div><div><h2 style="font-size: 12px;">ARARAAZUL</h2><p style="font-size: 8px; color: var(--primary);">V30 COMPLIANCE</p></div></div>
+        <div class="logo-area"><div class="logo-sq">RN</div><div><h2 style="font-size: 12px;">ARARAAZUL</h2><p style="font-size: 8px; color: var(--primary);">V30 SUPREME</p></div></div>
         <nav class="nav-group">
             <button class="nav-link active" id="nav-board" onclick="switchView('board')">📊 QUADRO OPERACIONAL</button>
             <button class="nav-link" id="nav-norms" onclick="switchView('norms')">📜 BIBLIOTECA NORMAS</button>
@@ -73,29 +81,25 @@
         <div class="viewport">
             <section id="view-board" style="display: block; height: 100%;"><div class="kanban"><div class="k-col"><div class="k-header">PENDENTE <span id="c-todo">0</span></div><div class="k-list" id="l-todo"></div></div><div class="k-col"><div class="k-header" style="color:var(--warning)">EXECUTANDO <span id="c-doing">0</span></div><div class="k-list" id="l-doing"></div></div><div class="k-col"><div class="k-header" style="color:var(--primary)">CONCLUÍDO <span id="c-done">0</span></div><div class="k-list" id="l-done"></div></div></div></section>
             <section id="view-norms" style="display: none; height: 100%;"><div id="norms-container" class="norms-grid"></div></section>
-            <section id="view-cal" style="display: none; height: 100%;"><div id="cal-grid" style="display:grid; grid-template-columns:repeat(7, 1fr); height:100%; border:1px solid var(--border)"></div></section>
+            <section id="view-cal" style="display: none; height: 100%;"><div id="cal-grid" class="cal-grid"></div></section>
 
             <section id="view-form" style="display: none; height: 100%;">
                 <div class="form-view">
-                    <div style="display:flex; justify-content:space-between; align-items:center">
-                        <label>TÍTULO DA OCORRÊNCIA</label>
-                        <span id="next-seq" style="font-family:'DM Mono'; color:var(--primary); font-weight:800">#---/2026</span>
-                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center"><label>TÍTULO DA OCORRÊNCIA</label><span id="next-seq" style="font-family:'DM Mono'; color:var(--primary); font-weight:800">#---/2026</span></div>
                     <input type="text" id="in-task" class="fi">
                     <label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" style="min-height:100px"></textarea>
                     <label>EQUIPE ENVOLVIDA</label><div id="people-list"></div>
                     <button onclick="addPersonRow()" style="background:var(--secondary); color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer; font-size:10px; font-weight:800">+ INTEGRANTE</button>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px">
-                        <div><label>SETOR</label><select id="in-proj" class="fi"><option>OPERACIONAL</option><option>LOGÍSTICA</option><option>COMERCIAL</option><option>FROTA</option><option>DIRETORIA</option></select></div>
+                        <div><label>SETOR</label><select id="in-proj" class="fi"><option>OPERACIONAL</option><option>LOGÍSTICA</option><option>COMERCIAL</option><option>FROTA</option></select></div>
                         <div><label>DATA</label><input type="date" id="in-date" class="fi"></div>
                     </div>
-                    <label>ANEXOS (COLE CTRL+V OU BUSQUE)</label>
-                    <div style="border:2px dashed var(--border); padding:20px; text-align:center; border-radius:10px" onclick="document.getElementById('file-in').click()">
-                        <span style="font-size:10px; font-weight:800">CLIQUE OU COLE IMAGEM</span>
+                    <label>ANEXOS (COLE OU BUSQUE)</label>
+                    <div style="border:2px dashed var(--border); padding:20px; text-align:center; border-radius:10px; cursor:pointer" onclick="document.getElementById('file-in').click()">
                         <input type="file" id="file-in" multiple hidden onchange="handleFiles(this.files)">
-                        <div id="preview-area" style="display:flex; gap:10px; margin-top:10px; overflow-x:auto"></div>
+                        <div id="preview-area" style="display:flex; gap:10px; overflow-x:auto"></div>
                     </div>
-                    <input type="hidden" id="edit-id"><button class="fi" style="background:var(--primary); color:#000; font-weight:800; cursor:pointer" onclick="saveTask()">SALVAR NO PROTOCOLO DE ARQUIVO</button>
+                    <input type="hidden" id="edit-id"><button class="fi" style="background:var(--primary); color:#000; font-weight:800; cursor:pointer" onclick="saveTask()">SALVAR NO PROTOCOLO</button>
                 </div>
             </section>
 
@@ -103,14 +107,13 @@
                 <div class="form-view">
                     <label>TÍTULO DA DIRETRIZ</label><input type="text" id="norm-title" class="fi">
                     <label>CATEGORIA</label><select id="norm-cat" class="fi"><option>OPERACIONAL</option><option>COMERCIAL</option><option>DIVERSAS</option></select>
-                    <label>CONTEÚDO DA NORMA</label><textarea id="norm-content" class="fi" style="min-height:250px"></textarea>
+                    <label>CONTEÚDO</label><textarea id="norm-content" class="fi" style="min-height:250px"></textarea>
                     <button class="fi" style="background:var(--secondary); color:#fff; font-weight:800; cursor:pointer" onclick="saveNorm()">REGISTRAR NA BIBLIOTECA</button>
                 </div>
             </section>
         </div>
 
         <div id="export-area"></div>
-
         <div class="theme-float">
             <button class="t-opt active" id="btn-dark" onclick="setTheme('dark')">🌙</button>
             <button class="t-opt" id="btn-light" onclick="setTheme('light')">☀️</button>
@@ -130,7 +133,7 @@
             if(document.getElementById('nav-'+v)) document.getElementById('nav-'+v).classList.add('active');
             if(v==='form' && !document.getElementById('edit-id').value) {
                 document.querySelectorAll('.fi').forEach(i => i.value = ""); document.getElementById('people-list').innerHTML = ""; currentFiles = []; updatePreview(); addPersonRow();
-                const nextSeq = (db.length + 1).toString().padStart(3, '0'); document.getElementById('next-seq').innerText = `#${nextSeq}/2026`;
+                document.getElementById('next-seq').innerText = `#${(db.length + 1).toString().padStart(3, '0')}/2026`;
             }
             if(v==='cal') renderCalendar(); if(v==='norms') renderNorms(); renderBoard();
         }
@@ -164,7 +167,7 @@
             db.forEach(t => {
                 const card = document.createElement('div'); card.className = 'card';
                 card.style.borderLeftColor = t.status === 'doing' ? 'var(--warning)' : (t.status === 'done' ? 'var(--primary)' : 'var(--secondary)');
-                card.innerHTML = `<div class="card-id">PROTOCOLO #${t.seq}</div><div class="card-title">${t.task}</div><div>${t.people.map(p=>`<span class="p-tag">👤 ${p.n}</span>`).join('')}</div><div class="card-actions"><button class="a-btn" onclick="startEdit(${t.id})">EDITAR</button><button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportPDF(${t.id})">PDF</button>${t.status==='todo'?'<button class="a-btn" onclick="move('+t.id+',\'doing\')">EXEC</button>':''}${t.status==='doing'?'<button class="a-btn" onclick="move('+t.id+',\'done\')">OK</button>':''}<button class="a-btn" style="color:var(--danger)" onclick="del(${t.id})">X</button></div>`;
+                card.innerHTML = `<div class="card-id">#${t.seq}</div><div class="card-title">${t.task}</div><div>${t.people.map(p=>`<span class="p-tag">👤 ${p.n}</span>`).join('')}</div><div class="card-actions"><button class="a-btn" onclick="startEdit(${t.id})">EDITAR</button><button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportPDF(${t.id})">PDF</button>${t.status==='todo'?'<button class="a-btn" onclick="move('+t.id+',\'doing\')">EXEC</button>':''}${t.status==='doing'?'<button class="a-btn" onclick="move('+t.id+',\'done\')">OK</button>':''}<button class="a-btn" style="color:var(--danger)" onclick="del(${t.id})">X</button></div>`;
                 cols[t.status].appendChild(card);
             });
             ['todo','doing','done'].forEach(s => document.getElementById('c-'+s).innerText = db.filter(x=>x.status===s).length);
@@ -181,33 +184,33 @@
 
         function renderCalendar() {
             const grid = document.getElementById('cal-grid'); grid.innerHTML = '';
-            ['DOM','SEG','TER','QUA','QUI','SEX','SÁB'].forEach(d => grid.innerHTML += `<div style="padding:10px; font-weight:800; text-align:center; background:var(--surface); border:1px solid var(--border); font-size:10px">${d}</div>`);
+            ['DOM','SEG','TER','QUA','QUI','SEX','SÁB'].forEach(d => grid.innerHTML += `<div style="padding:10px; font-weight:800; text-align:center; background:var(--surface); font-size:10px">${d}</div>`);
             const now = new Date(); const first = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
             const last = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-            for(let i=0; i<first; i++) grid.innerHTML += `<div style="background:rgba(0,0,0,0.05); border:1px solid var(--border)"></div>`;
+            for(let i=0; i<first; i++) grid.innerHTML += `<div style="background:rgba(0,0,0,0.05)"></div>`;
             for(let d=1; d<=last; d++) {
                 const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-                const cell = document.createElement('div'); cell.style.padding = '5px'; cell.style.border = '1px solid var(--border)'; cell.innerHTML = `<div style="font-size:10px; font-weight:800; color:var(--text-muted)">${d}</div>`;
-                db.filter(t => t.date === dateStr).forEach(t => { cell.innerHTML += `<div style="font-size:7px; padding:2px; margin-bottom:1px; border-radius:2px" class="ev-${t.status}">${t.task.substring(0,15)}...</div>`; });
+                const cell = document.createElement('div'); cell.className = 'cal-cell'; cell.innerHTML = `<div style="font-size:10px; font-weight:800; color:var(--text-muted)">${d}</div>`;
+                db.filter(t => t.date === dateStr).forEach(t => { cell.innerHTML += `<div style="font-size:7px; padding:2px; margin-bottom:1px; border-radius:2px" class="ev-${t.status}">${t.task.substring(0,12)}</div>`; });
                 grid.appendChild(cell);
             }
         }
 
         function exportPDF(id) {
             const t = db.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
-            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO #${t.seq}</div></div><h2 style="margin-bottom:10px">${t.task}</h2><p>DATA DE REGISTRO: ${t.date} | SETOR RESPONSÁVEL: ${t.proj}</p><hr style="margin:20px 0"><p><b>NARRATIVA DETALHADA:</b><br><br>${t.desc}</p><hr style="margin:20px 0"><p><b>EQUIPE DE EXECUÇÃO:</b></p><ul>${t.people.map(p => `<li>${p.n} - ${p.c} (${p.s})</li>`).join('')}</ul>${t.files.map(f => `<img src="${f}" style="width:100%; margin-top:30px; border:1px solid #000">`).join('')}</div>`;
+            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO #${t.seq}</div></div><h2>OCORRÊNCIA: ${t.task}</h2><p>DATA: ${t.date} | SETOR: ${t.proj}</p><hr><p><b>NARRATIVA:</b><br><br>${t.desc}</p><hr><p><b>EQUIPE:</b></p><ul>${t.people.map(p => `<li>${p.n} - ${p.c} (${p.s})</li>`).join('')}</ul>${t.files.map(f => `<img src="${f}" style="width:100%; margin-top:20px">`).join('')}</div>`;
             html2pdf().from(temp).save(`PROTOCOLO_${t.seq.replace('/','_')}.pdf`); setTimeout(() => temp.style.display = 'none', 500);
         }
 
         function exportNorm(id) {
             const n = norms.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
-            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>DIRETRIZ INTERNA</div></div><h2>NORMA: ${n.title}</h2><p>CATEGORIA: ${n.cat}</p><hr style="margin:20px 0"><p>${n.content}</p></div>`;
+            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>DIRETRIZ INTERNA</div></div><h2>NORMA: ${n.title}</h2><hr><p>${n.content}</p></div>`;
             html2pdf().from(temp).save(`NORMA_${n.id}.pdf`); setTimeout(() => temp.style.display = 'none', 500);
         }
 
         function startEdit(id) { const t = db.find(x => x.id == id); document.getElementById('edit-id').value = t.id; document.getElementById('in-task').value = t.task; document.getElementById('in-desc').value = t.desc; document.getElementById('in-date').value = t.date; document.getElementById('people-list').innerHTML = ''; t.people.forEach(p => addPersonRow(p)); currentFiles = t.files || []; updatePreview(); switchView('form'); }
         function move(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); sync(); }
-        function del(id) { if(confirm("EXCLUIR PROTOCOLO?")) { db = db.filter(t => t.id !== id); sync(); } }
+        function del(id) { if(confirm("EXCLUIR?")) { db = db.filter(t => t.id !== id); sync(); } }
         function delNorm(id) { if(confirm("EXCLUIR NORMA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_DB', JSON.stringify(norms)); renderNorms(); } }
         function sync() { localStorage.setItem('ARARAAZUL_V30_DB', JSON.stringify(db)); renderBoard(); }
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
