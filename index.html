@@ -3,110 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARARAAZUL V21 - PREMIER ULTRA</title>
+    <title>ARARAAZUL V22 - PREMIER ARCHIVE</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; --sidebar-w: 240px; }
-        
-        body.dark { 
-            --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; 
-            --text: #E4EEFF; --text-muted: #4F6A8F; --input: #04080F; --sidebar: #09101D;
-        }
-        
-        body.light { 
-            --bg: #F8FAFC; --surface: #FFFFFF; --border: #E2E8F0; --card: #FFFFFF; 
-            --text: #1A202C; --text-muted: #64748B; --input: #F1F5F9; --sidebar: #F8FAFC;
-        }
-
+        body.dark { --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; --text: #E4EEFF; --text-muted: #4F6A8F; --input: #04080F; --sidebar: #09101D; }
+        body.light { --bg: #F8FAFC; --surface: #FFFFFF; --border: #E2E8F0; --card: #FFFFFF; --text: #1A202C; --text-muted: #64748B; --input: #F1F5F9; --sidebar: #F8FAFC; }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; width: 100vw; overflow: hidden; display: flex; transition: background 0.3s; }
 
-        /* SIDEBAR ESTRUTURADA */
         aside { width: var(--sidebar-w); background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; z-index: 100; flex-shrink: 0; }
         .logo-area { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-        .logo-sq { width: 35px; height: 35px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 16px; }
-        
+        .logo-sq { width: 35px; height: 35px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; }
         .nav-link { padding: 12px 15px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 700; font-size: 10px; text-transform: uppercase; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
         .nav-link.active { background: var(--primary); color: #000; box-shadow: 0 4px 12px rgba(0, 212, 160, 0.2); }
-        .nav-link:hover:not(.active) { background: rgba(0, 212, 160, 0.1); color: var(--primary); }
 
-        /* ÁREA PRINCIPAL */
         main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; position: relative; }
         header { height: 60px; padding: 0 25px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
-        .header-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-        .clock { font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 16px; }
-
         .viewport { flex: 1; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* KANBAN GRID FIXO */
-        .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; height: 100%; width: 100%; }
+        .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; height: 100%; }
         .k-col { background: rgba(0,0,0,0.02); border-radius: 12px; display: flex; flex-direction: column; border: 1px solid var(--border); height: 100%; min-width: 0; }
-        .k-header { padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; font-weight: 800; text-transform: uppercase; font-size: 11px; background: var(--surface); border-radius: 12px 12px 0 0; flex-shrink: 0; }
+        .k-header { padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; font-weight: 800; text-transform: uppercase; font-size: 11px; background: var(--surface); border-radius: 12px 12px 0 0; }
         .k-list { padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-        .k-list::-webkit-scrollbar { width: 4px; }
-        .k-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        /* FORMULÁRIO PREMIER ULTRA */
         .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 25px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 100%; }
-        .full { grid-column: 1 / -1; width: 100%; }
-        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
-        .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; transition: 0.2s; }
-        .fi:focus { border-color: var(--primary); }
-        textarea.fi { min-height: 80px; resize: none; }
+        .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; }
+        
+        /* UPLOAD AREA MELHORADA */
+        .upload-zone { border: 2px dashed var(--border); padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.05); }
+        .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
+        .preview-img { width: 100%; height: 80px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); }
 
-        /* GESTOR DE ENVOLVIDOS DINÂMICO */
-        .people-manager { border: 1px solid var(--border); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.02); margin-top: 5px; }
+        .people-manager { border: 1px solid var(--border); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.02); }
         .person-entry { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 8px; }
-        .btn-mini { background: var(--danger); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 800; display: flex; align-items: center; justify-content: center; }
-        .btn-plus { background: var(--secondary); color: #fff; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 10px; font-weight: 800; margin-top: 10px; transition: 0.2s; width: 100%; }
-        .btn-plus:hover { background: var(--primary); color: #000; }
+        .btn-mini { background: var(--danger); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 800; }
+        .btn-plus { background: var(--secondary); color: #fff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: 800; margin-top: 5px; }
 
-        .btn-submit { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 12px; margin-top: 15px; width: 100%; transition: 0.2s; }
-        .btn-submit:hover { background: #fff; transform: translateY(-2px); }
+        .btn-submit { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 12px; margin-top: 10px; width: 100%; }
 
-        /* CARD ELITE DESIGN */
-        .card { background: var(--card); border-radius: 10px; padding: 15px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
-        .card-title { font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
-        .card-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 6px; margin-bottom: 10px; white-space: pre-wrap; }
-        .p-tag { font-size: 9px; background: rgba(0, 212, 160, 0.08); padding: 4px 8px; border-radius: 4px; margin-bottom: 4px; display: block; border: 1px solid var(--border); color: var(--text); }
-        .card-actions { display: flex; gap: 4px; border-top: 1px dashed var(--border); padding-top: 10px; margin-top: 5px; }
-        .a-btn { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: 0.2s; }
-        .a-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .card { background: var(--card); border-radius: 10px; padding: 15px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .card-img-strip { display: flex; gap: 5px; overflow-x: auto; margin-top: 10px; padding-bottom: 5px; }
+        .card-img-strip img { height: 50px; border-radius: 4px; cursor: pointer; }
+        .p-tag { font-size: 10px; background: rgba(0, 212, 160, 0.1); padding: 4px 8px; border-radius: 4px; margin-bottom: 4px; display: inline-block; border: 1px solid var(--border); }
 
-        /* TEMA FLUTUANTE */
-        .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; }
-        .t-opt { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; color: var(--text-muted); outline: none; }
+        .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); }
+        .t-opt { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
         .t-opt.active { background: var(--primary); color: #000; }
     </style>
 </head>
 <body class="dark">
 
     <aside>
-        <div class="logo-area">
-            <div class="logo-sq">RN</div>
-            <div>
-                <h2 style="font-size: 12px; font-weight: 800;">ARARAAZUL</h2>
-                <p style="font-size: 8px; color: var(--primary); font-weight: 800;">COMMAND CENTER</p>
-            </div>
-        </div>
-        
+        <div class="logo-area"><div class="logo-sq">RN</div><div><h2 style="font-size: 12px;">ARARAAZUL</h2><p style="font-size: 8px; color: var(--primary);">V22 ARCHIVE</p></div></div>
         <nav class="nav-group">
             <button class="nav-link active" id="nav-board" onclick="switchView('board')">📊 QUADRO OPERACIONAL</button>
-            <button class="nav-link" id="nav-form" onclick="switchView('form')">📝 NOVO CADASTRO</button>
+            <button class="nav-link" id="nav-form" onclick="switchView('form')">📝 NOVO CADASTRAMENTO</button>
         </nav>
-
-        <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border);">
-            <p style="font-size: 8px; font-weight: 800; color: var(--text-muted);">RIO NOVO TRANSPORTES</p>
-            <p style="font-size: 8px; color: var(--primary);">VERSION 21.0.0 PREMIER ULTRA</p>
-        </div>
     </aside>
 
     <main>
-        <header>
-            <div class="header-title" id="page-title">QUADRO OPERACIONAL</div>
-            <div class="clock" id="clock">00:00:00</div>
-        </header>
+        <header><div id="page-title" style="font-weight: 800; font-size: 13px;">QUADRO OPERACIONAL</div><div id="clock" style="font-family:'DM Mono'; color:var(--primary)">00:00:00</div></header>
 
         <div class="viewport">
             <section id="view-board" style="display: block; height: 100%;">
@@ -119,31 +78,31 @@
 
             <section id="view-form" style="display: none; height: 100%;">
                 <div class="form-view">
-                    <div class="full"><label>TÍTULO DA OCORRÊNCIA</label><input type="text" id="in-task" class="fi" placeholder="RESUMO"></div>
-                    <div class="full"><label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" placeholder="HISTÓRICO..."></textarea></div>
+                    <div class="full"><label>TÍTULO DA OCORRÊNCIA</label><input type="text" id="in-task" class="fi"></div>
+                    <div class="full"><label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" style="min-height:80px"></textarea></div>
                     
                     <div class="people-manager">
-                        <label>CADASTRO DE ENVOLVIDOS (NOME - CARGO - SETOR)</label>
+                        <label>CADASTRO DE ENVOLVIDOS (EQUIPE)</label>
                         <div id="people-list"></div>
                         <button class="btn-plus" onclick="addPersonRow()">+ ADICIONAR PARTICIPANTE</button>
                     </div>
 
-                    <div class="field-row">
-                        <div class="field">
-                            <label>SETOR RESPONSÁVEL</label>
-                            <select id="in-proj" class="fi">
-                                <option value="OPERACIONAL">OPERACIONAL</option>
-                                <option value="LOGÍSTICA">LOGÍSTICA</option>
-                                <option value="MANUTENÇÃO">MANUTENÇÃO</option>
-                                <option value="FROTA">FROTA</option>
-                                <option value="DIRETORIA">DIRETORIA</option>
-                            </select>
-                        </div>
-                        <div class="field"><label>DATA OPERACIONAL</label><input type="date" id="in-date" class="fi"></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px">
+                        <div><label>SETOR</label><select id="in-proj" class="fi"><option value="OPERACIONAL">OPERACIONAL</option><option value="LOGÍSTICA">LOGÍSTICA</option><option value="MANUTENÇÃO">MANUTENÇÃO</option></select></div>
+                        <div><label>DATA LIMITE</label><input type="date" id="in-date" class="fi"></div>
                     </div>
-                    <div class="full"><label>LINKS DE IMAGENS (UM POR LINHA)</label><textarea id="in-imgs" class="fi" style="min-height: 60px;" placeholder="HTTPS://..."></textarea></div>
+
+                    <div class="full">
+                        <label>ANEXOS (IMAGENS OU DOCUMENTOS)</label>
+                        <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-in').click()">
+                            <span style="font-size:11px; font-weight:700">CLIQUE PARA BUSCAR OU COLE (CTRL+V) AQUI</span>
+                            <input type="file" id="file-in" multiple hidden onchange="handleFiles(this.files)">
+                            <div class="preview-grid" id="preview-area"></div>
+                        </div>
+                    </div>
+
                     <input type="hidden" id="edit-id">
-                    <button class="btn-submit" id="btn-save" onclick="saveTask()">REGISTRAR NO SISTEMA ULTRA</button>
+                    <button class="btn-submit" onclick="saveTask()">REGISTRAR NO COMANDO CENTRAL</button>
                 </div>
             </section>
         </div>
@@ -155,65 +114,80 @@
     </main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V21_DB')) || [];
-
-        function setTheme(m) {
-            document.body.className = m;
-            document.querySelectorAll('.t-opt').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + m).classList.add('active');
-        }
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V22_DB')) || [];
+        let currentAttachments = [];
 
         function addPersonRow(val = {n:'', c:'', s:''}) {
             const div = document.createElement('div');
             div.className = 'person-entry';
-            div.innerHTML = `
-                <input type="text" class="fi p-nome" placeholder="NOME" value="${val.n}">
-                <input type="text" class="fi p-cargo" placeholder="CARGO" value="${val.c}">
-                <input type="text" class="fi p-setor" placeholder="SETOR" value="${val.s}">
-                <button class="btn-mini" onclick="this.parentElement.remove()">X</button>
-            `;
+            div.innerHTML = `<input type="text" class="fi p-nome" placeholder="NOME" value="${val.n}"><input type="text" class="fi p-cargo" placeholder="CARGO" value="${val.c}"><input type="text" class="fi p-setor" placeholder="SETOR" value="${val.s}"><button class="btn-mini" onclick="this.parentElement.remove()">X</button>`;
             document.getElementById('people-list').appendChild(div);
         }
 
-        function switchView(v) {
-            document.getElementById('view-board').style.display = v === 'board' ? 'block' : 'none';
-            document.getElementById('view-form').style.display = v === 'form' ? 'block' : 'none';
-            document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
-            document.getElementById('nav-' + v).classList.add('active');
-            document.getElementById('page-title').innerText = v === 'board' ? 'QUADRO OPERACIONAL' : 'CADASTRO DE DEMANDA';
-            
-            if(v === 'form' && !document.getElementById('edit-id').value) {
-                document.querySelectorAll('.fi').forEach(i => i.value = "");
-                document.getElementById('people-list').innerHTML = "";
-                addPersonRow();
+        // LÓGICA DE BUSCA E COLAGEM DE ARQUIVOS
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    currentAttachments.push(e.target.result);
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        window.addEventListener('paste', e => {
+            const items = e.clipboardData.items;
+            for(let i=0; i<items.length; i++) {
+                if(items[i].type.indexOf('image') !== -1) {
+                    const blob = items[i].getAsFile();
+                    handleFiles([blob]);
+                }
             }
-            render();
+        });
+
+        function updatePreview() {
+            const area = document.getElementById('preview-area');
+            area.innerHTML = '';
+            currentAttachments.forEach((src, idx) => {
+                area.innerHTML += `<div style="position:relative"><img src="${src}" class="preview-img"><button onclick="currentAttachments.splice(${idx},1);updatePreview()" style="position:absolute;top:0;right:0;background:var(--danger);color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer">x</button></div>`;
+            });
         }
 
         function saveTask() {
-            const id = document.getElementById('edit-id').value;
             const task = document.getElementById('in-task').value.toUpperCase();
             const desc = document.getElementById('in-desc').value.toUpperCase();
             const date = document.getElementById('in-date').value;
             const proj = document.getElementById('in-proj').value;
-            const imgs = document.getElementById('in-imgs').value.split('\n').filter(l => l.trim() !== "");
             const people = Array.from(document.querySelectorAll('.person-entry')).map(row => ({
                 n: row.querySelector('.p-nome').value.toUpperCase(),
                 c: row.querySelector('.p-cargo').value.toUpperCase(),
                 s: row.querySelector('.p-setor').value.toUpperCase()
             }));
 
-            if(!task || !date) return alert("ERRO: CAMPOS OBRIGATÓRIOS EM FALTA.");
+            if(!task || !date) return alert("CAMPOS OBRIGATÓRIOS.");
 
-            if(id) {
-                db = db.map(t => t.id == id ? { ...t, task, desc, people, date, proj, imgs } : t);
-                document.getElementById('edit-id').value = "";
-                document.getElementById('btn-save').innerText = "REGISTRAR NO SISTEMA ULTRA";
-            } else {
-                db.push({ id: Date.now(), task, desc, people, date, proj, imgs, status: 'todo' });
-            }
-            localStorage.setItem('ARARAAZUL_V21_DB', JSON.stringify(db));
+            const id = document.getElementById('edit-id').value;
+            const entry = { id: id ? parseInt(id) : Date.now(), task, desc, people, date, proj, files: currentAttachments, status: id ? db.find(x=>x.id==id).status : 'todo' };
+
+            if(id) db = db.map(t => t.id == id ? entry : t);
+            else db.push(entry);
+
+            localStorage.setItem('ARARAAZUL_V22_DB', JSON.stringify(db));
             switchView('board');
+        }
+
+        function switchView(v) {
+            document.getElementById('view-board').style.display = v === 'board' ? 'block' : 'none';
+            document.getElementById('view-form').style.display = v === 'form' ? 'block' : 'none';
+            if(v === 'form' && !document.getElementById('edit-id').value) {
+                document.querySelectorAll('.fi').forEach(i => i.value = "");
+                document.getElementById('people-list').innerHTML = "";
+                document.getElementById('preview-area').innerHTML = "";
+                currentAttachments = [];
+                addPersonRow();
+            }
+            render();
         }
 
         function startEdit(id) {
@@ -222,42 +196,32 @@
             document.getElementById('in-desc').value = t.desc;
             document.getElementById('in-date').value = t.date;
             document.getElementById('in-proj').value = t.proj;
-            document.getElementById('in-imgs').value = t.imgs.join('\n');
             document.getElementById('edit-id').value = t.id;
             document.getElementById('people-list').innerHTML = "";
             t.people.forEach(p => addPersonRow(p));
+            currentAttachments = t.files || [];
+            updatePreview();
             switchView('form');
         }
 
+        function setTheme(m) { document.body.className = m; document.querySelectorAll('.t-opt').forEach(b => b.classList.remove('active')); document.getElementById('btn-'+m).classList.add('active'); }
         function move(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); sync(); }
-        function del(id) { if(confirm("EXCLUIR DEFINITIVAMENTE?")) { db = db.filter(t => t.id !== id); sync(); } }
-        function sync() { localStorage.setItem('ARARAAZUL_V21_DB', JSON.stringify(db)); render(); }
+        function del(id) { if(confirm("EXCLUIR?")) { db = db.filter(t => t.id !== id); sync(); } }
+        function sync() { localStorage.setItem('ARARAAZUL_V22_DB', JSON.stringify(db)); render(); }
 
         function render() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
-            const counters = { todo: document.getElementById('c-todo'), doing: document.getElementById('c-doing'), done: document.getElementById('c-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
-            let count = { todo: 0, doing: 0, done: 0 };
-
             db.forEach(t => {
-                count[t.status]++;
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div style="font-size:8px; font-weight:800; color:var(--secondary)">${t.proj} #${t.id.toString().slice(-4)}</div>
-                    <div class="card-title">${t.task}</div>
-                    <div class="card-desc">${t.desc.substring(0, 80)}${t.desc.length > 80 ? '...' : ''}</div>
-                    <div id="p-card-${t.id}">${t.people.map(p => `<span class="p-tag">👤 ${p.n} | ${p.c}</span>`).join('')}</div>
-                    <div class="card-actions">
-                        <button class="a-btn" onclick="startEdit(${t.id})">EDITAR</button>
-                        ${t.status === 'todo' ? `<button class="a-btn" onclick="move(${t.id}, 'doing')">EXECUTAR</button>` : ''}
-                        ${t.status === 'doing' ? `<button class="a-btn" onclick="move(${t.id}, 'done')">CONCLUIR</button>` : ''}
-                        <button class="a-btn" style="color:var(--danger)" onclick="del(${t.id})">APAGAR</button>
-                    </div>
-                `;
+                const card = document.createElement('div'); card.className = 'card';
+                let imgHtml = t.files ? `<div class="card-img-strip">${t.files.map(f => `<img src="${f}" onclick="window.open('${f}')">`).join('')}</div>` : '';
+                card.innerHTML = `<div style="font-size:8px;font-weight:800;color:var(--secondary)">${t.proj} #${t.id.toString().slice(-4)}</div><div style="font-weight:800;margin:5px 0">${t.task}</div><div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">${t.desc.substring(0,60)}...</div><div id="p-card-${t.id}"></div>${imgHtml}<div style="display:flex;gap:5px;margin-top:10px"><button class="a-btn" onclick="startEdit(${t.id})">EDITAR</button>${t.status==='todo'?'<button class="a-btn" onclick="move('+t.id+',\'doing\')">EXEC</button>':''}${t.status==='doing'?'<button class="a-btn" onclick="move('+t.id+',\'done\')">OK</button>':''}<button class="a-btn" style="color:var(--danger)" onclick="del(${t.id})">X</button></div>`;
                 cols[t.status].appendChild(card);
+                t.people.forEach(p => { const s = document.createElement('span'); s.className = 'p-tag'; s.innerText = `👤 ${p.n} | ${p.c}`; document.getElementById(`p-card-${t.id}`).appendChild(s); });
             });
-            Object.keys(count).forEach(k => counters[k].innerText = count[k]);
+            document.getElementById('c-todo').innerText = db.filter(x=>x.status==='todo').length;
+            document.getElementById('c-doing').innerText = db.filter(x=>x.status==='doing').length;
+            document.getElementById('c-done').innerText = db.filter(x=>x.status==='done').length;
         }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
