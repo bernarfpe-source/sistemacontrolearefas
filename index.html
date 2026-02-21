@@ -14,7 +14,7 @@
             --warning: #FFB800; 
             --sidebar-w: 250px; 
             
-            /* CORES EXATAS DO DARK MODE CORPORATIVO */
+            /* DARK MODE CORPORATIVO */
             --bg: #05080F; 
             --surface: #090C15; 
             --border: #1E2B45; 
@@ -50,7 +50,7 @@
 
         .viewport { flex: 1; padding: 25px 30px; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* KANBAN GRID */
+        /* KANBAN GRID (ZERO SCROLL) */
         .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
         .k-col { background: var(--card); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
         
@@ -58,12 +58,15 @@
         .col-doing { border-top: 3px solid var(--warning); }
         .col-done { border-top: 3px solid var(--primary); }
 
-        .k-header { padding: 18px 20px; font-weight: 800; font-size: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--primary); }
+        .k-header { padding: 18px 20px; font-weight: 800; font-size: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); color: var(--text); }
+        .k-header.warn { color: var(--warning); }
+        .k-header.prim { color: var(--primary); }
+        
         .k-list { padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; flex: 1; }
         .k-list::-webkit-scrollbar { width: 4px; }
         .k-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        /* CARDS KANBAN */
+        /* CARDS */
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; flex-shrink: 0; transition: transform 0.2s; }
         .card:hover { transform: translateY(-2px); border-color: var(--primary); }
         .card-id { font-size: 10px; font-weight: 800; color: var(--primary); margin-bottom: 8px; font-family: 'DM Mono', monospace; }
@@ -80,26 +83,25 @@
         label { font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
         .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 10px; }
 
-        /* ZONA DE UPLOAD E COLAGEM */
+        /* ANEXOS */
         .upload-zone { border: 2px dashed var(--border); padding: 30px 20px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; background: var(--bg); }
         .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.02); }
         #norm-preview, #task-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
         .file-badge { background: var(--surface); border: 1px solid var(--primary); color: var(--primary); padding: 8px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
-        /* GRID BIBLIOTECA */
+        /* NORMAS E CALENDÁRIO */
         .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; overflow-y: auto; align-content: start; }
         .norm-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; border-top: 4px solid var(--secondary); display: flex; flex-direction: column; }
-        
-        /* CALENDÁRIO */
         .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); height: 100%; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--border); gap: 1px; }
         .cal-cell { background: var(--card); padding: 10px; overflow-y: auto; position: relative; }
         .cal-head { background: var(--surface); padding: 12px; text-align: center; font-size: 11px; font-weight: 800; color: var(--primary); }
 
-        /* TOGGLE THEME */
+        /* THEME TOGGLE */
         .theme-float { position: absolute; bottom: 30px; right: 30px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
         .t-opt { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.2s; }
         .t-opt.active { background: var(--primary); color: #000; }
 
+        /* EXPORTAÇÃO OCULTA */
         #export-area { display: none; }
         .official-doc { background: white; color: black; padding: 50px; font-family: 'Arial', sans-serif; text-transform: uppercase; }
         .doc-header { display: flex; justify-content: space-between; border-bottom: 3px solid #000; padding-bottom: 15px; margin-bottom: 30px; font-weight: 900; }
@@ -138,15 +140,15 @@
             <section id="view-board" style="display: block; height: 100%;">
                 <div class="kanban">
                     <div class="k-col col-todo">
-                        <div class="k-header" style="color: #fff;"><span>PENDENTE</span><span id="c-todo">0</span></div>
+                        <div class="k-header"><span>PENDENTE</span><span id="c-todo">0</span></div>
                         <div class="k-list" id="l-todo"></div>
                     </div>
                     <div class="k-col col-doing">
-                        <div class="k-header" style="color: var(--warning);"><span>EXECUTANDO</span><span id="c-doing">0</span></div>
+                        <div class="k-header warn"><span>EXECUTANDO</span><span id="c-doing">0</span></div>
                         <div class="k-list" id="l-doing"></div>
                     </div>
                     <div class="k-col col-done">
-                        <div class="k-header" style="color: var(--primary);"><span>CONCLUÍDO</span><span id="c-done">0</span></div>
+                        <div class="k-header prim"><span>CONCLUÍDO</span><span id="c-done">0</span></div>
                         <div class="k-list" id="l-done"></div>
                     </div>
                 </div>
@@ -179,7 +181,6 @@
                         <label>CONTEÚDO DA NORMA (DIGITE OU COLE TEXTO AQUI)</label>
                         <textarea id="norm-content" class="fi" style="min-height:180px" placeholder="ART. 1º - FICA DETERMINADO QUE..."></textarea>
                     </div>
-                    
                     <div>
                         <label>ANEXAR ARQUIVO ORIGINAL (OPCIONAL)</label>
                         <div class="upload-zone" onclick="document.getElementById('norm-file').click()">
@@ -188,7 +189,6 @@
                             <div id="norm-preview"></div>
                         </div>
                     </div>
-                    
                     <button class="fi" style="background:var(--secondary); color:#fff; border:none; font-weight:800; cursor:pointer; margin-top:10px" onclick="saveNorm()">REGISTRAR NORMA NA BIBLIOTECA</button>
                 </div>
             </section>
@@ -252,8 +252,8 @@
     </main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V32_DB')) || [];
-        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V32')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V32_FINAL_DB')) || [];
+        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V32_FINAL')) || [];
         let currentNormFile = null;
         let currentTaskFiles = [];
 
@@ -289,6 +289,7 @@
             if(v==='board') renderBoard();
         }
 
+        /* ----- GESTÃO DE EQUIPE ----- */
         function addPersonRow(val = {n:'', c:'', s:''}) {
             const div = document.createElement('div'); div.className = 'person-row';
             div.innerHTML = `
@@ -300,6 +301,7 @@
             document.getElementById('people-list').appendChild(div);
         }
 
+        /* ----- UPLOAD E COLAGEM ----- */
         function handleNormFile(files) {
             const file = files[0]; const reader = new FileReader();
             reader.onload = (e) => { 
@@ -348,6 +350,7 @@
             }); 
         }
 
+        /* ----- SALVAMENTO (CAIXA ALTA FORÇADA) ----- */
         function saveTask() {
             const task = document.getElementById('in-task').value.toUpperCase();
             const date = document.getElementById('in-date').value.toUpperCase();
@@ -362,7 +365,7 @@
                 people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) 
             };
             if(id) db = db.map(t => t.id == id ? entry : t); else db.push(entry);
-            localStorage.setItem('ARARAAZUL_V32_DB', JSON.stringify(db)); 
+            localStorage.setItem('ARARAAZUL_V32_FINAL_DB', JSON.stringify(db)); 
             document.getElementById('edit-id').value = ""; switchView('board');
         }
 
@@ -371,14 +374,16 @@
             const content = document.getElementById('norm-content').value.toUpperCase();
             if(!title) return alert("ERRO: O TÍTULO DA NORMA É OBRIGATÓRIO.");
             norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value.toUpperCase(), file: currentNormFile }); 
-            localStorage.setItem('ARARAAZUL_NORMS_V32', JSON.stringify(norms)); switchView('norms'); 
+            localStorage.setItem('ARARAAZUL_NORMS_V32_FINAL', JSON.stringify(norms)); switchView('norms'); 
         }
 
+        /* ----- RENDERIZAÇÃO ----- */
         function renderBoard() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             db.forEach(t => {
                 const card = document.createElement('div'); card.className = 'card';
+                card.style.borderLeftColor = t.status === 'doing' ? 'var(--warning)' : (t.status === 'done' ? 'var(--primary)' : 'var(--secondary)');
                 card.innerHTML = `
                     <div style="display:flex; justify-content:space-between">
                         <div class="card-id">#${t.seq}</div>
@@ -435,6 +440,7 @@
             }
         }
 
+        /* ----- EXPORTAÇÃO ----- */
         function exportTaskPDF(id) {
             const t = db.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
             let imagesHtml = t.files.filter(f => f.data.startsWith('data:image')).map(f => `<img src="${f.data}" style="width:100%; margin-top:20px; border:2px solid #000">`).join('');
@@ -473,11 +479,9 @@
             setTimeout(() => temp.style.display = 'none', 1000);
         }
 
-        function downloadNorm(id) { 
-            const n = norms.find(x => x.id == id); 
-            const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); 
-        }
+        function downloadNorm(id) { const n = norms.find(x => x.id == id); const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); }
 
+        /* ----- FUNÇÕES AUXILIARES ----- */
         function startEditTask(id) { 
             const t = db.find(x => x.id == id); 
             document.getElementById('edit-id').value = t.id; 
@@ -491,9 +495,9 @@
             switchView('form'); 
         }
 
-        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V32_DB', JSON.stringify(db)); renderBoard(); }
-        function delTask(id) { if(confirm("EXCLUIR PROTOCOLO DE FORMA PERMANENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V32_DB', JSON.stringify(db)); renderBoard(); } }
-        function delNorm(id) { if(confirm("EXCLUIR DIRETRIZ DA BIBLIOTECA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V32', JSON.stringify(norms)); renderNorms(); } }
+        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V32_FINAL_DB', JSON.stringify(db)); renderBoard(); }
+        function delTask(id) { if(confirm("EXCLUIR PROTOCOLO DE FORMA PERMANENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V32_FINAL_DB', JSON.stringify(db)); renderBoard(); } }
+        function delNorm(id) { if(confirm("EXCLUIR DIRETRIZ DA BIBLIOTECA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V32_FINAL', JSON.stringify(norms)); renderNorms(); } }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
         window.onload = () => { renderBoard(); };
