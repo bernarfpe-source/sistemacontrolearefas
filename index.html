@@ -7,124 +7,243 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        :root { --primary: #00D4A0; --secondary: #0066FF; --danger: #FF3B5C; --warning: #FFB800; --sidebar-w: 240px; }
-        body.dark { --bg: #04080F; --surface: #0D1526; --border: #1E2B45; --card: #131C31; --text: #E4EEFF; --text-muted: #4F6A8F; --input: #04080F; --sidebar: #09101D; }
-        body.light { --bg: #F8FAFC; --surface: #FFFFFF; --border: #E2E8F0; --card: #FFFFFF; --text: #1A202C; --text-muted: #64748B; --input: #F1F5F9; --sidebar: #F8FAFC; }
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; width: 100vw; overflow: hidden; display: flex; transition: 0.3s ease; }
+        :root { 
+            --primary: #00D4A0; 
+            --secondary: #0066FF; 
+            --danger: #FF3B5C; 
+            --warning: #FFB800; 
+            --sidebar-w: 250px; 
+            
+            /* CORES EXATAS DO V30 SUPREME DARK MODE */
+            --bg: #05080F; 
+            --surface: #090C15; 
+            --border: #1E2B45; 
+            --card: #0B1220; 
+            --text: #E4EEFF; 
+            --text-muted: #4F6A8F; 
+            --input: #090C15; 
+        }
+        
+        body.light { 
+            --bg: #F8FAFC; --surface: #FFFFFF; --border: #E2E8F0; --card: #FFFFFF; --text: #1A202C; --text-muted: #64748B; --input: #F1F5F9; 
+        }
 
-        /* SIDEBAR ESTRUTURADA */
-        aside { width: var(--sidebar-w); background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; z-index: 100; flex-shrink: 0; }
-        .logo-area { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-        .logo-sq { width: 35px; height: 35px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; }
-        .nav-link { padding: 12px 15px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 700; font-size: 10px; text-transform: uppercase; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
-        .nav-link.active { background: var(--primary); color: #000; box-shadow: 0 4px 12px rgba(0, 212, 160, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; }
+        body { background: var(--bg); color: var(--text); height: 100vh; width: 100vw; overflow: hidden; display: flex; transition: background 0.3s ease; }
 
-        /* MAIN VIEWPORT */
+        /* SIDEBAR IDÊNTICA AO PRINT */
+        aside { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 25px 20px; z-index: 100; flex-shrink: 0; }
+        .logo-area { display: flex; align-items: center; gap: 12px; padding-bottom: 25px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+        .logo-sq { width: 38px; height: 38px; background: linear-gradient(135deg, var(--secondary), #00A3FF); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 14px; }
+        .logo-text h2 { font-size: 13px; font-weight: 800; letter-spacing: 0.5px; }
+        .logo-text p { font-size: 9px; color: var(--primary); font-weight: 700; margin-top: 2px; }
+        
+        .nav-link { padding: 14px 16px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 800; font-size: 11px; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
+        .nav-link.active { background: var(--primary); color: #000; box-shadow: 0 4px 15px rgba(0, 212, 160, 0.15); }
+        .nav-link:hover:not(.active) { background: rgba(255,255,255,0.02); color: var(--text); }
+
+        /* ÁREA PRINCIPAL */
         main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; position: relative; }
-        header { height: 60px; padding: 0 25px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
-        .clock { font-family: 'DM Mono'; font-weight: 700; color: var(--primary); font-size: 16px; }
-        .viewport { flex: 1; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
+        header { height: 70px; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; background: transparent; flex-shrink: 0; border-bottom: 1px solid var(--border); }
+        .page-title { font-weight: 800; font-size: 15px; color: var(--text); }
+        .clock { font-family: 'DM Mono', monospace; font-weight: 800; color: var(--primary); font-size: 18px; letter-spacing: 1px; }
 
-        /* GRID KANBAN FIXO (ZERO SCROLL) */
-        .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; height: 100%; }
-        .k-col { background: rgba(0,0,0,0.02); border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-        .k-header { padding: 12px 15px; border-bottom: 2px solid var(--primary); font-weight: 800; font-size: 11px; text-transform: uppercase; background: var(--surface); display: flex; justify-content: space-between; }
-        .k-list { padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+        .viewport { flex: 1; padding: 25px 30px; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* CARDS ELITE */
-        .card { background: var(--card); border-radius: 10px; padding: 15px; border-left: 5px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
-        .card-id { font-size: 9px; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
-        .card-title { font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
-        .p-tag { font-size: 9px; background: rgba(0, 212, 160, 0.08); padding: 3px 6px; border-radius: 4px; margin-bottom: 3px; display: block; border: 1px solid var(--border); }
-        .card-actions { display: flex; gap: 4px; margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 10px; }
-        .a-btn { flex: 1; padding: 6px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
+        /* KANBAN GRID IDÊNTICO AO V30 SUPREME */
+        .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
+        .k-col { background: var(--card); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+        
+        .col-todo { border-top: 3px solid var(--primary); }
+        .col-doing { border-top: 3px solid var(--warning); }
+        .col-done { border-top: 3px solid var(--primary); }
 
-        /* NORMAS E CALENDÁRIO */
-        .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; overflow-y: auto; }
-        .norm-card { background: var(--card); border-radius: 10px; border-top: 4px solid var(--secondary); padding: 20px; border: 1px solid var(--border); }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); height: 100%; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--border); }
-        .cal-cell { background: var(--bg); padding: 8px; overflow-y: auto; position: relative; border: 0.5px solid var(--border); }
+        .k-header { padding: 18px 20px; font-weight: 800; font-size: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--primary); }
+        .k-list { padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; flex: 1; }
+        .k-list::-webkit-scrollbar { width: 4px; }
+        .k-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        /* FORMULÁRIO */
-        .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; padding: 25px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 100%; }
-        .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; }
-        label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
-        .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 8px; }
+        /* CARDS KANBAN */
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; flex-shrink: 0; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .card-id { font-size: 10px; font-weight: 800; color: var(--primary); margin-bottom: 8px; font-family: 'DM Mono', monospace; }
+        .card-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+        .p-tag { font-size: 9px; background: rgba(255,255,255,0.03); padding: 4px 8px; border-radius: 4px; margin-bottom: 4px; display: inline-block; border: 1px solid var(--border); color: var(--text-muted); }
+        .card-actions { display: flex; gap: 6px; margin-top: 15px; border-top: 1px dashed var(--border); padding-top: 12px; }
+        .a-btn { flex: 1; padding: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 9px; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .a-btn:hover { background: var(--border); }
 
-        .upload-zone { border: 2px dashed var(--border); padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; background: rgba(0,0,0,0.02); }
-        .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.05); }
+        /* FORMULÁRIOS ESTILO LIGHT/DARK RESPONSIVO */
+        .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--card); border-radius: 12px; padding: 35px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 20px; overflow-y: auto; max-height: 100%; }
+        .fi { width: 100%; padding: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; outline: none; transition: 0.2s; }
+        .fi:focus { border-color: var(--primary); }
+        label { font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
+        .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 10px; }
 
-        .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; }
-        .t-opt { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        /* ZONA DE UPLOAD E COLAGEM (MÓDULO NORMA CORRIGIDO) */
+        .upload-zone { border: 2px dashed var(--border); padding: 30px 20px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; background: var(--bg); }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.02); }
+        #norm-preview, #task-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        .file-badge { background: var(--surface); border: 1px solid var(--primary); color: var(--primary); padding: 8px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+
+        /* GRID BIBLIOTECA */
+        .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; overflow-y: auto; align-content: start; }
+        .norm-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; border-top: 4px solid var(--secondary); display: flex; flex-direction: column; }
+        
+        /* CALENDÁRIO */
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); height: 100%; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--border); gap: 1px; }
+        .cal-cell { background: var(--card); padding: 10px; overflow-y: auto; position: relative; }
+        .cal-head { background: var(--surface); padding: 12px; text-align: center; font-size: 11px; font-weight: 800; color: var(--primary); }
+
+        /* TOGGLE THEME (MANTIDO DO PRINT) */
+        .theme-float { position: absolute; bottom: 30px; right: 30px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .t-opt { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.2s; }
         .t-opt.active { background: var(--primary); color: #000; }
 
         #export-area { display: none; }
-        .official-doc { background: white; color: black; padding: 50px; font-family: 'Arial', sans-serif; text-transform: uppercase; }
-        .doc-header { display: flex; justify-content: space-between; border-bottom: 3px solid #000; padding-bottom: 15px; margin-bottom: 30px; font-weight: 900; }
+        .official-doc { background: white; color: black; padding: 50px; font-family: 'Arial', sans-serif; }
     </style>
 </head>
 <body class="dark">
 
     <aside>
-        <div class="logo-area"><div class="logo-sq">RN</div><div><h2 style="font-size: 12px;">ARARAAZUL</h2><p style="font-size: 8px; color: var(--primary);">V31 COMPLIANCE</p></div></div>
+        <div class="logo-area">
+            <div class="logo-sq">RN</div>
+            <div class="logo-text">
+                <h2>ARARAAZUL</h2>
+                <p>V31 SUPREME</p>
+            </div>
+        </div>
         <nav class="nav-group">
             <button class="nav-link active" id="nav-board" onclick="switchView('board')">📊 QUADRO OPERACIONAL</button>
             <button class="nav-link" id="nav-norms" onclick="switchView('norms')">📜 BIBLIOTECA NORMAS</button>
             <button class="nav-link" id="nav-cal" onclick="switchView('cal')">📅 CALENDÁRIO MENSAL</button>
-            <button class="nav-link" id="nav-form" onclick="switchView('form')" style="margin-top:15px; color:var(--primary)">➕ NOVO PROTOCOLO</button>
-            <button class="nav-link" id="nav-form-norm" onclick="switchView('form-norm')" style="color:var(--secondary)">⚖️ CADASTRAR NORMA</button>
+            <div style="height: 20px;"></div>
+            <button class="nav-link" id="nav-form" onclick="switchView('form')" style="color: var(--primary);">➕ NOVO PROTOCOLO</button>
+            <button class="nav-link" id="nav-form-norm" onclick="switchView('form-norm')" style="color: var(--secondary);">⚖️ CADASTRAR NORMA</button>
         </nav>
-        <div style="margin-top:auto; padding-top:15px; border-top:1px solid var(--border)"><p style="font-size:8px; color:var(--text-muted); font-weight:800;">RIO NOVO TRANSPORTES</p></div>
+        <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--border)">
+            <p style="font-size:9px; color:var(--text-muted); font-weight:800; letter-spacing: 0.5px;">RIO NOVO TRANSPORTES</p>
+        </div>
     </aside>
 
     <main>
-        <header><div id="page-title" style="font-weight:800; font-size:13px; text-transform:uppercase">QUADRO OPERACIONAL</div><div id="clock" class="clock">00:00:00</div></header>
+        <header>
+            <div id="page-title" class="page-title">QUADRO OPERACIONAL</div>
+            <div id="clock" class="clock">00:00:00</div>
+        </header>
 
         <div class="viewport">
-            <section id="view-board" style="display: block; height: 100%;"><div class="kanban"><div class="k-col"><div class="k-header">PENDENTE <span id="c-todo">0</span></div><div class="k-list" id="l-todo"></div></div><div class="k-col"><div class="k-header" style="color:var(--warning)">EXECUTANDO <span id="c-doing">0</span></div><div class="k-list" id="l-doing"></div></div><div class="k-col"><div class="k-header" style="color:var(--primary)">CONCLUÍDO <span id="c-done">0</span></div><div class="k-list" id="l-done"></div></div></div></section>
-            <section id="view-norms" style="display: none; height: 100%;"><div id="norms-container" class="norms-grid"></div></section>
-            <section id="view-cal" style="display: none; height: 100%;"><div id="cal-grid" class="cal-grid"></div></section>
+            <section id="view-board" style="display: block; height: 100%;">
+                <div class="kanban">
+                    <div class="k-col col-todo">
+                        <div class="k-header" style="color: #fff;"><span>PENDENTE</span><span id="c-todo">0</span></div>
+                        <div class="k-list" id="l-todo"></div>
+                    </div>
+                    <div class="k-col col-doing">
+                        <div class="k-header" style="color: var(--warning);"><span>EXECUTANDO</span><span id="c-doing">0</span></div>
+                        <div class="k-list" id="l-doing"></div>
+                    </div>
+                    <div class="k-col col-done">
+                        <div class="k-header" style="color: var(--primary);"><span>CONCLUÍDO</span><span id="c-done">0</span></div>
+                        <div class="k-list" id="l-done"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-norms" style="display: none; height: 100%;">
+                <div id="norms-container" class="norms-grid"></div>
+            </section>
+
+            <section id="view-cal" style="display: none; height: 100%;">
+                <div id="cal-grid" class="cal-grid"></div>
+            </section>
 
             <section id="view-form-norm" style="display: none; height: 100%;">
                 <div class="form-view">
-                    <label>TÍTULO DA DIRETRIZ / NORMA</label><input type="text" id="norm-title" class="fi">
-                    <label>CATEGORIA</label><select id="norm-cat" class="fi"><option>OPERACIONAL</option><option>COMERCIAL</option><option>DIVERSAS</option></select>
-                    <label>CONTEÚDO TEXTUAL (OU COLE AQUI)</label><textarea id="norm-content" class="fi" style="min-height:150px"></textarea>
-                    
-                    <label>ANEXO DA NORMA (PDF, DOC OU IMAGEM)</label>
-                    <div class="upload-zone" onclick="document.getElementById('norm-file').click()">
-                        <span id="norm-file-label" style="font-size:10px; font-weight:800">CLIQUE PARA BUSCAR OU COLE (CTRL+V) AQUI</span>
-                        <input type="file" id="norm-file" hidden onchange="handleNormFile(this.files)">
-                        <div id="norm-preview" style="margin-top:10px"></div>
+                    <div>
+                        <label>TÍTULO DA DIRETRIZ</label>
+                        <input type="text" id="norm-title" class="fi" placeholder="EX: CONDUTA DE MOTORISTAS">
+                    </div>
+                    <div>
+                        <label>CATEGORIA OPERACIONAL</label>
+                        <select id="norm-cat" class="fi">
+                            <option value="OPERACIONAL">OPERACIONAL</option>
+                            <option value="COMERCIAL">COMERCIAL</option>
+                            <option value="FROTA">FROTA</option>
+                            <option value="DIVERSAS">DIVERSAS / ADM</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>CONTEÚDO DA NORMA (DIGITE OU COLE TEXTO AQUI)</label>
+                        <textarea id="norm-content" class="fi" style="min-height:180px" placeholder="ART. 1º - FICA DETERMINADO QUE..."></textarea>
                     </div>
                     
-                    <button class="fi" style="background:var(--secondary); color:#fff; font-weight:800; cursor:pointer" onclick="saveNorm()">REGISTRAR NA BIBLIOTECA</button>
+                    <div>
+                        <label>ANEXAR ARQUIVO ORIGINAL (OPCIONAL)</label>
+                        <div class="upload-zone" onclick="document.getElementById('norm-file').click()">
+                            <span id="norm-file-label" style="font-size:11px; font-weight:800; color:var(--text-muted)">CLIQUE PARA BUSCAR ARQUIVO (PDF/DOC) OU COLE IMAGEM (CTRL+V) AQUI</span>
+                            <input type="file" id="norm-file" accept=".pdf,.doc,.docx,image/*" hidden onchange="handleNormFile(this.files)">
+                            <div id="norm-preview"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="fi" style="background:var(--secondary); color:#fff; border:none; font-weight:800; cursor:pointer; margin-top:10px" onclick="saveNorm()">REGISTRAR NORMA NA BIBLIOTECA</button>
                 </div>
             </section>
 
             <section id="view-form" style="display: none; height: 100%;">
                 <div class="form-view">
-                    <div style="display:flex; justify-content:space-between; align-items:center"><label>TÍTULO DA OCORRÊNCIA</label><span id="next-seq" style="font-family:'DM Mono'; color:var(--primary); font-weight:800">#---/2026</span></div>
-                    <input type="text" id="in-task" class="fi">
-                    <label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" style="min-height:100px"></textarea>
-                    <div id="people-list"></div>
-                    <button onclick="addPersonRow()" style="background:var(--secondary); color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer; font-size:10px; font-weight:800">+ INTEGRANTE</button>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px">
-                        <div><label>SETOR</label><select id="in-proj" class="fi"><option>OPERACIONAL</option><option>LOGÍSTICA</option><option>COMERCIAL</option><option>FROTA</option></select></div>
-                        <div><label>DATA</label><input type="date" id="in-date" class="fi"></div>
+                    <div style="display:flex; justify-content:space-between; align-items:flex-end">
+                        <div style="flex:1; margin-right:20px;">
+                            <label>TÍTULO DO REGISTRO / OCORRÊNCIA</label>
+                            <input type="text" id="in-task" class="fi">
+                        </div>
+                        <div style="text-align:right">
+                            <label style="color:var(--primary)">PROTOCOLO SEQUENCIAL</label>
+                            <span id="next-seq" style="font-family:'DM Mono'; color:var(--primary); font-weight:800; font-size:16px;">#---/2026</span>
+                        </div>
                     </div>
-                    <label>ANEXOS (COLE CTRL+V OU BUSQUE)</label>
-                    <div class="upload-zone" onclick="document.getElementById('task-file').click()">
-                        <input type="file" id="task-file" multiple hidden onchange="handleTaskFiles(this.files)">
-                        <div id="task-preview" style="display:flex; gap:10px; overflow-x:auto"></div>
+                    
+                    <label>NARRATIVA DETALHADA</label>
+                    <textarea id="in-desc" class="fi" style="min-height:120px"></textarea>
+                    
+                    <div>
+                        <label>EQUIPE ENVOLVIDA NA OCORRÊNCIA</label>
+                        <div id="people-list"></div>
+                        <button onclick="addPersonRow()" style="background:var(--surface); border:1px dashed var(--secondary); color:var(--text); padding:10px; border-radius:8px; cursor:pointer; font-size:10px; font-weight:800; width:100%; transition:0.2s;">+ ADICIONAR LINHA DE INTEGRANTE</button>
                     </div>
-                    <input type="hidden" id="edit-id"><button class="fi" style="background:var(--primary); color:#000; font-weight:800; cursor:pointer" onclick="saveTask()">SALVAR NO PROTOCOLO</button>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px">
+                        <div>
+                            <label>SETOR VINCULADO</label>
+                            <select id="in-proj" class="fi">
+                                <option>OPERACIONAL</option><option>LOGÍSTICA</option><option>COMERCIAL</option><option>FROTA</option><option>DIRETORIA</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>DATA DA OCORRÊNCIA</label>
+                            <input type="date" id="in-date" class="fi">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label>EVIDÊNCIAS E ANEXOS</label>
+                        <div class="upload-zone" onclick="document.getElementById('task-file').click()">
+                            <span style="font-size:11px; font-weight:800; color:var(--text-muted)">CLIQUE PARA BUSCAR OU COLE IMAGEM DIRETAMENTE AQUI (CTRL+V)</span>
+                            <input type="file" id="task-file" multiple hidden onchange="handleTaskFiles(this.files)">
+                            <div id="task-preview"></div>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="edit-id">
+                    <button class="fi" style="background:var(--primary); color:#000; border:none; font-weight:800; cursor:pointer; margin-top:10px" onclick="saveTask()">SALVAR NO COMANDO CENTRAL</button>
                 </div>
             </section>
         </div>
 
         <div id="export-area"></div>
+
         <div class="theme-float">
             <button class="t-opt active" id="btn-dark" onclick="setTheme('dark')">🌙</button>
             <button class="t-opt" id="btn-light" onclick="setTheme('light')">☀️</button>
@@ -132,41 +251,70 @@
     </main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V31_DB')) || [];
-        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V31')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V31_DB_FIX')) || [];
+        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V31_FIX')) || [];
         let currentNormFile = null;
         let currentTaskFiles = [];
 
-        function setTheme(m) { document.body.className = m; document.querySelectorAll('.t-opt').forEach(b => b.classList.remove('active')); document.getElementById('btn-'+m).classList.add('active'); }
+        function setTheme(m) { 
+            document.body.className = m; 
+            document.querySelectorAll('.t-opt').forEach(b => b.classList.remove('active')); 
+            document.getElementById('btn-'+m).classList.add('active'); 
+        }
 
         function switchView(v) {
             ['board','cal','norms','form','form-norm'].forEach(i => document.getElementById('view-'+i).style.display = i===v ? 'block' : 'none');
             document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
             if(document.getElementById('nav-'+v)) document.getElementById('nav-'+v).classList.add('active');
+            
+            let titles = { 'board': 'QUADRO OPERACIONAL', 'norms': 'BIBLIOTECA DE NORMAS', 'cal': 'CALENDÁRIO MENSAL', 'form': 'CADASTRO DE PROTOCOLO', 'form-norm': 'CADASTRO DE DIRETRIZ' };
+            document.getElementById('page-title').innerText = titles[v];
+
             if(v==='form' && !document.getElementById('edit-id').value) {
-                document.querySelectorAll('.fi').forEach(i => i.value = ""); document.getElementById('people-list').innerHTML = ""; currentTaskFiles = []; document.getElementById('task-preview').innerHTML = ""; addPersonRow();
+                document.querySelectorAll('#view-form .fi').forEach(i => i.value = ""); 
+                document.getElementById('people-list').innerHTML = ""; 
+                currentTaskFiles = []; document.getElementById('task-preview').innerHTML = ""; 
+                addPersonRow();
                 document.getElementById('next-seq').innerText = `#${(db.length + 1).toString().padStart(3, '0')}/2026`;
             }
-            if(v==='form-norm') { currentNormFile = null; document.getElementById('norm-preview').innerHTML = ""; document.getElementById('norm-file-label').innerText = "CLIQUE PARA BUSCAR OU COLE (CTRL+V) AQUI"; }
-            if(v==='cal') renderCalendar(); if(v==='norms') renderNorms(); renderBoard();
+            if(v==='form-norm') { 
+                document.querySelectorAll('#view-form-norm .fi').forEach(i => i.value = ""); 
+                currentNormFile = null; 
+                document.getElementById('norm-preview').innerHTML = ""; 
+                document.getElementById('norm-file-label').style.display = "block";
+            }
+            if(v==='cal') renderCalendar(); 
+            if(v==='norms') renderNorms(); 
+            if(v==='board') renderBoard();
         }
 
+        /* ----- GESTÃO DE EQUIPE ----- */
         function addPersonRow(val = {n:'', c:'', s:''}) {
             const div = document.createElement('div'); div.className = 'person-row';
-            div.innerHTML = `<input type="text" class="fi p-n" placeholder="NOME" value="${val.n}"><input type="text" class="fi p-c" placeholder="CARGO" value="${val.c}"><input type="text" class="fi p-s" placeholder="SETOR" value="${val.s}"><button onclick="this.parentElement.remove()" style="background:var(--danger); border:none; color:#fff; border-radius:4px; cursor:pointer">X</button>`;
+            div.innerHTML = `
+                <input type="text" class="fi p-n" placeholder="NOME DO COLABORADOR" value="${val.n}">
+                <input type="text" class="fi p-c" placeholder="CARGO" value="${val.c}">
+                <input type="text" class="fi p-s" placeholder="SETOR" value="${val.s}">
+                <button onclick="this.parentElement.remove()" style="background:var(--danger); border:none; color:#fff; border-radius:8px; cursor:pointer; font-weight:900">X</button>
+            `;
             document.getElementById('people-list').appendChild(div);
         }
 
+        /* ----- SISTEMA DE ANEXOS E COLAGEM (CTRL+V) ----- */
         function handleNormFile(files) {
             const file = files[0]; const reader = new FileReader();
-            reader.onload = (e) => { currentNormFile = { name: file.name, data: e.target.result }; document.getElementById('norm-preview').innerHTML = `<div style="font-size:10px; color:var(--primary)">ARQUIVO: ${file.name}</div>`; };
+            reader.onload = (e) => { 
+                currentNormFile = { name: file.name, data: e.target.result }; 
+                document.getElementById('norm-file-label').style.display = "none";
+                document.getElementById('norm-preview').innerHTML = `<div class="file-badge">📎 ARQUIVO CARREGADO: ${file.name}</div>`; 
+            };
             reader.readAsDataURL(file);
         }
 
         function handleTaskFiles(files) {
             Array.from(files).forEach(file => {
                 const reader = new FileReader();
-                reader.onload = (e) => { currentTaskFiles.push(e.target.result); updateTaskPreview(); };
+                reader.onload = (e) => { currentTaskFiles.push({name: file.name, data: e.target.result}); updateTaskPreview(); };
                 reader.readAsDataURL(file);
             });
         }
@@ -177,45 +325,78 @@
                 if(items[i].type.indexOf('image') !== -1) {
                     const blob = items[i].getAsFile(); const reader = new FileReader();
                     reader.onload = (ev) => {
-                        if(document.getElementById('view-form-norm').style.display === 'block') { currentNormFile = { name: "IMAGEM_COLADA.PNG", data: ev.target.result }; document.getElementById('norm-preview').innerHTML = `<img src="${ev.target.result}" style="height:50px; border-radius:4px">`; }
-                        else { currentTaskFiles.push(ev.target.result); updateTaskPreview(); }
+                        if(document.getElementById('view-form-norm').style.display === 'block') { 
+                            currentNormFile = { name: "IMAGEM_COLADA.PNG", data: ev.target.result }; 
+                            document.getElementById('norm-file-label').style.display = "none";
+                            document.getElementById('norm-preview').innerHTML = `<img src="${ev.target.result}" style="height:80px; border-radius:6px; border: 1px solid var(--border)">`; 
+                        } else if(document.getElementById('view-form').style.display === 'block') { 
+                            currentTaskFiles.push({name: "PRINT.PNG", data: ev.target.result}); 
+                            updateTaskPreview(); 
+                        }
                     };
                     reader.readAsDataURL(blob);
                 }
             }
         });
 
-        function updateTaskPreview() {
-            const area = document.getElementById('task-preview'); area.innerHTML = '';
-            currentTaskFiles.forEach((src, idx) => { area.innerHTML += `<div style="position:relative"><img src="${src}" style="height:50px; border-radius:4px"><button onclick="currentTaskFiles.splice(${idx},1);updateTaskPreview()" style="position:absolute;top:0;right:0;background:var(--danger);color:#fff;border:none;border-radius:50%;width:15px;height:15px;font-size:8px;">x</button></div>`; });
+        function updateTaskPreview() { 
+            const area = document.getElementById('task-preview'); area.innerHTML = ''; 
+            currentTaskFiles.forEach((f, idx) => { 
+                let content = f.name.includes('.PNG') || f.name.includes('.jpg') || f.data.startsWith('data:image') 
+                    ? `<img src="${f.data}" style="height:60px; width:60px; object-fit:cover; border-radius:6px; border:1px solid var(--border)">`
+                    : `<div style="height:60px; padding:10px; background:var(--surface); border:1px solid var(--border); border-radius:6px; font-size:8px; display:flex; align-items:center">📄 ${f.name.substring(0,8)}</div>`;
+                area.innerHTML += `<div style="position:relative">${content}<button onclick="event.stopPropagation(); currentTaskFiles.splice(${idx},1); updateTaskPreview()" style="position:absolute; top:-5px; right:-5px; background:var(--danger); color:#fff; border:none; border-radius:50%; width:18px; height:18px; font-size:10px; font-weight:900; cursor:pointer; display:flex; align-items:center; justify-content:center">X</button></div>`; 
+            }); 
         }
 
+        /* ----- SALVAMENTO E PROCESSAMENTO ----- */
         function saveTask() {
             const task = document.getElementById('in-task').value.toUpperCase();
             const date = document.getElementById('in-date').value;
-            if(!task || !date) return alert("ERRO: CAMPOS OBRIGATÓRIOS.");
+            if(!task || !date) return alert("ERRO: PREENCHA TÍTULO E DATA OBRIGATORIAMENTE.");
             const id = document.getElementById('edit-id').value;
             const seq = id ? db.find(x=>x.id==id).seq : (db.length + 1).toString().padStart(3, '0') + "/2026";
-            const entry = { id: id ? parseInt(id) : Date.now(), seq, task, desc: document.getElementById('in-desc').value.toUpperCase(), date, proj: document.getElementById('in-proj').value, files: currentTaskFiles, status: id ? db.find(x=>x.id==id).status : 'todo', people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) };
+            const entry = { 
+                id: id ? parseInt(id) : Date.now(), seq, task, 
+                desc: document.getElementById('in-desc').value.toUpperCase(), 
+                date, proj: document.getElementById('in-proj').value, 
+                files: currentTaskFiles, status: id ? db.find(x=>x.id==id).status : 'todo', 
+                people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) 
+            };
             if(id) db = db.map(t => t.id == id ? entry : t); else db.push(entry);
-            localStorage.setItem('ARARAAZUL_V31_DB', JSON.stringify(db)); document.getElementById('edit-id').value = ""; switchView('board');
+            localStorage.setItem('ARARAAZUL_V31_DB_FIX', JSON.stringify(db)); 
+            document.getElementById('edit-id').value = ""; switchView('board');
         }
 
-        function saveNorm() {
-            const title = document.getElementById('norm-title').value.toUpperCase();
+        function saveNorm() { 
+            const title = document.getElementById('norm-title').value.toUpperCase(); 
             const content = document.getElementById('norm-content').value.toUpperCase();
-            if(!title) return alert("ERRO: TÍTULO OBRIGATÓRIO.");
-            norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value, file: currentNormFile });
-            localStorage.setItem('ARARAAZUL_NORMS_V31', JSON.stringify(norms)); switchView('norms');
+            if(!title) return alert("ERRO: O TÍTULO DA NORMA É OBRIGATÓRIO.");
+            norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value, file: currentNormFile }); 
+            localStorage.setItem('ARARAAZUL_NORMS_V31_FIX', JSON.stringify(norms)); switchView('norms'); 
         }
 
+        /* ----- RENDERIZAÇÃO DA INTERFACE ----- */
         function renderBoard() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             db.forEach(t => {
                 const card = document.createElement('div'); card.className = 'card';
-                card.style.borderLeftColor = t.status === 'doing' ? 'var(--warning)' : (t.status === 'done' ? 'var(--primary)' : 'var(--secondary)');
-                card.innerHTML = `<div class="card-id">#${t.seq}</div><div class="card-title">${t.task}</div><div>${t.people.map(p=>`<span class="p-tag">👤 ${p.n}</span>`).join('')}</div><div class="card-actions"><button class="a-btn" onclick="startEditTask(${t.id})">EDITAR</button><button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportTaskPDF(${t.id})">PDF</button>${t.status==='todo'?'<button class="a-btn" onclick="moveTask('+t.id+',\'doing\')">EXEC</button>':''}${t.status==='doing'?'<button class="a-btn" onclick="moveTask('+t.id+',\'done\')">OK</button>':''}<button class="a-btn" style="color:var(--danger)" onclick="delTask(${t.id})">X</button></div>`;
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between">
+                        <div class="card-id">#${t.seq}</div>
+                        <div style="font-size:9px; color:var(--text-muted)">${t.proj}</div>
+                    </div>
+                    <div class="card-title">${t.task}</div>
+                    <div style="margin-bottom:8px">${t.people.map(p=>`<span class="p-tag">👤 ${p.n}</span>`).join('')}</div>
+                    ${t.files && t.files.length > 0 ? `<div style="font-size:8px; color:var(--primary); margin-bottom:5px">📎 ${t.files.length} ANEXO(S)</div>` : ''}
+                    <div class="card-actions">
+                        <button class="a-btn" onclick="startEditTask(${t.id})">EDITAR</button>
+                        <button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportTaskPDF(${t.id})">GERAR PDF</button>
+                        ${t.status==='todo'?'<button class="a-btn" style="background:var(--warning); color:#000; border:none" onclick="moveTask('+t.id+',\'doing\')">EXEC</button>':''}
+                        ${t.status==='doing'?'<button class="a-btn" style="background:var(--primary); color:#000; border:none" onclick="moveTask('+t.id+',\'done\')">OK</button>':''}
+                        <button class="a-btn" style="color:var(--danger); flex: 0.5" onclick="delTask(${t.id})">X</button>
+                    </div>`;
                 cols[t.status].appendChild(card);
             });
             ['todo','doing','done'].forEach(s => document.getElementById('c-'+s).innerText = db.filter(x=>x.status===s).length);
@@ -225,47 +406,102 @@
             const container = document.getElementById('norms-container'); container.innerHTML = '';
             norms.forEach(n => {
                 const card = document.createElement('div'); card.className = 'norm-card';
-                let fileBtn = n.file ? `<button onclick="downloadNorm(${n.id})" style="background:var(--primary); color:#000; border:none; padding:6px; border-radius:4px; cursor:pointer; font-size:8px; font-weight:800; margin-right:5px">DOWLOAD</button>` : '';
-                card.innerHTML = `<div class="p-tag" style="background:var(--primary); color:#000">${n.cat}</div><div class="card-title">${n.title}</div><div class="card-actions">${fileBtn}<button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportNormPDF(${n.id})">PDF</button><button class="a-btn" style="color:var(--danger)" onclick="delNorm(${n.id})">X</button></div>`;
+                let fileBtn = n.file ? `<button onclick="downloadNorm(${n.id})" style="background:var(--bg); border:1px solid var(--primary); color:var(--primary); padding:8px; border-radius:4px; cursor:pointer; font-size:9px; font-weight:800; width:100%; margin-bottom:5px; transition:0.2s">⬇️ BAIXAR ARQUIVO ANEXO</button>` : '';
+                card.innerHTML = `
+                    <div class="card-id">${n.cat}</div>
+                    <div class="card-title" style="font-size:15px">${n.title}</div>
+                    <div style="font-size:10px; color:var(--text-muted); margin-bottom:15px; flex:1">${n.content.substring(0,80)}${n.content.length > 80 ? '...' : ''}</div>
+                    ${fileBtn}
+                    <div style="display:flex; gap:5px;">
+                        <button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportNormPDF(${n.id})">GERAR PDF DO TEXTO</button>
+                        <button class="a-btn" style="color:var(--danger); flex:0.3" onclick="delNorm(${n.id})">X</button>
+                    </div>`;
                 container.appendChild(card);
             });
         }
 
         function renderCalendar() {
             const grid = document.getElementById('cal-grid'); grid.innerHTML = '';
-            ['DOM','SEG','TER','QUA','QUI','SEX','SÁB'].forEach(d => grid.innerHTML += `<div style="padding:10px; font-weight:800; text-align:center; background:var(--surface); border:0.5px solid var(--border); font-size:10px">${d}</div>`);
+            ['DOM','SEG','TER','QUA','QUI','SEX','SÁB'].forEach(d => grid.innerHTML += `<div class="cal-head">${d}</div>`);
             const now = new Date(); const first = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
             const last = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-            for(let i=0; i<first; i++) grid.innerHTML += `<div style="background:rgba(0,0,0,0.05); border:0.5px solid var(--border)"></div>`;
+            for(let i=0; i<first; i++) grid.innerHTML += `<div style="background:var(--bg); border:0.5px solid var(--border)"></div>`;
             for(let d=1; d<=last; d++) {
                 const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-                const cell = document.createElement('div'); cell.className = 'cal-cell'; cell.innerHTML = `<div style="font-size:10px; font-weight:800; color:var(--text-muted)">${d}</div>`;
-                db.filter(t => t.date === dateStr).forEach(t => { cell.innerHTML += `<div style="font-size:7px; padding:2px; margin-bottom:1px; border-radius:2px" class="ev-${t.status}">${t.task.substring(0,10)}</div>`; });
+                const cell = document.createElement('div'); cell.className = 'cal-cell'; cell.style.border = '0.5px solid var(--border)';
+                cell.innerHTML = `<div style="font-size:12px; font-weight:800; color:var(--text-muted); margin-bottom:5px">${d}</div>`;
+                db.filter(t => t.date === dateStr).forEach(t => { 
+                    let color = t.status === 'done' ? 'var(--primary)' : (t.status === 'doing' ? 'var(--warning)' : 'var(--secondary)');
+                    cell.innerHTML += `<div style="font-size:8px; padding:4px; margin-bottom:2px; border-radius:4px; background:rgba(255,255,255,0.05); color:${color}; font-weight:800; border-left:2px solid ${color}; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="${t.task}">${t.task}</div>`; 
+                });
                 grid.appendChild(cell);
             }
         }
 
+        /* ----- EXPORTAÇÃO OFICIAL ----- */
         function exportTaskPDF(id) {
             const t = db.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
-            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO #${t.seq}</div></div><h2>OCORRÊNCIA: ${t.task}</h2><p>DATA: ${t.date} | SETOR: ${t.proj}</p><hr><p><b>NARRATIVA:</b><br><br>${t.desc}</p><hr><p><b>EQUIPE:</b></p><ul>${t.people.map(p => `<li>${p.n} - ${p.c} (${p.s})</li>`).join('')}</ul>${t.files.map(f => `<img src="${f}" style="width:100%; margin-top:20px; border:1px solid #000">`).join('')}</div>`;
-            html2pdf().from(temp).save(`PROTOCOLO_${t.seq.replace('/','_')}.pdf`); setTimeout(() => temp.style.display = 'none', 500);
+            let imagesHtml = t.files.filter(f => f.data.startsWith('data:image')).map(f => `<img src="${f.data}" style="width:100%; margin-top:20px; border:2px solid #000">`).join('');
+            temp.innerHTML = `
+                <div class="official-doc">
+                    <div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO DE REGISTRO #${t.seq}</div></div>
+                    <h2 style="margin-bottom:15px; color:#000">${t.task}</h2>
+                    <p style="font-size:12px"><b>DATA DO REGISTRO:</b> ${t.date} | <b>SETOR:</b> ${t.proj}</p>
+                    <hr style="margin:25px 0; border:1px solid #ccc">
+                    <h4 style="margin-bottom:10px">NARRATIVA / DESCRIÇÃO:</h4>
+                    <p style="font-size:14px; line-height:1.6; white-space:pre-wrap">${t.desc}</p>
+                    <hr style="margin:25px 0; border:1px solid #ccc">
+                    <h4 style="margin-bottom:10px">EQUIPE DE VINCULAÇÃO:</h4>
+                    <ul style="font-size:12px; line-height:1.8">
+                        ${t.people.map(p => `<li><b>NOME:</b> ${p.n} | <b>CARGO:</b> ${p.c} | <b>SETOR:</b> ${p.s}</li>`).join('')}
+                    </ul>
+                    ${imagesHtml}
+                </div>`;
+            html2pdf().set({ margin: 10, filename: `PROTOCOLO_${t.seq.replace('/','_')}.pdf`, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(temp).save(); 
+            setTimeout(() => temp.style.display = 'none', 1000);
         }
 
         function exportNormPDF(id) {
             const n = norms.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
-            let img = (n.file && n.file.name.includes('.PNG')) ? `<img src="${n.file.data}" style="width:100%; margin-top:20px">` : '';
-            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO</div><div>DIRETRIZ #${n.id}</div></div><h2>NORMA: ${n.title}</h2><hr><p>${n.content}</p>${img}</div>`;
-            html2pdf().from(temp).save(`NORMA_${n.id}.pdf`); setTimeout(() => temp.style.display = 'none', 500);
+            let img = (n.file && n.file.data.startsWith('data:image')) ? `<img src="${n.file.data}" style="width:100%; margin-top:30px; border:2px solid #000">` : '';
+            temp.innerHTML = `
+                <div class="official-doc">
+                    <div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>DIRETRIZ CORPORATIVA</div></div>
+                    <h2 style="margin-bottom:10px; font-size:22px; color:#000">${n.title}</h2>
+                    <p style="font-size:12px; background:#f0f0f0; padding:5px; display:inline-block"><b>CATEGORIA:</b> ${n.cat}</p>
+                    <hr style="margin:25px 0; border:1px solid #ccc">
+                    <div style="font-size:14px; line-height:1.8; text-align:justify; white-space:pre-wrap">${n.content}</div>
+                    ${img}
+                </div>`;
+            html2pdf().set({ margin: 15, filename: `NORMA_${n.id}.pdf` }).from(temp).save(); 
+            setTimeout(() => temp.style.display = 'none', 1000);
         }
 
-        function downloadNorm(id) { const n = norms.find(x => x.id == id); const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); }
-        function startEditTask(id) { const t = db.find(x => x.id == id); document.getElementById('edit-id').value = t.id; document.getElementById('in-task').value = t.task; document.getElementById('in-desc').value = t.desc; document.getElementById('in-date').value = t.date; document.getElementById('people-list').innerHTML = ''; t.people.forEach(p => addPersonRow(p)); currentTaskFiles = t.files || []; updateTaskPreview(); switchView('form'); }
-        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V31_DB', JSON.stringify(db)); renderBoard(); }
-        function delTask(id) { if(confirm("EXCLUIR?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V31_DB', JSON.stringify(db)); renderBoard(); } }
-        function delNorm(id) { if(confirm("EXCLUIR?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V31', JSON.stringify(norms)); renderNorms(); } }
+        function downloadNorm(id) { 
+            const n = norms.find(x => x.id == id); 
+            const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); 
+        }
+
+        /* ----- CONTROLES ----- */
+        function startEditTask(id) { 
+            const t = db.find(x => x.id == id); 
+            document.getElementById('edit-id').value = t.id; 
+            document.getElementById('in-task').value = t.task; 
+            document.getElementById('in-desc').value = t.desc; 
+            document.getElementById('in-date').value = t.date; 
+            document.getElementById('in-proj').value = t.proj;
+            document.getElementById('next-seq').innerText = `#${t.seq}`;
+            document.getElementById('people-list').innerHTML = ''; t.people.forEach(p => addPersonRow(p)); 
+            currentTaskFiles = t.files || []; updateTaskPreview(); 
+            switchView('form'); 
+        }
+
+        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V31_DB_FIX', JSON.stringify(db)); renderBoard(); }
+        function delTask(id) { if(confirm("EXCLUIR PROTOCOLO DE FORMA PERMANENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V31_DB_FIX', JSON.stringify(db)); renderBoard(); } }
+        function delNorm(id) { if(confirm("EXCLUIR DIRETRIZ DA BIBLIOTECA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V31_FIX', JSON.stringify(norms)); renderNorms(); } }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
-        window.onload = renderBoard;
+        window.onload = () => { renderBoard(); };
     </script>
 </body>
 </html>
