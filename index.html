@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARARAAZUL V34 - SUPREME ENTERPRISE</title>
+    <title>ARARAAZUL V35 - ULTIMATE EDITION</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
@@ -59,7 +59,7 @@
         .viewport { flex: 1; padding: 25px 30px; overflow: hidden; display: flex; flex-direction: column; }
         .view-section { display: none; height: 100%; flex-direction: column; overflow: hidden; }
 
-        /* FILTROS DE SETOR (CLUSTERS) */
+        /* FILTROS DE SETOR */
         .sector-filters { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; flex-shrink: 0; }
         .sector-filters::-webkit-scrollbar { height: 4px; }
         .sector-filters::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
@@ -101,13 +101,13 @@
         label { font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
         .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 10px; }
 
-        /* ZONA DE ANEXOS / COLAGEM */
+        /* ZONA DE ANEXOS */
         .upload-zone { border: 2px dashed var(--border); padding: 30px 20px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; background: var(--bg); }
         .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.02); }
         #norm-preview, #task-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
         .file-badge { background: var(--surface); border: 1px solid var(--primary); color: var(--primary); padding: 8px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
-        /* GRID BIBLIOTECA NORMAS */
+        /* BIBLIOTECA NORMAS */
         .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; overflow-y: auto; align-content: start; flex: 1; min-height: 0; }
         .norm-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; border-top: 4px solid var(--secondary); display: flex; flex-direction: column; }
         
@@ -116,12 +116,12 @@
         .cal-cell { background: var(--card); padding: 10px; overflow-y: auto; position: relative; }
         .cal-head { background: var(--surface); padding: 12px; text-align: center; font-size: 11px; font-weight: 800; color: var(--primary); }
 
-        /* TOGGLE THEME */
+        /* TEMA */
         .theme-float { position: absolute; bottom: 30px; right: 30px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
         .t-opt { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.2s; }
         .t-opt.active { background: var(--primary); color: #000; }
 
-        /* EXPORTAÇÃO OCULTA */
+        /* EXPORTAÇÃO (PDF) */
         #export-area { display: none; }
         .official-doc { background: white; color: black; padding: 50px; font-family: 'Arial', sans-serif; text-transform: uppercase; }
         .doc-header { display: flex; justify-content: space-between; border-bottom: 3px solid #000; padding-bottom: 15px; margin-bottom: 30px; font-weight: 900; }
@@ -134,7 +134,7 @@
             <div class="logo-sq">AA</div>
             <div class="logo-text">
                 <h2>ARARAAZUL</h2>
-                <p>V34 ENTERPRISE</p>
+                <p>V35 ULTIMATE</p>
             </div>
         </div>
         <nav class="nav-group">
@@ -175,15 +175,15 @@
 
                 <div class="kanban">
                     <div class="k-col col-todo">
-                        <div class="k-header"><span>PENDENTE</span><span id="c-todo">0</span></div>
+                        <div class="k-header" style="color: var(--text);"><span>PENDENTE</span><span id="c-todo">0</span></div>
                         <div class="k-list" id="l-todo"></div>
                     </div>
                     <div class="k-col col-doing">
-                        <div class="k-header warn"><span>EXECUTANDO</span><span id="c-doing">0</span></div>
+                        <div class="k-header warn" style="color: var(--warning);"><span>EXECUTANDO</span><span id="c-doing">0</span></div>
                         <div class="k-list" id="l-doing"></div>
                     </div>
                     <div class="k-col col-done">
-                        <div class="k-header prim"><span>CONCLUÍDO</span><span id="c-done">0</span></div>
+                        <div class="k-header prim" style="color: var(--primary);"><span>CONCLUÍDO</span><span id="c-done">0</span></div>
                         <div class="k-list" id="l-done"></div>
                     </div>
                 </div>
@@ -291,9 +291,10 @@
     </main>
 
     <script>
-        // State Management
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V34_MASTER')) || [];
-        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V34_MASTER')) || [];
+        // DB Inicialization (Nova chave para evitar conflitos de cache antigos)
+        let db = JSON.parse(localStorage.getItem('AA_V35_DB')) || [];
+        let norms = JSON.parse(localStorage.getItem('AA_NORMS_V35')) || [];
+        
         let currentNormFile = null;
         let currentTaskFiles = [];
         let currentSectorFilter = 'TODOS';
@@ -306,7 +307,7 @@
             document.getElementById('btn-'+m).classList.add('active'); 
         }
 
-        /* ----- CONTROLE DE NAVEGAÇÃO ----- */
+        /* ----- CONTROLES DE VISTA ----- */
         function switchView(v) {
             document.querySelectorAll('.view-section').forEach(el => el.style.display = 'none');
             document.getElementById('view-' + v).style.display = 'flex';
@@ -336,7 +337,7 @@
             if(v==='board') renderBoard();
         }
 
-        /* ----- PESQUISA E FILTROS (CLUSTERS) ----- */
+        /* ----- PESQUISA E FILTROS ----- */
         function handleSearch() {
             currentSearchTerm = document.getElementById('global-search').value.toUpperCase();
             if(document.getElementById('view-board').style.display === 'flex') renderBoard();
@@ -412,7 +413,7 @@
             }); 
         }
 
-        /* ----- SALVAMENTO (CAIXA ALTA FORÇADA E NÚMERO SEQUENCIAL) ----- */
+        /* ----- SALVAMENTO (CAIXA ALTA) ----- */
         function saveTask() {
             const task = document.getElementById('in-task').value.toUpperCase();
             const date = document.getElementById('in-date').value.toUpperCase();
@@ -430,7 +431,7 @@
                 people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) 
             };
             if(id) db = db.map(t => t.id == id ? entry : t); else db.push(entry);
-            localStorage.setItem('ARARAAZUL_V34_MASTER', JSON.stringify(db)); 
+            localStorage.setItem('AA_V35_DB', JSON.stringify(db)); 
             document.getElementById('edit-id').value = ""; switchView('board');
         }
 
@@ -439,22 +440,20 @@
             const content = document.getElementById('norm-content').value.toUpperCase();
             if(!title) return alert("ERRO: O TÍTULO DA NORMA É OBRIGATÓRIO.");
             norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value.toUpperCase(), file: currentNormFile }); 
-            localStorage.setItem('ARARAAZUL_NORMS_V34_MASTER', JSON.stringify(norms)); switchView('norms'); 
+            localStorage.setItem('AA_NORMS_V35', JSON.stringify(norms)); switchView('norms'); 
         }
 
-        /* ----- RENDERIZAÇÃO INTELIGENTE (COM FILTROS E PESQUISA) ----- */
+        /* ----- RENDERIZAÇÃO INTELIGENTE ----- */
         function renderBoard() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             
             let filteredDb = db;
 
-            // Apply Sector Filter
             if (currentSectorFilter !== 'TODOS') {
                 filteredDb = filteredDb.filter(t => t.proj === currentSectorFilter);
             }
 
-            // Apply Search Filter
             if (currentSearchTerm) {
                 filteredDb = filteredDb.filter(t => 
                     t.task.includes(currentSearchTerm) || 
@@ -535,7 +534,7 @@
             }
         }
 
-        /* ----- EXPORTAÇÃO OFICIAL EM PDF ----- */
+        /* ----- EXPORTAÇÃO OFICIAL ----- */
         function exportTaskPDF(id) {
             const t = db.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
             let imagesHtml = t.files.filter(f => f.data.startsWith('data:image')).map(f => `<img src="${f.data}" style="width:100%; margin-top:20px; border:2px solid #000">`).join('');
@@ -579,7 +578,7 @@
             const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); 
         }
 
-        /* ----- AÇÕES AUXILIARES ----- */
+        /* ----- CONTROLES INTERNOS ----- */
         function startEditTask(id) { 
             const t = db.find(x => x.id == id); 
             document.getElementById('edit-id').value = t.id; 
@@ -594,9 +593,9 @@
             switchView('form'); 
         }
 
-        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V34_MASTER', JSON.stringify(db)); renderBoard(); }
-        function delTask(id) { if(confirm("EXCLUIR PROTOCOLO DE FORMA PERMANENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V34_MASTER', JSON.stringify(db)); renderBoard(); } }
-        function delNorm(id) { if(confirm("EXCLUIR DIRETRIZ DA BIBLIOTECA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V34_MASTER', JSON.stringify(norms)); renderNorms(); } }
+        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('AA_V35_DB', JSON.stringify(db)); renderBoard(); }
+        function delTask(id) { if(confirm("EXCLUIR PROTOCOLO DE FORMA PERMANENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('AA_V35_DB', JSON.stringify(db)); renderBoard(); } }
+        function delNorm(id) { if(confirm("EXCLUIR DIRETRIZ DA BIBLIOTECA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('AA_NORMS_V35', JSON.stringify(norms)); renderNorms(); } }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
         window.onload = () => { switchView('board'); };
