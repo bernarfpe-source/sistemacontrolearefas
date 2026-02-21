@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARARAAZUL V36 - OMEGA</title>
+    <title>ARARAAZUL V34 - ENTERPRISE</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
@@ -12,36 +12,42 @@
             --secondary: #0080FF; 
             --danger: #FF3B5C; 
             --warning: #FFB800; 
-            --sidebar-w: 260px; 
+            --sidebar-w: 250px; 
         }
         
         /* MODO CLARO (PADRÃO) */
         body.light { 
-            --bg: #F4F7FE; 
+            --bg: #F8FAFC; 
             --surface: #FFFFFF; 
             --border: #E2E8F0; 
             --card: #FFFFFF; 
             --text: #1A202C; 
             --text-muted: #64748B; 
-            --input: #F8FAFC; 
+            --input: #F1F5F9; 
         }
 
         /* MODO ESCURO */
         body.dark { 
-            --bg: #05080F; --surface: #090C15; --border: #1E2B45; --card: #0B1220; --text: #E4EEFF; --text-muted: #4F6A8F; --input: #090C15; 
+            --bg: #05080F; 
+            --surface: #090C15; 
+            --border: #1E2B45; 
+            --card: #0B1220; 
+            --text: #E4EEFF; 
+            --text-muted: #4F6A8F; 
+            --input: #090C15; 
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; }
         body { background: var(--bg); color: var(--text); height: 100vh; width: 100vw; overflow: hidden; display: flex; transition: background 0.3s ease; }
 
-        /* SIDEBAR (IDÊNTICA AO MODELO) */
-        aside { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 25px; z-index: 100; flex-shrink: 0; }
-        .logo-area { display: flex; align-items: center; gap: 15px; padding-bottom: 25px; border-bottom: 1px solid var(--border); margin-bottom: 25px; }
+        /* SIDEBAR (IDÊNTICA AOS PRINTS V34 ENTERPRISE) */
+        aside { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 25px 20px; z-index: 100; flex-shrink: 0; }
+        .logo-area { display: flex; align-items: center; gap: 15px; padding-bottom: 25px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
         .logo-sq { width: 45px; height: 45px; background-color: var(--secondary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 18px; }
         .logo-text h2 { font-size: 14px; font-weight: 800; letter-spacing: 0.5px; color: var(--text); }
         .logo-text p { font-size: 10px; color: var(--primary); font-weight: 800; margin-top: 2px; }
         
-        .nav-link { padding: 14px 18px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 800; font-size: 11px; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
+        .nav-link { padding: 14px 16px; border: none; background: transparent; color: var(--text-muted); text-align: left; cursor: pointer; font-weight: 800; font-size: 11px; border-radius: 8px; transition: 0.2s; margin-bottom: 5px; width: 100%; display: flex; align-items: center; gap: 10px; outline: none; }
         .nav-link.active { background: var(--primary); color: #000; box-shadow: 0 4px 15px rgba(0, 212, 160, 0.2); }
         .nav-link:hover:not(.active) { background: rgba(0,0,0,0.03); color: var(--text); }
 
@@ -50,11 +56,11 @@
         header { height: 80px; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); flex-shrink: 0; border-bottom: 1px solid var(--border); }
         .page-title { font-weight: 800; font-size: 16px; color: var(--text); }
         
-        /* BARRA DE PESQUISA SUPERIOR */
+        /* BARRA DE PESQUISA */
         .search-container { display: flex; align-items: center; gap: 20px; }
         .search-box { background: var(--input); border: 1px solid var(--border); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; width: 300px; transition: 0.2s; }
         .search-box:focus-within { border-color: var(--primary); }
-        .search-box input { background: transparent; border: none; outline: none; color: var(--text); font-size: 11px; font-weight: 800; width: 100%; font-family: inherit; text-transform: uppercase; }
+        .search-box input { background: transparent; border: none; outline: none; color: var(--text); font-size: 11px; font-weight: 800; width: 100%; font-family: inherit; }
         .search-box input::placeholder { color: var(--text-muted); }
         
         .clock { font-family: 'DM Mono', monospace; font-weight: 800; color: var(--primary); font-size: 18px; letter-spacing: 1px; }
@@ -78,6 +84,7 @@
         .col-doing { border-top: 4px solid var(--warning); }
         .col-done { border-top: 4px solid var(--primary); }
 
+        /* CABEÇALHO DO KANBAN CORRIGIDO PARA MODO CLARO */
         .k-header { padding: 18px 20px; font-weight: 800; font-size: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
         .header-todo { color: var(--text); }
         .header-doing { color: var(--warning); }
@@ -98,20 +105,20 @@
         .a-btn { flex: 1; padding: 8px; background: var(--input); border: 1px solid var(--border); color: var(--text); font-size: 9px; font-weight: 800; cursor: pointer; border-radius: 6px; transition: 0.2s; text-transform: uppercase; }
         .a-btn:hover { background: var(--border); }
 
-        /* FORMULÁRIOS COM DATA FINAL E CAIXA ALTA FORÇADA */
+        /* FORMULÁRIOS */
         .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--card); border-radius: 12px; padding: 35px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 20px; overflow-y: auto; max-height: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
         .fi { width: 100%; padding: 15px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; font-weight: 700; outline: none; transition: 0.2s; text-transform: uppercase; }
         .fi:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,212,160,0.1); }
         label { font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 8px; display: block; letter-spacing: 0.5px; }
         .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 10px; }
 
-        /* MÓDULO DE UPLOAD E COLAGEM (CTRL+V) */
+        /* UPLOAD & COLAGEM DE ANEXOS */
         .upload-zone { border: 2px dashed var(--border); padding: 30px 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; background: var(--input); }
         .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.05); }
         #norm-preview, #task-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
         .file-badge { background: var(--surface); border: 1px solid var(--primary); color: var(--primary); padding: 8px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
-        /* GRID BIBLIOTECA NORMAS */
+        /* BIBLIOTECA DE NORMAS */
         .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; overflow-y: auto; align-content: start; flex: 1; min-height: 0; padding-bottom: 20px;}
         .norm-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; border-top: 4px solid var(--secondary); display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
         
@@ -120,12 +127,12 @@
         .cal-cell { background: var(--card); padding: 15px; overflow-y: auto; position: relative; }
         .cal-head { background: var(--surface); padding: 15px; text-align: center; font-size: 12px; font-weight: 800; color: var(--primary); }
 
-        /* TEMA TOGGLE */
+        /* TOGGLE DE TEMA */
         .theme-float { position: absolute; bottom: 30px; right: 30px; display: flex; background: var(--surface); padding: 6px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .t-opt { width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: 0.2s; }
         .t-opt.active { background: var(--primary); color: #000; }
 
-        /* EXPORTAÇÃO PDF OFICIAL */
+        /* PDF HIDDEN TEMPLATE */
         #export-area { display: none; }
         .official-doc { background: white; color: black; padding: 50px; font-family: 'Arial', sans-serif; text-transform: uppercase; }
         .doc-header { display: flex; justify-content: space-between; border-bottom: 3px solid #000; padding-bottom: 15px; margin-bottom: 30px; font-weight: 900; font-size: 18px; }
@@ -133,10 +140,10 @@
 </head>
 <body class="light"> <aside>
         <div class="logo-area">
-            <div class="logo-sq">AA</div>
+            <div class="logo-sq">RN</div>
             <div class="logo-text">
                 <h2>ARARAAZUL</h2>
-                <p>V36 OMEGA</p>
+                <p>V34 ENTERPRISE</p>
             </div>
         </div>
         <nav class="nav-group">
@@ -150,7 +157,7 @@
             <button class="nav-link" id="nav-form-norm" onclick="switchView('form-norm')" style="color: var(--secondary);">⚖️ CADASTRAR NORMA</button>
         </nav>
         <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--border)">
-            <p style="font-size:10px; color:var(--text-muted); font-weight:800; letter-spacing: 0.5px;">SISTEMA CENTRAL DE COMANDO</p>
+            <p style="font-size:10px; color:var(--text-muted); font-weight:800; letter-spacing: 0.5px;">RIO NOVO TRANSPORTES</p>
         </div>
     </aside>
 
@@ -160,7 +167,7 @@
             <div class="search-container">
                 <div class="search-box">
                     <span style="font-size:14px; margin-right:10px">🔍</span>
-                    <input type="text" id="global-search" placeholder="PESQUISAR PROJETOS, NORMAS, EQUIPE..." oninput="handleSearch()">
+                    <input type="text" id="global-search" placeholder="PESQUISAR PROJETOS E NORMAS..." oninput="handleSearch()">
                 </div>
                 <div id="clock" class="clock">00:00:00</div>
             </div>
@@ -295,9 +302,9 @@
     </main>
 
     <script>
-        // BANCO DE DADOS CORE (CHAVE V36 PARA EVITAR CACHE SUJO)
-        let db = JSON.parse(localStorage.getItem('AA_V36_OMEGA_DB')) || [];
-        let norms = JSON.parse(localStorage.getItem('AA_NORMS_V36_OMEGA')) || [];
+        // CORE DATABASE
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V34_PRO_DB')) || [];
+        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V34_PRO')) || [];
         
         let currentNormFile = null;
         let currentTaskFiles = [];
@@ -311,7 +318,7 @@
             document.getElementById('btn-'+m).classList.add('active'); 
         }
 
-        /* ----- CONTROLE DE NAVEGAÇÃO E TÍTULOS ----- */
+        /* ----- CONTROLE DE NAVEGAÇÃO ----- */
         function switchView(v) {
             document.querySelectorAll('.view-section').forEach(el => el.style.display = 'none');
             document.getElementById('view-' + v).style.display = 'flex';
@@ -319,7 +326,7 @@
             document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
             if(document.getElementById('nav-'+v)) document.getElementById('nav-'+v).classList.add('active');
             
-            let titles = { 'board': 'QUADRO OPERACIONAL', 'norms': 'BIBLIOTECA DE NORMAS', 'cal': 'CALENDÁRIO MENSAL', 'form': 'CADASTRO DE PROJETO/PENDÊNCIA', 'form-norm': 'CADASTRO DE DIRETRIZ CORPORATIVA' };
+            let titles = { 'board': 'QUADRO OPERACIONAL', 'norms': 'BIBLIOTECA DE NORMAS', 'cal': 'CALENDÁRIO MENSAL', 'form': 'CADASTRO DE PROJETO E PENDÊNCIA', 'form-norm': 'CADASTRO DE DIRETRIZ CORPORATIVA' };
             document.getElementById('page-title').innerText = titles[v];
 
             if(v==='form' && !document.getElementById('edit-id').value) {
@@ -341,7 +348,7 @@
             if(v==='board') renderBoard();
         }
 
-        /* ----- MÓDULO DE PESQUISA GERAL E FILTROS ----- */
+        /* ----- MÓDULO DE PESQUISA E FILTROS ----- */
         function handleSearch() {
             currentSearchTerm = document.getElementById('global-search').value.toUpperCase();
             if(document.getElementById('view-board').style.display === 'flex') renderBoard();
@@ -356,7 +363,7 @@
             renderBoard();
         }
 
-        /* ----- GERENCIAMENTO DINÂMICO DE EQUIPE ----- */
+        /* ----- GESTÃO DE EQUIPE ----- */
         function addPersonRow(val = {n:'', c:'', s:''}) {
             const div = document.createElement('div'); div.className = 'person-row';
             div.innerHTML = `
@@ -368,7 +375,7 @@
             document.getElementById('people-list').appendChild(div);
         }
 
-        /* ----- MÓDULO SUPREMO DE UPLOAD E COLAGEM (CTRL+V) ----- */
+        /* ----- MÓDULO DE UPLOAD E COLAGEM (CTRL+V) ----- */
         function handleNormFile(files) {
             const file = files[0]; const reader = new FileReader();
             reader.onload = (e) => { 
@@ -435,7 +442,7 @@
                 people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) 
             };
             if(id) db = db.map(t => t.id == id ? entry : t); else db.push(entry);
-            localStorage.setItem('AA_V36_OMEGA_DB', JSON.stringify(db)); 
+            localStorage.setItem('ARARAAZUL_V34_PRO_DB', JSON.stringify(db)); 
             document.getElementById('edit-id').value = ""; switchView('board');
         }
 
@@ -444,10 +451,10 @@
             const content = document.getElementById('norm-content').value.toUpperCase();
             if(!title) return alert("ERRO DO SISTEMA: O TÍTULO DA DIRETRIZ É OBRIGATÓRIO.");
             norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value.toUpperCase(), file: currentNormFile }); 
-            localStorage.setItem('AA_NORMS_V36_OMEGA', JSON.stringify(norms)); switchView('norms'); 
+            localStorage.setItem('ARARAAZUL_NORMS_V34_PRO', JSON.stringify(norms)); switchView('norms'); 
         }
 
-        /* ----- RENDERIZAÇÃO INTELIGENTE DO KANBAN ----- */
+        /* ----- RENDERIZAÇÃO DO KANBAN ----- */
         function renderBoard() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
@@ -538,13 +545,13 @@
             }
         }
 
-        /* ----- EXPORTAÇÃO OFICIAL PDF E NEUTRA ----- */
+        /* ----- EXPORTAÇÃO DE PDF CORPORATIVO ----- */
         function exportTaskPDF(id) {
             const t = db.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
             let imagesHtml = t.files.filter(f => f.data.startsWith('data:image')).map(f => `<img src="${f.data}" style="width:100%; margin-top:20px; border:2px solid #000">`).join('');
             temp.innerHTML = `
                 <div class="official-doc">
-                    <div class="doc-header"><div>SISTEMA CENTRAL DE COMANDO</div><div>PROTOCOLO DE PROJETO #${t.seq}</div></div>
+                    <div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO DE PROJETO #${t.seq}</div></div>
                     <h2 style="margin-bottom:15px; color:#000">${t.task}</h2>
                     <p style="font-size:12px"><b>DATA DO REGISTRO:</b> ${t.date} | <b>PRAZO FINAL:</b> ${t.dateFinal ? t.dateFinal.split('-').reverse().join('/') : 'NÃO DEFINIDO'} | <b>SETOR VINCULADO:</b> ${t.proj}</p>
                     <hr style="margin:25px 0; border:1px solid #ccc">
@@ -566,7 +573,7 @@
             let img = (n.file && n.file.data.startsWith('data:image')) ? `<img src="${n.file.data}" style="width:100%; margin-top:30px; border:2px solid #000">` : '';
             temp.innerHTML = `
                 <div class="official-doc">
-                    <div class="doc-header"><div>SISTEMA CENTRAL DE COMANDO</div><div>DIRETRIZ CORPORATIVA</div></div>
+                    <div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>DIRETRIZ CORPORATIVA</div></div>
                     <h2 style="margin-bottom:10px; font-size:22px; color:#000">${n.title}</h2>
                     <p style="font-size:12px; background:#f0f0f0; padding:5px; display:inline-block"><b>CATEGORIA:</b> ${n.cat}</p>
                     <hr style="margin:25px 0; border:1px solid #ccc">
@@ -582,7 +589,7 @@
             const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); 
         }
 
-        /* ----- CONTROLES INTERNOS DO KANBAN ----- */
+        /* ----- AÇÕES AUXILIARES ----- */
         function startEditTask(id) { 
             const t = db.find(x => x.id == id); 
             document.getElementById('edit-id').value = t.id; 
@@ -598,9 +605,9 @@
             switchView('form'); 
         }
 
-        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('AA_V36_OMEGA_DB', JSON.stringify(db)); renderBoard(); }
-        function delTask(id) { if(confirm("ALERTA: EXCLUIR ESTE PROTOCOLO DO SISTEMA CENTRAL PERMANENTEMENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('AA_V36_OMEGA_DB', JSON.stringify(db)); renderBoard(); } }
-        function delNorm(id) { if(confirm("ALERTA: EXCLUIR ESTA DIRETRIZ DA BIBLIOTECA PERMANENTEMENTE?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('AA_NORMS_V36_OMEGA', JSON.stringify(norms)); renderNorms(); } }
+        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V34_PRO_DB', JSON.stringify(db)); renderBoard(); }
+        function delTask(id) { if(confirm("ALERTA: EXCLUIR ESTE PROTOCOLO DO SISTEMA CENTRAL PERMANENTEMENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V34_PRO_DB', JSON.stringify(db)); renderBoard(); } }
+        function delNorm(id) { if(confirm("ALERTA: EXCLUIR ESTA DIRETRIZ DA BIBLIOTECA PERMANENTEMENTE?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V34_PRO', JSON.stringify(norms)); renderNorms(); } }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
         window.onload = () => { switchView('board'); };
