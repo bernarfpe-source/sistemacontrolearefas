@@ -131,7 +131,7 @@
 
     <aside>
         <div class="logo-area">
-            <div class="logo-sq">RN</div>
+            <div class="logo-sq">AA</div>
             <div class="logo-text">
                 <h2>ARARAAZUL</h2>
                 <p>V34 ENTERPRISE</p>
@@ -146,7 +146,7 @@
             <button class="nav-link" id="nav-form-norm" onclick="switchView('form-norm')" style="color: var(--secondary);">⚖️ CADASTRAR NORMA</button>
         </nav>
         <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--border)">
-            <p style="font-size:9px; color:var(--text-muted); font-weight:800; letter-spacing: 0.5px;">RIO NOVO TRANSPORTES</p>
+            <p style="font-size:9px; color:var(--text-muted); font-weight:800; letter-spacing: 0.5px;">SISTEMA CENTRAL DE COMANDO</p>
         </div>
     </aside>
 
@@ -156,7 +156,7 @@
             <div class="search-container">
                 <div class="search-box">
                     <span style="font-size:12px; margin-right:8px">🔍</span>
-                    <input type="text" id="global-search" placeholder="PESQUISAR PROJETOS, NORMAS..." oninput="handleSearch()">
+                    <input type="text" id="global-search" placeholder="PESQUISAR PROJETOS E NORMAS..." oninput="handleSearch()">
                 </div>
                 <div id="clock" class="clock">00:00:00</div>
             </div>
@@ -201,7 +201,7 @@
                 <div class="form-view">
                     <div>
                         <label>TÍTULO DA DIRETRIZ</label>
-                        <input type="text" id="norm-title" class="fi" placeholder="EX: CONDUTA DE MOTORISTAS">
+                        <input type="text" id="norm-title" class="fi" placeholder="EX: CONDUTA OPERACIONAL">
                     </div>
                     <div>
                         <label>CATEGORIA OPERACIONAL</label>
@@ -412,7 +412,7 @@
             }); 
         }
 
-        /* ----- SALVAMENTO (CAIXA ALTA) ----- */
+        /* ----- SALVAMENTO (CAIXA ALTA FORÇADA E NÚMERO SEQUENCIAL) ----- */
         function saveTask() {
             const task = document.getElementById('in-task').value.toUpperCase();
             const date = document.getElementById('in-date').value.toUpperCase();
@@ -442,19 +442,19 @@
             localStorage.setItem('ARARAAZUL_NORMS_V34_MASTER', JSON.stringify(norms)); switchView('norms'); 
         }
 
-        /* ----- RENDERIZAÇÃO COM FILTROS ----- */
+        /* ----- RENDERIZAÇÃO INTELIGENTE (COM FILTROS E PESQUISA) ----- */
         function renderBoard() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             
             let filteredDb = db;
 
-            // Filtro por Setor
+            // Apply Sector Filter
             if (currentSectorFilter !== 'TODOS') {
                 filteredDb = filteredDb.filter(t => t.proj === currentSectorFilter);
             }
 
-            // Filtro por Pesquisa
+            // Apply Search Filter
             if (currentSearchTerm) {
                 filteredDb = filteredDb.filter(t => 
                     t.task.includes(currentSearchTerm) || 
@@ -541,7 +541,7 @@
             let imagesHtml = t.files.filter(f => f.data.startsWith('data:image')).map(f => `<img src="${f.data}" style="width:100%; margin-top:20px; border:2px solid #000">`).join('');
             temp.innerHTML = `
                 <div class="official-doc">
-                    <div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO DE PROJETO #${t.seq}</div></div>
+                    <div class="doc-header"><div>SISTEMA CENTRAL</div><div>PROTOCOLO DE PROJETO #${t.seq}</div></div>
                     <h2 style="margin-bottom:15px; color:#000">${t.task}</h2>
                     <p style="font-size:12px"><b>DATA DO REGISTRO:</b> ${t.date} | <b>PRAZO FINAL:</b> ${t.dateFinal ? t.dateFinal.split('-').reverse().join('/') : 'NÃO DEFINIDO'} | <b>SETOR:</b> ${t.proj}</p>
                     <hr style="margin:25px 0; border:1px solid #ccc">
@@ -563,7 +563,7 @@
             let img = (n.file && n.file.data.startsWith('data:image')) ? `<img src="${n.file.data}" style="width:100%; margin-top:30px; border:2px solid #000">` : '';
             temp.innerHTML = `
                 <div class="official-doc">
-                    <div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>DIRETRIZ CORPORATIVA</div></div>
+                    <div class="doc-header"><div>SISTEMA CENTRAL</div><div>DIRETRIZ CORPORATIVA</div></div>
                     <h2 style="margin-bottom:10px; font-size:22px; color:#000">${n.title}</h2>
                     <p style="font-size:12px; background:#f0f0f0; padding:5px; display:inline-block"><b>CATEGORIA:</b> ${n.cat}</p>
                     <hr style="margin:25px 0; border:1px solid #ccc">
