@@ -38,7 +38,7 @@
 
         .viewport { flex: 1; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* KANBAN GRID FIXO (ZERO SCROLL) */
+        /* KANBAN GRID FIXO */
         .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; height: 100%; width: 100%; }
         .k-col { background: rgba(0,0,0,0.02); border-radius: 12px; display: flex; flex-direction: column; border: 1px solid var(--border); height: 100%; min-width: 0; }
         .k-header { padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; font-weight: 800; text-transform: uppercase; font-size: 11px; background: var(--surface); border-radius: 12px 12px 0 0; flex-shrink: 0; }
@@ -48,8 +48,7 @@
 
         /* FORMULÁRIO PREMIER ULTRA */
         .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 25px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 100%; }
-        .field { display: flex; flex-direction: column; gap: 5px; }
-        .full { grid-column: 1 / -1; }
+        .full { grid-column: 1 / -1; width: 100%; }
         .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
         .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; transition: 0.2s; }
@@ -64,6 +63,7 @@
         .btn-plus:hover { background: var(--primary); color: #000; }
 
         .btn-submit { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 12px; margin-top: 15px; width: 100%; transition: 0.2s; }
+        .btn-submit:hover { background: #fff; transform: translateY(-2px); }
 
         /* CARD ELITE DESIGN */
         .card { background: var(--card); border-radius: 10px; padding: 15px; border-left: 4px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
@@ -74,7 +74,7 @@
         .a-btn { flex: 1; padding: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: 0.2s; }
         .a-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* CONTROLE DE TEMA FLUTUANTE */
+        /* TEMA FLUTUANTE */
         .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; }
         .t-opt { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; color: var(--text-muted); outline: none; }
         .t-opt.active { background: var(--primary); color: #000; }
@@ -97,7 +97,8 @@
         </nav>
 
         <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border);">
-            <p style="font-size: 8px; font-weight: 800; color: var(--text-muted);">V21.0.0 PREMIER ULTRA</p>
+            <p style="font-size: 8px; font-weight: 800; color: var(--text-muted);">RIO NOVO TRANSPORTES</p>
+            <p style="font-size: 8px; color: var(--primary);">VERSION 21.0.0 PREMIER ULTRA</p>
         </div>
     </aside>
 
