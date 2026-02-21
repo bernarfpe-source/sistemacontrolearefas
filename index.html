@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARARAAZUL V32 - SUPREME ENTERPRISE</title>
+    <title>ARARAAZUL V33 - SUPREME ENTERPRISE</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
@@ -50,7 +50,7 @@
 
         .viewport { flex: 1; padding: 25px 30px; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* KANBAN GRID (ZERO SCROLL) */
+        /* KANBAN GRID */
         .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
         .k-col { background: var(--card); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
         
@@ -66,11 +66,12 @@
         .k-list::-webkit-scrollbar { width: 4px; }
         .k-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        /* CARDS */
+        /* CARDS KANBAN */
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; flex-shrink: 0; transition: transform 0.2s; }
         .card:hover { transform: translateY(-2px); border-color: var(--primary); }
         .card-id { font-size: 10px; font-weight: 800; color: var(--primary); margin-bottom: 8px; font-family: 'DM Mono', monospace; }
-        .card-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+        .card-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+        .card-deadline { font-size: 9px; color: var(--warning); font-weight: 800; margin-bottom: 10px; letter-spacing: 0.5px; }
         .p-tag { font-size: 9px; background: rgba(255,255,255,0.03); padding: 4px 8px; border-radius: 4px; margin-bottom: 4px; display: inline-block; border: 1px solid var(--border); color: var(--text-muted); }
         .card-actions { display: flex; gap: 6px; margin-top: 15px; border-top: 1px dashed var(--border); padding-top: 12px; }
         .a-btn { flex: 1; padding: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 9px; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
@@ -83,20 +84,22 @@
         label { font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
         .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 10px; }
 
-        /* ANEXOS */
+        /* ZONA DE UPLOAD E COLAGEM */
         .upload-zone { border: 2px dashed var(--border); padding: 30px 20px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; background: var(--bg); }
         .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.02); }
         #norm-preview, #task-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
         .file-badge { background: var(--surface); border: 1px solid var(--primary); color: var(--primary); padding: 8px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
-        /* NORMAS E CALENDÁRIO */
+        /* GRID BIBLIOTECA NORMAS */
         .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; overflow-y: auto; align-content: start; }
         .norm-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; border-top: 4px solid var(--secondary); display: flex; flex-direction: column; }
+        
+        /* CALENDÁRIO */
         .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); height: 100%; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--border); gap: 1px; }
         .cal-cell { background: var(--card); padding: 10px; overflow-y: auto; position: relative; }
         .cal-head { background: var(--surface); padding: 12px; text-align: center; font-size: 11px; font-weight: 800; color: var(--primary); }
 
-        /* THEME TOGGLE */
+        /* TOGGLE THEME */
         .theme-float { position: absolute; bottom: 30px; right: 30px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
         .t-opt { width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.2s; }
         .t-opt.active { background: var(--primary); color: #000; }
@@ -114,7 +117,7 @@
             <div class="logo-sq">RN</div>
             <div class="logo-text">
                 <h2>ARARAAZUL</h2>
-                <p>V32 SUPREME</p>
+                <p>V33 SUPREME</p>
             </div>
         </div>
         <nav class="nav-group">
@@ -181,6 +184,7 @@
                         <label>CONTEÚDO DA NORMA (DIGITE OU COLE TEXTO AQUI)</label>
                         <textarea id="norm-content" class="fi" style="min-height:180px" placeholder="ART. 1º - FICA DETERMINADO QUE..."></textarea>
                     </div>
+                    
                     <div>
                         <label>ANEXAR ARQUIVO ORIGINAL (OPCIONAL)</label>
                         <div class="upload-zone" onclick="document.getElementById('norm-file').click()">
@@ -189,6 +193,7 @@
                             <div id="norm-preview"></div>
                         </div>
                     </div>
+                    
                     <button class="fi" style="background:var(--secondary); color:#fff; border:none; font-weight:800; cursor:pointer; margin-top:10px" onclick="saveNorm()">REGISTRAR NORMA NA BIBLIOTECA</button>
                 </div>
             </section>
@@ -215,7 +220,7 @@
                         <button onclick="addPersonRow()" style="background:var(--surface); border:1px dashed var(--secondary); color:var(--text); padding:10px; border-radius:8px; cursor:pointer; font-size:10px; font-weight:800; width:100%; transition:0.2s;">+ ADICIONAR LINHA DE INTEGRANTE</button>
                     </div>
 
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px">
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px">
                         <div>
                             <label>SETOR VINCULADO</label>
                             <select id="in-proj" class="fi">
@@ -225,6 +230,10 @@
                         <div>
                             <label>DATA DE REGISTRO</label>
                             <input type="date" id="in-date" class="fi">
+                        </div>
+                        <div>
+                            <label style="color:var(--warning)">PRAZO / DATA FINAL</label>
+                            <input type="date" id="in-date-final" class="fi" style="border-color:var(--warning)">
                         </div>
                     </div>
                     
@@ -252,8 +261,8 @@
     </main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V32_FINAL_DB')) || [];
-        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V32_FINAL')) || [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V33_DB')) || [];
+        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V33')) || [];
         let currentNormFile = null;
         let currentTaskFiles = [];
 
@@ -273,6 +282,7 @@
 
             if(v==='form' && !document.getElementById('edit-id').value) {
                 document.querySelectorAll('#view-form .fi').forEach(i => i.value = ""); 
+                document.getElementById('in-date-final').value = "";
                 document.getElementById('people-list').innerHTML = ""; 
                 currentTaskFiles = []; document.getElementById('task-preview').innerHTML = ""; 
                 addPersonRow();
@@ -301,7 +311,7 @@
             document.getElementById('people-list').appendChild(div);
         }
 
-        /* ----- UPLOAD E COLAGEM ----- */
+        /* ----- UPLOAD E COLAGEM (CTRL+V) ----- */
         function handleNormFile(files) {
             const file = files[0]; const reader = new FileReader();
             reader.onload = (e) => { 
@@ -350,22 +360,25 @@
             }); 
         }
 
-        /* ----- SALVAMENTO (CAIXA ALTA FORÇADA) ----- */
+        /* ----- SALVAMENTO ----- */
         function saveTask() {
             const task = document.getElementById('in-task').value.toUpperCase();
             const date = document.getElementById('in-date').value.toUpperCase();
+            const dateFinal = document.getElementById('in-date-final').value.toUpperCase();
+            
             if(!task || !date) return alert("ERRO: PREENCHA O TÍTULO DO PROJETO E DATA OBRIGATORIAMENTE.");
+            
             const id = document.getElementById('edit-id').value;
             const seq = id ? db.find(x=>x.id==id).seq : (db.length + 1).toString().padStart(3, '0') + "/2026";
             const entry = { 
                 id: id ? parseInt(id) : Date.now(), seq, task, 
                 desc: document.getElementById('in-desc').value.toUpperCase(), 
-                date, proj: document.getElementById('in-proj').value.toUpperCase(), 
+                date, dateFinal, proj: document.getElementById('in-proj').value.toUpperCase(), 
                 files: currentTaskFiles, status: id ? db.find(x=>x.id==id).status : 'todo', 
                 people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) 
             };
             if(id) db = db.map(t => t.id == id ? entry : t); else db.push(entry);
-            localStorage.setItem('ARARAAZUL_V32_FINAL_DB', JSON.stringify(db)); 
+            localStorage.setItem('ARARAAZUL_V33_DB', JSON.stringify(db)); 
             document.getElementById('edit-id').value = ""; switchView('board');
         }
 
@@ -374,7 +387,7 @@
             const content = document.getElementById('norm-content').value.toUpperCase();
             if(!title) return alert("ERRO: O TÍTULO DA NORMA É OBRIGATÓRIO.");
             norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value.toUpperCase(), file: currentNormFile }); 
-            localStorage.setItem('ARARAAZUL_NORMS_V32_FINAL', JSON.stringify(norms)); switchView('norms'); 
+            localStorage.setItem('ARARAAZUL_NORMS_V33', JSON.stringify(norms)); switchView('norms'); 
         }
 
         /* ----- RENDERIZAÇÃO ----- */
@@ -390,6 +403,7 @@
                         <div style="font-size:9px; color:var(--text-muted)">${t.proj}</div>
                     </div>
                     <div class="card-title">${t.task}</div>
+                    <div class="card-deadline">${t.dateFinal ? `PRAZO FINAL: ${t.dateFinal.split('-').reverse().join('/')}` : 'PRAZO NÃO DEFINIDO'}</div>
                     <div style="margin-bottom:8px">${t.people.map(p=>`<span class="p-tag">👤 ${p.n}</span>`).join('')}</div>
                     ${t.files && t.files.length > 0 ? `<div style="font-size:8px; color:var(--primary); margin-bottom:5px">📎 ${t.files.length} ANEXO(S)</div>` : ''}
                     <div class="card-actions">
@@ -432,7 +446,7 @@
                 const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
                 const cell = document.createElement('div'); cell.className = 'cal-cell'; cell.style.border = '0.5px solid var(--border)';
                 cell.innerHTML = `<div style="font-size:12px; font-weight:800; color:var(--text-muted); margin-bottom:5px">${d}</div>`;
-                db.filter(t => t.date === dateStr).forEach(t => { 
+                db.filter(t => t.dateFinal === dateStr || (!t.dateFinal && t.date === dateStr)).forEach(t => { 
                     let color = t.status === 'done' ? 'var(--primary)' : (t.status === 'doing' ? 'var(--warning)' : 'var(--secondary)');
                     cell.innerHTML += `<div style="font-size:8px; padding:4px; margin-bottom:2px; border-radius:4px; background:rgba(255,255,255,0.05); color:${color}; font-weight:800; border-left:2px solid ${color}; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="${t.task}">${t.task}</div>`; 
                 });
@@ -440,7 +454,7 @@
             }
         }
 
-        /* ----- EXPORTAÇÃO ----- */
+        /* ----- EXPORTAÇÃO OFICIAL ----- */
         function exportTaskPDF(id) {
             const t = db.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
             let imagesHtml = t.files.filter(f => f.data.startsWith('data:image')).map(f => `<img src="${f.data}" style="width:100%; margin-top:20px; border:2px solid #000">`).join('');
@@ -448,7 +462,7 @@
                 <div class="official-doc">
                     <div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO DE PROJETO #${t.seq}</div></div>
                     <h2 style="margin-bottom:15px; color:#000">${t.task}</h2>
-                    <p style="font-size:12px"><b>DATA DO REGISTRO:</b> ${t.date} | <b>SETOR:</b> ${t.proj}</p>
+                    <p style="font-size:12px"><b>DATA DO REGISTRO:</b> ${t.date} | <b>PRAZO FINAL:</b> ${t.dateFinal ? t.dateFinal.split('-').reverse().join('/') : 'NÃO DEFINIDO'} | <b>SETOR:</b> ${t.proj}</p>
                     <hr style="margin:25px 0; border:1px solid #ccc">
                     <h4 style="margin-bottom:10px">NARRATIVA / DESCRIÇÃO:</h4>
                     <p style="font-size:14px; line-height:1.6; white-space:pre-wrap">${t.desc}</p>
@@ -479,15 +493,18 @@
             setTimeout(() => temp.style.display = 'none', 1000);
         }
 
-        function downloadNorm(id) { const n = norms.find(x => x.id == id); const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); }
+        function downloadNorm(id) { 
+            const n = norms.find(x => x.id == id); 
+            const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); 
+        }
 
-        /* ----- FUNÇÕES AUXILIARES ----- */
         function startEditTask(id) { 
             const t = db.find(x => x.id == id); 
             document.getElementById('edit-id').value = t.id; 
             document.getElementById('in-task').value = t.task; 
             document.getElementById('in-desc').value = t.desc; 
             document.getElementById('in-date').value = t.date; 
+            document.getElementById('in-date-final').value = t.dateFinal || ''; 
             document.getElementById('in-proj').value = t.proj;
             document.getElementById('next-seq').innerText = `#${t.seq}`;
             document.getElementById('people-list').innerHTML = ''; t.people.forEach(p => addPersonRow(p)); 
@@ -495,9 +512,9 @@
             switchView('form'); 
         }
 
-        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V32_FINAL_DB', JSON.stringify(db)); renderBoard(); }
-        function delTask(id) { if(confirm("EXCLUIR PROTOCOLO DE FORMA PERMANENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V32_FINAL_DB', JSON.stringify(db)); renderBoard(); } }
-        function delNorm(id) { if(confirm("EXCLUIR DIRETRIZ DA BIBLIOTECA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V32_FINAL', JSON.stringify(norms)); renderNorms(); } }
+        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V33_DB', JSON.stringify(db)); renderBoard(); }
+        function delTask(id) { if(confirm("EXCLUIR PROTOCOLO DE FORMA PERMANENTE?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V33_DB', JSON.stringify(db)); renderBoard(); } }
+        function delNorm(id) { if(confirm("EXCLUIR DIRETRIZ DA BIBLIOTECA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V33', JSON.stringify(norms)); renderNorms(); } }
 
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
         window.onload = () => { renderBoard(); };
