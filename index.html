@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARARAAZUL V30 - SUPREME COMPLIANCE</title>
+    <title>ARARAAZUL V31 - SUPREME COMPLIANCE</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
@@ -42,14 +42,19 @@
 
         /* NORMAS E CALENDÁRIO */
         .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; overflow-y: auto; }
+        .norm-card { background: var(--card); border-radius: 10px; border-top: 4px solid var(--secondary); padding: 20px; border: 1px solid var(--border); }
         .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); height: 100%; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--border); }
         .cal-cell { background: var(--bg); padding: 8px; overflow-y: auto; position: relative; border: 0.5px solid var(--border); }
 
-        /* FORMULÁRIO */
+        /* FORMULÁRIO SUPREMO */
         .form-view { max-width: 900px; width: 100%; margin: 0 auto; background: var(--surface); border-radius: 12px; padding: 25px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 100%; }
         .fi { width: 100%; padding: 12px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 12px; text-transform: uppercase; outline: none; }
         label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
         .person-row { display: grid; grid-template-columns: 2fr 1fr 1fr 40px; gap: 10px; margin-bottom: 8px; }
+
+        /* MÓDULO DE ANEXOS */
+        .upload-zone { border: 2px dashed var(--border); padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; background: rgba(0,0,0,0.02); }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(0, 212, 160, 0.05); }
 
         /* TEMA FLOAT */
         .theme-float { position: absolute; bottom: 20px; right: 20px; display: flex; background: var(--surface); padding: 4px; border-radius: 50px; border: 1px solid var(--border); z-index: 1000; }
@@ -64,7 +69,7 @@
 <body class="dark">
 
     <aside>
-        <div class="logo-area"><div class="logo-sq">RN</div><div><h2 style="font-size: 12px;">ARARAAZUL</h2><p style="font-size: 8px; color: var(--primary);">V30 SUPREME</p></div></div>
+        <div class="logo-area"><div class="logo-sq">RN</div><div><h2 style="font-size: 12px;">ARARAAZUL</h2><p style="font-size: 8px; color: var(--primary);">V31 COMPLIANCE</p></div></div>
         <nav class="nav-group">
             <button class="nav-link active" id="nav-board" onclick="switchView('board')">📊 QUADRO OPERACIONAL</button>
             <button class="nav-link" id="nav-norms" onclick="switchView('norms')">📜 BIBLIOTECA NORMAS</button>
@@ -83,32 +88,40 @@
             <section id="view-norms" style="display: none; height: 100%;"><div id="norms-container" class="norms-grid"></div></section>
             <section id="view-cal" style="display: none; height: 100%;"><div id="cal-grid" class="cal-grid"></div></section>
 
+            <section id="view-form-norm" style="display: none; height: 100%;">
+                <div class="form-view">
+                    <label>TÍTULO DA DIRETRIZ / NORMA</label><input type="text" id="norm-title" class="fi">
+                    <label>CATEGORIA</label><select id="norm-cat" class="fi"><option>OPERACIONAL</option><option>COMERCIAL</option><option>DIVERSAS</option></select>
+                    <label>CONTEÚDO TEXTUAL (OU COLE AQUI)</label><textarea id="norm-content" class="fi" style="min-height:150px"></textarea>
+                    
+                    <label>ARQUIVO DA NORMA (PDF, DOC OU IMAGEM)</label>
+                    <div class="upload-zone" onclick="document.getElementById('norm-file').click()">
+                        <span id="norm-file-label" style="font-size:10px; font-weight:800">CLIQUE PARA BUSCAR OU COLE (CTRL+V) AQUI</span>
+                        <input type="file" id="norm-file" hidden onchange="handleNormFile(this.files)">
+                        <div id="norm-preview" style="margin-top:10px"></div>
+                    </div>
+                    
+                    <button class="fi" style="background:var(--secondary); color:#fff; font-weight:800; cursor:pointer" onclick="saveNorm()">REGISTRAR NA BIBLIOTECA</button>
+                </div>
+            </section>
+
             <section id="view-form" style="display: none; height: 100%;">
                 <div class="form-view">
                     <div style="display:flex; justify-content:space-between; align-items:center"><label>TÍTULO DA OCORRÊNCIA</label><span id="next-seq" style="font-family:'DM Mono'; color:var(--primary); font-weight:800">#---/2026</span></div>
                     <input type="text" id="in-task" class="fi">
                     <label>NARRATIVA DETALHADA</label><textarea id="in-desc" class="fi" style="min-height:100px"></textarea>
-                    <label>EQUIPE ENVOLVIDA</label><div id="people-list"></div>
+                    <div id="people-list"></div>
                     <button onclick="addPersonRow()" style="background:var(--secondary); color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer; font-size:10px; font-weight:800">+ INTEGRANTE</button>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px">
-                        <div><label>SETOR</label><select id="in-proj" class="fi"><option>OPERACIONAL</option><option>LOGÍSTICA</option><option>COMERCIAL</option><option>FROTA</option></select></div>
+                        <div><label>SETOR</label><select id="in-proj" class="fi"><option>OPERACIONAL</option><option>LOGÍSTICA</option><option>COMERCIAL</option><option>FROTA</option><option>DIRETORIA</option></select></div>
                         <div><label>DATA</label><input type="date" id="in-date" class="fi"></div>
                     </div>
-                    <label>ANEXOS (COLE OU BUSQUE)</label>
-                    <div style="border:2px dashed var(--border); padding:20px; text-align:center; border-radius:10px; cursor:pointer" onclick="document.getElementById('file-in').click()">
-                        <input type="file" id="file-in" multiple hidden onchange="handleFiles(this.files)">
-                        <div id="preview-area" style="display:flex; gap:10px; overflow-x:auto"></div>
+                    <label>ANEXOS (COLE CTRL+V OU BUSQUE)</label>
+                    <div class="upload-zone" onclick="document.getElementById('task-file').click()">
+                        <input type="file" id="task-file" multiple hidden onchange="handleTaskFiles(this.files)">
+                        <div id="task-preview" style="display:flex; gap:10px; overflow-x:auto"></div>
                     </div>
                     <input type="hidden" id="edit-id"><button class="fi" style="background:var(--primary); color:#000; font-weight:800; cursor:pointer" onclick="saveTask()">SALVAR NO PROTOCOLO</button>
-                </div>
-            </section>
-
-            <section id="view-form-norm" style="display: none; height: 100%;">
-                <div class="form-view">
-                    <label>TÍTULO DA DIRETRIZ</label><input type="text" id="norm-title" class="fi">
-                    <label>CATEGORIA</label><select id="norm-cat" class="fi"><option>OPERACIONAL</option><option>COMERCIAL</option><option>DIVERSAS</option></select>
-                    <label>CONTEÚDO</label><textarea id="norm-content" class="fi" style="min-height:250px"></textarea>
-                    <button class="fi" style="background:var(--secondary); color:#fff; font-weight:800; cursor:pointer" onclick="saveNorm()">REGISTRAR NA BIBLIOTECA</button>
                 </div>
             </section>
         </div>
@@ -121,9 +134,10 @@
     </main>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V30_DB')) || [];
-        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_DB')) || [];
-        let currentFiles = [];
+        let db = JSON.parse(localStorage.getItem('ARARAAZUL_V31_DB')) || [];
+        let norms = JSON.parse(localStorage.getItem('ARARAAZUL_NORMS_V31')) || [];
+        let currentNormFile = null;
+        let currentTaskFiles = [];
 
         function setTheme(m) { document.body.className = m; document.querySelectorAll('.t-opt').forEach(b => b.classList.remove('active')); document.getElementById('btn-'+m).classList.add('active'); }
 
@@ -132,9 +146,10 @@
             document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
             if(document.getElementById('nav-'+v)) document.getElementById('nav-'+v).classList.add('active');
             if(v==='form' && !document.getElementById('edit-id').value) {
-                document.querySelectorAll('.fi').forEach(i => i.value = ""); document.getElementById('people-list').innerHTML = ""; currentFiles = []; updatePreview(); addPersonRow();
+                document.querySelectorAll('.fi').forEach(i => i.value = ""); document.getElementById('people-list').innerHTML = ""; currentTaskFiles = []; document.getElementById('task-preview').innerHTML = ""; addPersonRow();
                 document.getElementById('next-seq').innerText = `#${(db.length + 1).toString().padStart(3, '0')}/2026`;
             }
+            if(v==='form-norm') { currentNormFile = null; document.getElementById('norm-preview').innerHTML = ""; document.getElementById('norm-file-label').innerText = "CLIQUE PARA BUSCAR OU COLE (CTRL+V) AQUI"; }
             if(v==='cal') renderCalendar(); if(v==='norms') renderNorms(); renderBoard();
         }
 
@@ -144,9 +159,38 @@
             document.getElementById('people-list').appendChild(div);
         }
 
-        function handleFiles(files) { Array.from(files).forEach(file => { const reader = new FileReader(); reader.onload = (e) => { currentFiles.push(e.target.result); updatePreview(); }; reader.readAsDataURL(file); }); }
-        window.addEventListener('paste', e => { const items = e.clipboardData.items; for(let i=0; i<items.length; i++) { if(items[i].type.indexOf('image') !== -1) handleFiles([items[i].getAsFile()]); } });
-        function updatePreview() { const area = document.getElementById('preview-area'); area.innerHTML = ''; currentFiles.forEach(src => { area.innerHTML += `<img src="${src}" style="height:50px; border-radius:4px">`; }); }
+        function handleNormFile(files) {
+            const file = files[0]; const reader = new FileReader();
+            reader.onload = (e) => { currentNormFile = { name: file.name, data: e.target.result }; document.getElementById('norm-preview').innerHTML = `<div style="font-size:10px; color:var(--primary)">ARQUIVO: ${file.name}</div>`; };
+            reader.readAsDataURL(file);
+        }
+
+        function handleTaskFiles(files) {
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => { currentTaskFiles.push(e.target.result); updateTaskPreview(); };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        window.addEventListener('paste', e => {
+            const items = e.clipboardData.items;
+            for(let i=0; i<items.length; i++) {
+                if(items[i].type.indexOf('image') !== -1) {
+                    const blob = items[i].getAsFile(); const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        if(document.getElementById('view-form-norm').style.display === 'block') { currentNormFile = { name: "IMAGEM_COLADA.PNG", data: ev.target.result }; document.getElementById('norm-preview').innerHTML = `<img src="${ev.target.result}" style="height:50px; border-radius:4px">`; }
+                        else { currentTaskFiles.push(ev.target.result); updateTaskPreview(); }
+                    };
+                    reader.readAsDataURL(blob);
+                }
+            }
+        });
+
+        function updateTaskPreview() {
+            const area = document.getElementById('task-preview'); area.innerHTML = '';
+            currentTaskFiles.forEach((src, idx) => { area.innerHTML += `<div style="position:relative"><img src="${src}" style="height:50px; border-radius:4px"><button onclick="currentTaskFiles.splice(${idx},1);updateTaskPreview()" style="position:absolute;top:0;right:0;background:var(--danger);color:#fff;border:none;border-radius:50%;width:15px;height:15px;font-size:8px;">x</button></div>`; });
+        }
 
         function saveTask() {
             const task = document.getElementById('in-task').value.toUpperCase();
@@ -154,12 +198,18 @@
             if(!task || !date) return alert("ERRO: CAMPOS OBRIGATÓRIOS.");
             const id = document.getElementById('edit-id').value;
             const seq = id ? db.find(x=>x.id==id).seq : (db.length + 1).toString().padStart(3, '0') + "/2026";
-            const entry = { id: id ? parseInt(id) : Date.now(), seq, task, desc: document.getElementById('in-desc').value.toUpperCase(), date, proj: document.getElementById('in-proj').value, files: currentFiles, status: id ? db.find(x=>x.id==id).status : 'todo', people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) };
+            const entry = { id: id ? parseInt(id) : Date.now(), seq, task, desc: document.getElementById('in-desc').value.toUpperCase(), date, proj: document.getElementById('in-proj').value, files: currentTaskFiles, status: id ? db.find(x=>x.id==id).status : 'todo', people: Array.from(document.querySelectorAll('.person-row')).map(r => ({n:r.querySelector('.p-n').value.toUpperCase(), c:r.querySelector('.p-c').value.toUpperCase(), s:r.querySelector('.p-s').value.toUpperCase()})) };
             if(id) db = db.map(t => t.id == id ? entry : t); else db.push(entry);
-            localStorage.setItem('ARARAAZUL_V30_DB', JSON.stringify(db)); document.getElementById('edit-id').value = ""; switchView('board');
+            localStorage.setItem('ARARAAZUL_V31_DB', JSON.stringify(db)); document.getElementById('edit-id').value = ""; switchView('board');
         }
 
-        function saveNorm() { const title = document.getElementById('norm-title').value.toUpperCase(); const content = document.getElementById('norm-content').value.toUpperCase(); norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value }); localStorage.setItem('ARARAAZUL_NORMS_DB', JSON.stringify(norms)); switchView('norms'); }
+        function saveNorm() {
+            const title = document.getElementById('norm-title').value.toUpperCase();
+            const content = document.getElementById('norm-content').value.toUpperCase();
+            if(!title) return alert("ERRO: TÍTULO OBRIGATÓRIO.");
+            norms.push({ id: Date.now(), title, content, cat: document.getElementById('norm-cat').value, file: currentNormFile });
+            localStorage.setItem('ARARAAZUL_NORMS_V31', JSON.stringify(norms)); switchView('norms');
+        }
 
         function renderBoard() {
             const cols = { todo: document.getElementById('l-todo'), doing: document.getElementById('l-doing'), done: document.getElementById('l-done') };
@@ -167,7 +217,7 @@
             db.forEach(t => {
                 const card = document.createElement('div'); card.className = 'card';
                 card.style.borderLeftColor = t.status === 'doing' ? 'var(--warning)' : (t.status === 'done' ? 'var(--primary)' : 'var(--secondary)');
-                card.innerHTML = `<div class="card-id">#${t.seq}</div><div class="card-title">${t.task}</div><div>${t.people.map(p=>`<span class="p-tag">👤 ${p.n}</span>`).join('')}</div><div class="card-actions"><button class="a-btn" onclick="startEdit(${t.id})">EDITAR</button><button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportPDF(${t.id})">PDF</button>${t.status==='todo'?'<button class="a-btn" onclick="move('+t.id+',\'doing\')">EXEC</button>':''}${t.status==='doing'?'<button class="a-btn" onclick="move('+t.id+',\'done\')">OK</button>':''}<button class="a-btn" style="color:var(--danger)" onclick="del(${t.id})">X</button></div>`;
+                card.innerHTML = `<div class="card-id">#${t.seq}</div><div class="card-title">${t.task}</div><div>${t.people.map(p=>`<span class="p-tag">👤 ${p.n}</span>`).join('')}</div><div class="card-actions"><button class="a-btn" onclick="startEditTask(${t.id})">EDITAR</button><button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportTaskPDF(${t.id})">PDF</button>${t.status==='todo'?'<button class="a-btn" onclick="moveTask('+t.id+',\'doing\')">EXEC</button>':''}${t.status==='doing'?'<button class="a-btn" onclick="moveTask('+t.id+',\'done\')">OK</button>':''}<button class="a-btn" style="color:var(--danger)" onclick="delTask(${t.id})">X</button></div>`;
                 cols[t.status].appendChild(card);
             });
             ['todo','doing','done'].forEach(s => document.getElementById('c-'+s).innerText = db.filter(x=>x.status===s).length);
@@ -177,7 +227,8 @@
             const container = document.getElementById('norms-container'); container.innerHTML = '';
             norms.forEach(n => {
                 const card = document.createElement('div'); card.className = 'norm-card';
-                card.innerHTML = `<div class="p-tag" style="background:var(--primary); color:#000">${n.cat}</div><div class="card-title">${n.title}</div><div class="card-actions"><button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportNorm(${n.id})">PDF</button><button class="a-btn" style="color:var(--danger)" onclick="delNorm(${n.id})">X</button></div>`;
+                let fileBtn = n.file ? `<button onclick="downloadNorm(${n.id})" style="background:var(--primary); color:#000; border:none; padding:6px; border-radius:4px; cursor:pointer; font-size:8px; font-weight:800; margin-right:5px">DOWLOAD</button>` : '';
+                card.innerHTML = `<div class="p-tag" style="background:var(--primary); color:#000">${n.cat}</div><div class="card-title">${n.title}</div><div class="card-actions">${fileBtn}<button class="a-btn" style="background:var(--secondary); color:#fff; border:none" onclick="exportNormPDF(${n.id})">PDF</button><button class="a-btn" style="color:var(--danger)" onclick="delNorm(${n.id})">X</button></div>`;
                 container.appendChild(card);
             });
         }
@@ -191,30 +242,32 @@
             for(let d=1; d<=last; d++) {
                 const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
                 const cell = document.createElement('div'); cell.className = 'cal-cell'; cell.innerHTML = `<div style="font-size:10px; font-weight:800; color:var(--text-muted)">${d}</div>`;
-                db.filter(t => t.date === dateStr).forEach(t => { cell.innerHTML += `<div style="font-size:7px; padding:2px; margin-bottom:1px; border-radius:2px" class="ev-${t.status}">${t.task.substring(0,12)}</div>`; });
+                db.filter(t => t.date === dateStr).forEach(t => { cell.innerHTML += `<div style="font-size:7px; padding:2px; margin-bottom:1px; border-radius:2px" class="ev-${t.status}">${t.task.substring(0,10)}</div>`; });
                 grid.appendChild(cell);
             }
         }
 
-        function exportPDF(id) {
+        function exportTaskPDF(id) {
             const t = db.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
-            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO #${t.seq}</div></div><h2>OCORRÊNCIA: ${t.task}</h2><p>DATA: ${t.date} | SETOR: ${t.proj}</p><hr><p><b>NARRATIVA:</b><br><br>${t.desc}</p><hr><p><b>EQUIPE:</b></p><ul>${t.people.map(p => `<li>${p.n} - ${p.c} (${p.s})</li>`).join('')}</ul>${t.files.map(f => `<img src="${f}" style="width:100%; margin-top:20px">`).join('')}</div>`;
+            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>PROTOCOLO #${t.seq}</div></div><h2>OCORRÊNCIA: ${t.task}</h2><p>DATA: ${t.date} | SETOR: ${t.proj}</p><hr><p><b>NARRATIVA:</b><br><br>${t.desc}</p><hr><p><b>EQUIPE:</b></p><ul>${t.people.map(p => `<li>${p.n} - ${p.c} (${p.s})</li>`).join('')}</ul>${t.files.map(f => `<img src="${f}" style="width:100%; margin-top:20px; border:1px solid #000">`).join('')}</div>`;
             html2pdf().from(temp).save(`PROTOCOLO_${t.seq.replace('/','_')}.pdf`); setTimeout(() => temp.style.display = 'none', 500);
         }
 
-        function exportNorm(id) {
+        function exportNormPDF(id) {
             const n = norms.find(x => x.id == id); const temp = document.getElementById('export-area'); temp.style.display = 'block';
-            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO TRANSPORTES</div><div>DIRETRIZ INTERNA</div></div><h2>NORMA: ${n.title}</h2><hr><p>${n.content}</p></div>`;
+            let img = (n.file && n.file.name.includes('.PNG')) ? `<img src="${n.file.data}" style="width:100%; margin-top:20px">` : '';
+            temp.innerHTML = `<div class="official-doc"><div class="doc-header"><div>RIO NOVO</div><div>DIRETRIZ #${n.id}</div></div><h2>NORMA: ${n.title}</h2><hr><p>${n.content}</p>${img}</div>`;
             html2pdf().from(temp).save(`NORMA_${n.id}.pdf`); setTimeout(() => temp.style.display = 'none', 500);
         }
 
-        function startEdit(id) { const t = db.find(x => x.id == id); document.getElementById('edit-id').value = t.id; document.getElementById('in-task').value = t.task; document.getElementById('in-desc').value = t.desc; document.getElementById('in-date').value = t.date; document.getElementById('people-list').innerHTML = ''; t.people.forEach(p => addPersonRow(p)); currentFiles = t.files || []; updatePreview(); switchView('form'); }
-        function move(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); sync(); }
-        function del(id) { if(confirm("EXCLUIR?")) { db = db.filter(t => t.id !== id); sync(); } }
-        function delNorm(id) { if(confirm("EXCLUIR NORMA?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_DB', JSON.stringify(norms)); renderNorms(); } }
-        function sync() { localStorage.setItem('ARARAAZUL_V30_DB', JSON.stringify(db)); renderBoard(); }
+        function downloadNorm(id) { const n = norms.find(x => x.id == id); const link = document.createElement('a'); link.href = n.file.data; link.download = n.file.name; link.click(); }
+        function startEditTask(id) { const t = db.find(x => x.id == id); document.getElementById('edit-id').value = t.id; document.getElementById('in-task').value = t.task; document.getElementById('in-desc').value = t.desc; document.getElementById('in-date').value = t.date; document.getElementById('people-list').innerHTML = ''; t.people.forEach(p => addPersonRow(p)); currentTaskFiles = t.files || []; updateTaskPreview(); switchView('form'); }
+        function moveTask(id, s) { db = db.map(t => t.id === id ? { ...t, status: s } : t); localStorage.setItem('ARARAAZUL_V31_DB', JSON.stringify(db)); renderBoard(); }
+        function delTask(id) { if(confirm("EXCLUIR?")) { db = db.filter(t => t.id !== id); localStorage.setItem('ARARAAZUL_V31_DB', JSON.stringify(db)); renderBoard(); } }
+        function delNorm(id) { if(confirm("EXCLUIR?")) { norms = norms.filter(n => n.id !== id); localStorage.setItem('ARARAAZUL_NORMS_V31', JSON.stringify(norms)); renderNorms(); } }
+
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
-        window.onload = () => { if(document.getElementById('people-list').innerHTML === "") addPersonRow(); renderBoard(); };
+        window.onload = renderBoard;
     </script>
 </body>
 </html>
